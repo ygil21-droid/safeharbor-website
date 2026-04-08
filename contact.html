@@ -295,15 +295,15 @@ function submitForm() {
 
   let hasError = false;
 
-  if (!name || !email) {
-    if (!name) showToast('Please enter your name.');
-    if (!email) { showError('f-email', 'email-error'); }
-    return;
+  // name required
+  if (!name) {
+    showToast('Please enter your name.');
+    hasError = true;
   }
 
-  // email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+  // email required + format validation
+  const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+  if (!email || !emailRegex.test(email)) {
     showError('f-email', 'email-error');
     hasError = true;
   }
