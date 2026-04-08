@@ -31,6 +31,7 @@ a:hover { color: inherit; }
 .badge-lease-up    { background: rgba(224,122,58,0.13); color: #A84E10; }
 .badge-development { background: rgba(107,159,212,0.18); color: #2762A0; }
 .badge-contract    { background: rgba(150,150,170,0.15); color: #60607A; }
+.badge-sold        { background: rgba(130,130,140,0.13); color: #6B6B78; }
 
 /* left accent per status */
 .acc-refinanced  { border-left: 4px solid #4CAF82; }
@@ -38,6 +39,7 @@ a:hover { color: inherit; }
 .acc-lease-up    { border-left: 4px solid #E07A3A; }
 .acc-development { border-left: 4px solid #6B9FD4; }
 .acc-contract    { border-left: 4px solid rgba(150,150,170,0.4); }
+.acc-sold        { border-left: 4px solid #9E9EA8; }
 
 /* photo placeholder */
 .ph {
@@ -294,6 +296,10 @@ a:hover { color: inherit; }
             <span class="dot" style="width:7px;height:7px;border-radius:50%;background:rgba(150,150,170,0.6);flex-shrink:0;"></span>
             Under Contract
           </button>
+          <button class="filter-btn" data-filter="sold" style="color:#6B6B78;" onclick="setFilter('sold',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#9E9EA8;flex-shrink:0;"></span>
+            Sold
+          </button>
         </div>
 
         <div style="height:1px;background:#E8EAF0;margin:20px 0;"></div>
@@ -430,12 +436,12 @@ a:hover { color: inherit; }
           </div>
 
           <!-- El Paso TX -->
-          <div class="prop-card acc-lease-up prop-item" data-status="lease-up" onclick="openProperty('elpaso')" style="cursor:pointer;">
+          <div class="prop-card acc-sold prop-item" data-status="sold" onclick="openProperty('elpaso')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/elpaso.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
                 <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">El Paso, TX</div>
-                <span class="badge badge-lease-up">Lease-Up</span>
+                <span class="badge badge-sold">Sold</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">El Paso, TX</div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:#AAA;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">142 Units</div>
@@ -730,7 +736,7 @@ const properties = {
   },
   elpaso: {
     name: 'El Paso, TX', location: 'El Paso, Texas', units: '142 Units',
-    status: 'lease-up', statusLabel: 'Lease-Up',
+    status: 'sold', statusLabel: 'Sold Q3 2024',
     img: 'logos/elpaso.jpg',
     desc: 'A 142-unit conversion serving the Fort Bliss military installation and cross-border workforce corridor. Conversion complete with strong early leasing velocity in one of the most undersupplied affordable markets in West Texas.',
     highlights: ['Fort Bliss military workforce demand', 'Cross-border economy workforce corridor', 'Strong early leasing velocity'],
@@ -831,11 +837,11 @@ const properties = {
 
 const statusColors = {
   refinanced: '#4CAF82', stabilized: '#F2C849',
-  'lease-up': '#E07A3A', development: '#6B9FD4', contract: 'rgba(150,150,170,0.5)'
+  'lease-up': '#E07A3A', development: '#6B9FD4', contract: 'rgba(150,150,170,0.5)', sold: '#9E9EA8'
 };
 const badgeClass = {
   refinanced: 'badge-refinanced', stabilized: 'badge-stabilized',
-  'lease-up': 'badge-lease-up', development: 'badge-development', contract: 'badge-contract'
+  'lease-up': 'badge-lease-up', development: 'badge-development', contract: 'badge-contract', sold: 'badge-sold'
 };
 
 function openProperty(key) {
