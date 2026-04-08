@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeHarbor — ESG & Impact</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; background: #fff; color: #1A1A1A; }
+h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
+::selection { background: #1B3A6B; color: white; }
+a { color: inherit; text-decoration: none; }
+a:visited { color: inherit; }
+a:hover { color: inherit; }
+#main-nav a, #main-nav a:visited, #main-nav a:hover, #main-nav a:active { text-decoration: none !important; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+.tag {
+  display: inline-block; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #F2C849;
+}
+
+/* ── stat callout ── */
+.stat-number {
+  font-family: 'Libre Baskerville', serif; font-size: 56px; font-weight: 700;
+  color: #F2C849; line-height: 1;
+}
+.stat-label {
+  font-size: 13px; color: #777; margin-top: 8px; line-height: 1.6;
+}
+
+/* ── impact cards ── */
+.impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #E8EAF0; }
+.impact-card { background: white; padding: 40px 32px; }
+.impact-icon {
+  width: 44px; height: 44px; background: rgba(242,200,73,0.1); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+  font-size: 20px;
+}
+.impact-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #1B3A6B; margin-bottom: 12px;
+}
+.impact-text { font-size: 14px; color: #666; line-height: 1.8; }
+
+/* ── numbered philosophy cards ── */
+.philosophy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #E8EAF0; }
+.philosophy-card { background: white; padding: 40px 32px; }
+.philosophy-num {
+  font-family: 'Libre Baskerville', serif; font-size: 13px; font-weight: 700;
+  color: rgba(242,200,73,0.4); margin-bottom: 16px;
+}
+.philosophy-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #1B3A6B; margin-bottom: 12px;
+}
+.philosophy-text { font-size: 14px; color: #666; line-height: 1.8; }
+
+/* ── gold dot list ── */
+.gold-dot-list { list-style: none; padding: 0; }
+.gold-dot-list li {
+  position: relative; padding-left: 18px; font-size: 14px; color: #4A4A4A;
+  line-height: 1.9; margin-bottom: 6px;
+}
+.gold-dot-list li::before {
+  content: ''; position: absolute; left: 0; top: 11px;
+  width: 6px; height: 6px; border-radius: 50%; background: #F2C849;
+}
+
+/* ── fade-in ── */
+.fade { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.fade.visible { opacity: 1; transform: translateY(0); }
+
+/* Mobile hamburger */
+#mobile-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; z-index:201; }
+#mobile-toggle span { display:block; width:22px; height:2px; background:white; margin:5px 0; transition:0.3s; }
+
+@media (max-width: 768px) {
+  #mobile-toggle { display:block; }
+  #nav-links {
+    display:none !important;
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background:#0F2244;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:24px !important;
+    z-index:300;
+  }
+  #nav-links.mobile-open { display:flex !important; }
+  #nav-links .nav-link, #nav-links a { font-size:16px !important; color:white !important; }
+  #nav-login { font-size:14px !important; }
+  #mobile-close { display:block !important; position:absolute; top:24px; right:28px; background:none; border:none; cursor:pointer; color:white; font-size:28px; }
+
+  .container { padding:0 16px; }
+
+  /* Stack grids */
+  .grid-2col { grid-template-columns:1fr !important; gap:40px !important; }
+  .impact-grid { grid-template-columns:1fr !important; }
+  .philosophy-grid { grid-template-columns:1fr !important; }
+
+  /* Footer */
+  .footer-cta { flex-direction:column !important; text-align:center; gap:20px !important; }
+  .footer-addresses-row { flex-direction:column !important; gap:24px !important; }
+  .footer-addresses { flex-direction:column !important; gap:20px !important; }
+  .footer-disclaimer { flex-direction:column !important; gap:8px !important; text-align:center; }
+  .footer-disclaimer p { text-align:center !important; max-width:100% !important; }
+}
+
+@media (max-width: 480px) {
+  .container { padding:0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ──────── NAV ──────── -->
+<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;background:transparent;padding:0 28px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s ease, box-shadow 0.3s ease;">
+  <a href="index.html"><img id="nav-logo-white" src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;"><img id="nav-logo-color" src="logos/logo-color-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;display:none;"></a>
+  <button id="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  <div id="nav-links" style="display:flex;align-items:center;gap:28px;">
+    <button id="mobile-close" style="display:none;" onclick="document.getElementById('nav-links').classList.remove('mobile-open')">&times;</button>
+    <a class="nav-link" href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Strategy</a>
+    <a class="nav-link" href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Portfolio</a>
+    <a class="nav-link" href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Team</a>
+    <a class="nav-link" href="esg.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #F2C849;padding-bottom:2px;">ESG</a>
+    <a class="nav-link" href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Contact</a>
+    <a href="#" id="nav-login" style="border:1px solid rgba(255,255,255,0.35);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-decoration:none;">Investor Login</a>
+  </div>
+</nav>
+<script>
+(function() {
+  const nav = document.getElementById('main-nav');
+  const logoWhite = document.getElementById('nav-logo-white');
+  const logoColor = document.getElementById('nav-logo-color');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const loginBtn = document.getElementById('nav-login');
+  const hamSpans = document.querySelectorAll('#mobile-toggle span');
+
+  function setNavState(scrolled) {
+    if (scrolled) {
+      nav.style.background = 'white';
+      nav.style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+      logoWhite.style.display = 'none';
+      logoColor.style.display = 'block';
+      navLinks.forEach(a => { a.style.color = '#1B3A6B'; });
+      loginBtn.style.color = '#1B3A6B';
+      loginBtn.style.border = '1px solid #1B3A6B';
+      hamSpans.forEach(s => s.style.background = '#1B3A6B');
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.boxShadow = 'none';
+      logoWhite.style.display = 'block';
+      logoColor.style.display = 'none';
+      navLinks.forEach(a => { a.style.color = 'rgba(255,255,255,0.6)'; });
+      loginBtn.style.color = 'rgba(255,255,255,0.9)';
+      loginBtn.style.border = '1px solid rgba(255,255,255,0.35)';
+      hamSpans.forEach(s => s.style.background = 'white');
+    }
+  }
+
+  setNavState(false);
+  window.addEventListener('scroll', function() {
+    setNavState(window.scrollY > 80);
+  }, { passive: true });
+})();
+</script>
+
+<!-- ──────── HERO ──────── -->
+<section style="background:#0F2244;padding:120px 28px 64px;">
+  <div class="container">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-bottom:14px;">ESG & Impact</div>
+    <h1 style="font-size:44px;font-weight:400;color:white;line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px;">Responsible Investment.<br><em style="color:#F2C849;font-style:italic;">Measurable impact.</em></h1>
+    <div style="width:40px;height:1px;background:#F2C849;margin-bottom:22px;"></div>
+    <p style="font-size:16px;color:rgba(255,255,255,0.55);line-height:1.75;max-width:520px;font-weight:300;">SafeHarbor invests exclusively in adaptive reuse projects that transform underutilized buildings into quality workforce housing — reducing environmental waste, strengthening communities, and generating risk-adjusted returns.</p>
+  </div>
+</section>
+
+<!-- ──────── SECTION 1: ENVIRONMENTAL ──────── -->
+<section style="background:white;padding:80px 28px;">
+  <div class="container">
+    <div class="fade">
+      <span class="tag" style="margin-bottom:14px;display:block;">Environmental</span>
+      <h2 style="font-size:28px;font-weight:400;color:#1B3A6B;line-height:1.35;margin-bottom:20px;">Eliminating Waste Through Adaptive Reuse</h2>
+      <div style="width:40px;height:1px;background:#F2C849;margin-bottom:36px;"></div>
+    </div>
+
+    <div class="fade grid-2col" style="display:grid;grid-template-columns:1fr 340px;gap:60px;align-items:start;">
+      <div>
+        <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:20px;">Every SafeHarbor project begins with an existing structure. Rather than demolishing buildings and sending hundreds of thousands of tons of material to landfills, we preserve the structural skeleton and transform it into something new.</p>
+        <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:20px;">The EPA estimates it would take a new, energy-efficient building 65 years of operation to recover the energy lost in demolishing an existing structure. By choosing adaptive reuse, we bypass that deficit entirely.</p>
+        <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:28px;">Fewer raw materials extracted. Less construction debris hauled to landfills. Reduced downstream pollution from manufacturing new steel, concrete, and glass. The environmental case for reuse is overwhelming — and it also happens to be good business.</p>
+
+        <ul class="gold-dot-list">
+          <li>90% of construction debris comes from demolition — avoided through adaptive reuse</li>
+          <li>Significantly fewer raw materials required vs. ground-up construction</li>
+          <li>Reduced downstream pollution from steel, concrete, and glass manufacturing</li>
+          <li>Shorter construction timelines mean less site-level environmental disruption</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:32px;">
+        <div style="background:#F7F8FA;padding:36px 32px;text-align:center;">
+          <div class="stat-number">54%</div>
+          <div class="stat-label">Fewer CO<sub>2</sub> emissions vs. demolish-and-rebuild</div>
+          <div style="font-size:11px;color:#aaa;margin-top:10px;font-style:italic;">Gensler Research Institute</div>
+        </div>
+        <div style="background:#F7F8FA;padding:36px 32px;text-align:center;">
+          <div class="stat-number">65</div>
+          <div class="stat-label">Years for a new building to recover the energy lost in demolition</div>
+          <div style="font-size:11px;color:#aaa;margin-top:10px;font-style:italic;">U.S. Environmental Protection Agency</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────── SECTION 2: SOCIAL IMPACT ──────── -->
+<section style="background:#F7F8FA;padding:80px 28px;">
+  <div class="container">
+    <div class="fade" style="text-align:center;max-width:680px;margin:0 auto;">
+      <span class="tag" style="margin-bottom:14px;display:block;">Social Impact</span>
+      <h2 style="font-size:28px;font-weight:400;color:#1B3A6B;line-height:1.35;margin-bottom:20px;">Housing America's Workforce</h2>
+      <div style="width:40px;height:1px;background:#F2C849;margin:0 auto 28px;"></div>
+      <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:12px;">38% of the U.S. population falls into the workforce housing category, yet vacancy rates sit at just 3%. These are the people who keep cities running — teachers, nurses, firefighters, military personnel, government workers, retail and warehouse employees. They earn too much for public assistance but cannot afford market-rate housing.</p>
+      <p style="font-size:15px;color:#4A4A4A;line-height:1.9;">SafeHarbor's projects serve renters at 60 to 120% of Area Median Income, transforming neighborhood eyesores into vibrant communities with Class A amenities. We don't build discount housing. We build homes people are proud to live in — at rents they can actually afford.</p>
+    </div>
+
+    <div class="fade grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;">
+      <div>
+        <div style="background:#0F2244;padding:36px 32px;text-align:center;margin-bottom:20px;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:52px;font-weight:700;color:#F2C849;line-height:1;">38%</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px;line-height:1.6;">Of the U.S. population qualifies as workforce</div>
+        </div>
+        <div style="background:#0F2244;padding:36px 32px;text-align:center;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:52px;font-weight:700;color:#F2C849;line-height:1;">3%</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px;line-height:1.6;">National vacancy rate for workforce housing</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;margin-bottom:16px;">Who We Serve</div>
+        <ul class="gold-dot-list">
+          <li>Teachers and school staff</li>
+          <li>Nurses and healthcare workers</li>
+          <li>Firefighters and first responders</li>
+          <li>Military and government employees</li>
+          <li>Retail, warehouse, and service workers</li>
+        </ul>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;margin-bottom:16px;margin-top:28px;">Rent Range</div>
+        <p style="font-size:14px;color:#4A4A4A;line-height:1.9;">60 to 120% of Area Median Income — the "missing middle" that falls between subsidized housing and luxury apartments.</p>
+      </div>
+    </div>
+
+    <!-- amenity/program cards -->
+    <div class="impact-grid fade" style="margin-top:48px;">
+      <div class="impact-card">
+        <div class="impact-icon" style="color:#F2C849;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="impact-title">Class A Amenities</div>
+        <p class="impact-text">Pools, fitness centers, co-working spaces, game rooms, and sports courts. Workforce housing does not mean sacrificing quality of life.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon" style="color:#F2C849;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="impact-title">Community Building</div>
+        <p class="impact-text">Shared spaces designed to foster connection — from resident lounges to outdoor gathering areas. We transform neglected properties into neighborhood anchors.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon" style="color:#F2C849;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="impact-title">Credit-Building Programs</div>
+        <p class="impact-text">Tenants can build their credit scores through on-time rent reporting, creating a pathway toward homeownership and long-term financial stability.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────── SECTION 3: COMMUNITY & GOVERNMENT ──────── -->
+<section style="background:white;padding:80px 28px;">
+  <div class="container">
+    <div class="fade">
+      <span class="tag" style="margin-bottom:14px;display:block;">Community & Government</span>
+      <h2 style="font-size:28px;font-weight:400;color:#1B3A6B;line-height:1.35;margin-bottom:20px;">Public-Private Partnerships That Work</h2>
+      <div style="width:40px;height:1px;background:#F2C849;margin-bottom:36px;"></div>
+    </div>
+
+    <div class="fade grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+      <div>
+        <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:20px;">Cities across the United States are facing a housing crisis. Local governments are actively seeking partners who can deliver quality housing at scale — and they are willing to fast-track approvals and offer meaningful incentives to make it happen.</p>
+        <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:20px;">SafeHarbor has built strong relationships with municipalities, housing authorities, and state agencies. Our projects regularly benefit from tax abatements, expedited permitting, and zoning support — because they solve real problems for real communities.</p>
+        <p style="font-size:15px;color:#4A4A4A;line-height:1.9;">These partnerships with 501(c)(3) organizations and government agencies are not favors. They are structured, repeatable frameworks that reflect the alignment between our investment thesis and the public interest.</p>
+      </div>
+      <div>
+        <div class="philosophy-grid" style="background:#E8EAF0;">
+          <div class="philosophy-card" style="grid-column:1/-1;">
+            <div class="philosophy-num">01</div>
+            <div class="philosophy-title">Tax Abatements</div>
+            <p class="philosophy-text">501(c)(3) partnerships enable significant property tax reductions, improving project economics while ensuring long-term affordability commitments.</p>
+          </div>
+          <div class="philosophy-card" style="grid-column:1/-1;">
+            <div class="philosophy-num">02</div>
+            <div class="philosophy-title">Fast-Tracked Approvals</div>
+            <p class="philosophy-text">Municipalities prioritize adaptive reuse projects that address the housing shortage, streamlining permitting and zoning processes that typically take years.</p>
+          </div>
+          <div class="philosophy-card" style="grid-column:1/-1;">
+            <div class="philosophy-num">03</div>
+            <div class="philosophy-title">Impact Recognition</div>
+            <p class="philosophy-text">Our projects have received industry recognition including the CoStar Impact Award in 2025, and we partner with Arctaris Impact Investors and state housing authorities including Rhode Island Housing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0F2244;padding:64px 28px 28px;">
+  <div class="container">
+    <div class="footer-cta" style="display:flex;align-items:center;justify-content:space-between;gap:32px;margin-bottom:48px;">
+      <div>
+        <h2 style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:8px;">Ready to learn more?</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.5);">We work with a limited group of long-term capital partners.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-shrink:0;">
+        <a href="contact.html" style="background:#F2C849;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;text-decoration:none;">Contact Us</a>
+        <a href="#" style="border:1px solid rgba(255,255,255,0.3);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;">Investor Login</a>
+      </div>
+    </div>
+    <div class="footer-addresses-row" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:36px;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;">
+      <img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:40px;width:auto;opacity:0.6;">
+      <div class="footer-addresses" style="display:flex;gap:32px;">
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">United States</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">45 Rockefeller Plaza FL.20<br>New York, NY 10111</div>
+        </div>
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">Israel</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">Yad Harutzim 2<br>Netanya, Israel</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:11px;color:rgba(255,255,255,0.2);font-family:'Barlow',sans-serif;">&copy; 2026 SafeHarbor Investors Group. All rights reserved.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.15);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Fade-in on scroll
+const fades = document.querySelectorAll('.fade');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+fades.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

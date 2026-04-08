@@ -11,6 +11,10 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Barlow', sans-serif; background: #fff; color: #1A1A1A; }
 h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
 ::selection { background: #1B3A6B; color: white; }
+a { color: inherit; text-decoration: none; }
+a:visited { color: inherit; }
+a:hover { color: inherit; }
+#main-nav a, #main-nav a:visited, #main-nav a:hover, #main-nav a:active { text-decoration: none !important; }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 
 /* form inputs */
@@ -38,21 +42,102 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 /* fade-in */
 .fade { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .fade.visible { opacity: 1; transform: translateY(0); }
+
+/* Mobile hamburger */
+#mobile-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; z-index:201; }
+#mobile-toggle span { display:block; width:22px; height:2px; background:white; margin:5px 0; transition:0.3s; }
+
+@media (max-width: 768px) {
+  #mobile-toggle { display:block; }
+  #nav-links {
+    display:none !important;
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background:#0F2244;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:24px !important;
+    z-index:300;
+  }
+  #nav-links.mobile-open { display:flex !important; }
+  #nav-links .nav-link, #nav-links a { font-size:16px !important; color:white !important; }
+  #nav-login { font-size:14px !important; }
+  #mobile-close { display:block !important; position:absolute; top:24px; right:28px; background:none; border:none; cursor:pointer; color:white; font-size:28px; }
+
+  .container { padding:0 16px; }
+
+  /* Stack grids */
+  .grid-2col { grid-template-columns:1fr !important; gap:40px !important; }
+
+  /* Contact form */
+  .form-2col { grid-template-columns:1fr !important; }
+
+  /* Footer */
+  .footer-cta { flex-direction:column !important; text-align:center; gap:20px !important; }
+  .footer-addresses-row { flex-direction:column !important; gap:24px !important; }
+  .footer-addresses { flex-direction:column !important; gap:20px !important; }
+  .footer-disclaimer { flex-direction:column !important; gap:8px !important; text-align:center; }
+  .footer-disclaimer p { text-align:center !important; max-width:100% !important; }
+}
+
+@media (max-width: 480px) {
+  .container { padding:0 16px; }
+}
 </style>
 </head>
 <body>
 
 <!-- ──────── NAV ──────── -->
-<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;background:#1B3A6B;padding:0 28px;height:72px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,0.2);">
-  <a href="index.html"><img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;"></a>
-  <div style="display:flex;align-items:center;gap:28px;">
-    <a href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Strategy</a>
-    <a href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Portfolio</a>
-    <a href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Team</a>
-    <a href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:white;text-decoration:none;border-bottom:1px solid #F2C849;padding-bottom:2px;">Contact</a>
-    <a href="#" style="border:1px solid rgba(255,255,255,0.35);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-decoration:none;">Investor Login</a>
+<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;background:transparent;padding:0 28px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s ease, box-shadow 0.3s ease;">
+  <a href="index.html"><img id="nav-logo-white" src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;"><img id="nav-logo-color" src="logos/logo-color-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;display:none;"></a>
+  <button id="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  <div id="nav-links" style="display:flex;align-items:center;gap:28px;">
+    <button id="mobile-close" style="display:none;" onclick="document.getElementById('nav-links').classList.remove('mobile-open')">&times;</button>
+    <a class="nav-link" href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Strategy</a>
+    <a class="nav-link" href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Portfolio</a>
+    <a class="nav-link" href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Team</a>
+    <a class="nav-link" href="esg.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">ESG</a>
+    <a class="nav-link" href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #F2C849;padding-bottom:2px;">Contact</a>
+    <a href="#" id="nav-login" style="border:1px solid rgba(255,255,255,0.35);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-decoration:none;">Investor Login</a>
   </div>
 </nav>
+<script>
+(function() {
+  const nav = document.getElementById('main-nav');
+  const logoWhite = document.getElementById('nav-logo-white');
+  const logoColor = document.getElementById('nav-logo-color');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const loginBtn = document.getElementById('nav-login');
+  const hamSpans = document.querySelectorAll('#mobile-toggle span');
+
+  function setNavState(scrolled) {
+    if (scrolled) {
+      nav.style.background = 'white';
+      nav.style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+      logoWhite.style.display = 'none';
+      logoColor.style.display = 'block';
+      navLinks.forEach(a => { a.style.color = '#1B3A6B'; });
+      loginBtn.style.color = '#1B3A6B';
+      loginBtn.style.border = '1px solid #1B3A6B';
+      hamSpans.forEach(s => s.style.background = '#1B3A6B');
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.boxShadow = 'none';
+      logoWhite.style.display = 'block';
+      logoColor.style.display = 'none';
+      navLinks.forEach(a => { a.style.color = 'rgba(255,255,255,0.6)'; });
+      loginBtn.style.color = 'rgba(255,255,255,0.9)';
+      loginBtn.style.border = '1px solid rgba(255,255,255,0.35)';
+      hamSpans.forEach(s => s.style.background = 'white');
+    }
+  }
+
+  setNavState(false);
+  window.addEventListener('scroll', function() {
+    setNavState(window.scrollY > 80);
+  }, { passive: true });
+})();
+</script>
 
 <!-- ──────── HERO ──────── -->
 <section style="background:#0F2244;padding:120px 28px 64px;">
@@ -66,118 +151,96 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 
 <!-- ──────── CONTENT ──────── -->
 <section style="background:white;padding:72px 28px 96px;">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;">
+  <div class="container" style="max-width:560px;">
 
-      <!-- ── LEFT: CONTACTS ── -->
-      <div class="fade">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:20px;">Reach the Team</div>
-        <h2 style="font-family:'Libre Baskerville',serif;font-size:30px;font-weight:400;color:#1B3A6B;margin-bottom:22px;">We respond to all serious inquiries.</h2>
-        <div style="width:40px;height:1px;background:#F2C849;margin-bottom:32px;"></div>
-
-        <div style="display:flex;flex-direction:column;gap:0;">
-
-          <!-- Amnon -->
-          <div style="padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid #F0F2F7;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#F2C849;margin-bottom:5px;">Co-Founder &amp; Managing Partner</div>
-            <div style="font-family:'Libre Baskerville',serif;font-size:17px;font-weight:400;color:#1B3A6B;margin-bottom:9px;">Amnon Bar-Tur</div>
-            <div style="font-size:14px;color:#1B3A6B;margin-bottom:4px;">amnon@safeharbor-capital.com</div>
-            <div style="font-size:14px;color:#888;">+1 917-834-6101</div>
-          </div>
-
-          <!-- Nir -->
-          <div style="padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid #F0F2F7;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#F2C849;margin-bottom:5px;">Co-Founder &amp; Managing Partner</div>
-            <div style="font-family:'Libre Baskerville',serif;font-size:17px;font-weight:400;color:#1B3A6B;margin-bottom:9px;">Nir Yanushevsky</div>
-            <div style="font-size:14px;color:#1B3A6B;margin-bottom:4px;">nir@yanushus.com</div>
-            <div style="font-size:14px;color:#888;">+1 201-660-0820</div>
-          </div>
-
-          <!-- Gil -->
-          <div style="padding-bottom:0;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#F2C849;margin-bottom:5px;">Head of Investor Relations</div>
-            <div style="font-family:'Libre Baskerville',serif;font-size:17px;font-weight:400;color:#1B3A6B;margin-bottom:9px;">Gil Cnaani-Yanushevsky</div>
-            <div style="font-size:14px;color:#1B3A6B;margin-bottom:4px;">gil@yanushus.com</div>
-            <div style="font-size:14px;color:#888;">+1 551-259-7072</div>
-          </div>
-
-        </div>
-
-        <!-- Investor portal callout -->
-        <div style="margin-top:40px;background:#F7F8FA;padding:28px 32px;border-left:3px solid #F2C849;">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-bottom:10px;">Existing Investors</div>
-          <p style="font-size:14px;line-height:1.75;color:#555;margin-bottom:16px;">For account access, statements, and investor documents, please use the Investor Portal.</p>
-          <a href="#" style="display:inline-block;background:#1B3A6B;padding:11px 24px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:white;text-decoration:none;">Investor Login →</a>
-        </div>
-
-      </div>
-
-      <!-- ── RIGHT: FORM ── -->
-      <div class="fade" style="transition-delay:0.12s;">
-
-        <!-- Form (shown by default) -->
-        <div id="form-wrap">
-          <div style="margin-bottom:22px;">
+    <!-- Form -->
+    <div class="fade">
+      <div id="form-wrap">
+        <div class="form-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:22px;">
+          <div>
             <label class="form-label" for="f-name">Name</label>
             <input class="form-input" type="text" id="f-name" placeholder="Your full name">
           </div>
-          <div style="margin-bottom:22px;">
+          <div>
             <label class="form-label" for="f-email">Email Address</label>
             <input class="form-input" type="email" id="f-email" placeholder="you@example.com">
           </div>
-          <div style="margin-bottom:22px;">
-            <label class="form-label" for="f-type">Nature of Inquiry</label>
-            <select class="form-input" id="f-type">
-              <option value="" disabled selected>Select one</option>
-              <option value="investor">Investor Inquiry</option>
-              <option value="broker">Broker / Deal Submission</option>
-              <option value="lender">Lender / Capital Partner</option>
-              <option value="municipality">Municipality / Government</option>
-              <option value="other">General Inquiry</option>
-            </select>
-          </div>
-          <div style="margin-bottom:28px;">
-            <label class="form-label" for="f-msg">Message</label>
-            <textarea class="form-input" id="f-msg" placeholder="How can we help?"></textarea>
-          </div>
-          <button onclick="submitForm()" style="background:#1B3A6B;border:none;padding:15px 0;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:white;cursor:pointer;transition:background 0.2s;"
-            onmouseover="this.style.background='#0F2244'" onmouseout="this.style.background='#1B3A6B'">
-            Send Message
-          </button>
-          <p style="font-size:12px;color:#AAA;margin-top:12px;text-align:center;line-height:1.6;">This website does not offer investments. This form is not an investment solicitation.</p>
         </div>
-
-        <!-- Success state (hidden) -->
-        <div id="form-success" style="display:none;height:400px;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
-          <div style="width:60px;height:60px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#F2C849" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 style="font-family:'Libre Baskerville',serif;font-size:26px;font-weight:400;color:#1B3A6B;margin-bottom:10px;">Message Received</h3>
-          <p style="font-size:15px;color:#777;line-height:1.7;">Thank you for reaching out.<br>A member of our team will be in touch shortly.</p>
+        <div style="margin-bottom:22px;">
+          <label class="form-label" for="f-phone">Phone Number</label>
+          <input class="form-input" type="tel" id="f-phone" placeholder="+1 (555) 000-0000">
         </div>
+        <div style="margin-bottom:22px;">
+          <label class="form-label" for="f-type">Nature of Inquiry</label>
+          <select class="form-input" id="f-type">
+            <option value="" disabled selected>Select one</option>
+            <option value="investor">Investor Inquiry</option>
+            <option value="broker">Broker / Deal Submission</option>
+            <option value="lender">Lender / Capital Partner</option>
+            <option value="municipality">Municipality / Government</option>
+            <option value="other">General Inquiry</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <label class="form-label" for="f-msg">Message</label>
+          <textarea class="form-input" id="f-msg" placeholder="How can we help?"></textarea>
+        </div>
+        <button onclick="submitForm()" style="background:#1B3A6B;border:none;padding:15px 0;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:white;cursor:pointer;transition:background 0.2s;"
+          onmouseover="this.style.background='#0F2244'" onmouseout="this.style.background='#1B3A6B'">
+          Send Message
+        </button>
+        <p style="font-size:12px;color:#AAA;margin-top:12px;text-align:center;line-height:1.6;">This website does not offer investments. This form is not an investment solicitation.</p>
+      </div>
 
+      <!-- Success state (hidden) -->
+      <div id="form-success" style="display:none;height:300px;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+        <div style="width:60px;height:60px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#F2C849" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-family:'Libre Baskerville',serif;font-size:26px;font-weight:400;color:#1B3A6B;margin-bottom:10px;">Message Received</h3>
+        <p style="font-size:15px;color:#777;line-height:1.7;">Thank you for reaching out.<br>A member of our team will be in touch shortly.</p>
       </div>
     </div>
+
+    <!-- Investor Login -->
+    <div class="fade" style="transition-delay:0.1s;margin-top:48px;text-align:center;padding-top:40px;border-top:1px solid #E8EAF0;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#999;margin-bottom:14px;">Existing Investors</div>
+      <a href="#" style="display:inline-block;background:#1B3A6B;padding:14px 40px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:white;text-decoration:none;transition:background 0.2s;"
+        onmouseover="this.style.background='#0F2244'" onmouseout="this.style.background='#1B3A6B'">Investor Login →</a>
+    </div>
+
   </div>
 </section>
 
-<!-- ──────── FOOTER ──────── -->
-<footer style="background:#0A1628;padding:36px 28px 0;">
+<!-- FOOTER -->
+<footer style="background:#0F2244;padding:64px 28px 28px;">
   <div class="container">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:48px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,0.07);">
-      <div style="display:flex;align-items:center;gap:32px;">
-        <a href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Strategy</a>
-        <a href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Portfolio</a>
-        <a href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Team</a>
-        <a href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Contact</a>
+    <div class="footer-cta" style="display:flex;align-items:center;justify-content:space-between;gap:32px;margin-bottom:48px;">
+      <div>
+        <h2 style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:8px;">Ready to learn more?</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.5);">We work with a limited group of long-term capital partners.</p>
       </div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.28);letter-spacing:0.01em;white-space:nowrap;">
-        45 Rockefeller Plaza FL.20, New York, NY &nbsp;<span style="color:rgba(255,255,255,0.14);">|</span>&nbsp; Yad Harutzim 2, Netanya, Israel
+      <div style="display:flex;gap:12px;flex-shrink:0;">
+        <a href="contact.html" style="background:#F2C849;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;text-decoration:none;">Contact Us</a>
+        <a href="#" style="border:1px solid rgba(255,255,255,0.3);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;">Investor Login</a>
       </div>
     </div>
-    <div style="padding:14px 0 18px;display:flex;justify-content:space-between;align-items:center;">
-      <p style="font-size:11px;color:rgba(255,255,255,0.22);font-family:'Barlow',sans-serif;">© 2026 SafeHarbor Investors Group. All rights reserved.</p>
-      <p style="font-size:11px;color:rgba(255,255,255,0.18);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
+    <div class="footer-addresses-row" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:36px;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;">
+      <img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:40px;width:auto;opacity:0.6;">
+      <div class="footer-addresses" style="display:flex;gap:32px;">
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">United States</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">45 Rockefeller Plaza FL.20<br>New York, NY 10111</div>
+        </div>
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">Israel</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">Yad Harutzim 2<br>Netanya, Israel</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:11px;color:rgba(255,255,255,0.2);font-family:'Barlow',sans-serif;">&copy; 2026 SafeHarbor Investors Group. All rights reserved.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.15);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
     </div>
   </div>
 </footer>

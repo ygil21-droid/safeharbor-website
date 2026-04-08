@@ -11,34 +11,130 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Barlow', sans-serif; background: #fff; color: #1A1A1A; }
 h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
 ::selection { background: #1B3A6B; color: white; }
+a { color: inherit; text-decoration: none; }
+a:visited { color: inherit; }
+a:hover { color: inherit; }
 .container { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+#main-nav a, #main-nav a:visited, #main-nav a:hover, #main-nav a:active { text-decoration: none !important; }
+
+/* ── Mobile hamburger ── */
+#mobile-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; z-index:201; }
+#mobile-toggle span { display:block; width:22px; height:2px; margin:5px 0; transition:0.3s; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  #mobile-toggle { display:block; }
+  #nav-links {
+    display:none !important;
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background:#0F2244;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:24px !important;
+    z-index:300;
+  }
+  #nav-links.mobile-open { display:flex !important; }
+  #nav-links .nav-link { font-size:16px !important; color:white !important; }
+  #nav-login { font-size:14px !important; color:white !important; border-color:rgba(255,255,255,0.4) !important; }
+  #mobile-close { display:block !important; position:absolute; top:24px; right:28px; background:none; border:none; cursor:pointer; color:white; font-size:28px; }
+
+  /* Hero */
+  .hero-heading { font-size:32px !important; }
+  .hero-sub { font-size:15px !important; }
+
+  /* Stats row */
+  .stats-row { flex-wrap:wrap !important; gap:8px !important; }
+  .stats-row > div[style*="flex:1"] { flex:1 1 40% !important; min-width:120px; }
+  .stats-row .stat-num { font-size:28px !important; }
+  .stats-row .stat-divider { display:none; }
+
+  /* 2-col grids → single col */
+  .grid-2col { grid-template-columns:1fr !important; gap:40px !important; }
+
+  /* Legend wrap */
+  .legend-row { gap:16px !important; }
+  .legend-row > div:last-child { margin-left:0 !important; width:100%; margin-top:8px; }
+
+  /* Footer */
+  .footer-cta { flex-direction:column !important; text-align:center; gap:20px !important; }
+  .footer-cta > div:last-child { flex-shrink:1 !important; }
+  .footer-addresses-row { flex-direction:column !important; gap:24px !important; }
+  .footer-addresses { flex-direction:column !important; gap:20px !important; }
+  .footer-disclaimer { flex-direction:column !important; gap:8px !important; text-align:center; }
+  .footer-disclaimer p { text-align:center !important; max-width:100% !important; }
+
+  /* Contact form 2-col */
+  .form-2col { grid-template-columns:1fr !important; }
+}
+
+@media (max-width: 480px) {
+  .container { padding:0 16px; }
+  .hero-heading { font-size:26px !important; }
+  .stats-row > div[style*="flex:1"] { flex:1 1 100% !important; }
+  .footer-cta a { width:100%; text-align:center; }
+}
 </style>
 </head>
 <body>
 
 <!-- ──────── NAV ──────── -->
 <nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;background:transparent;padding:0 28px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s ease, box-shadow 0.3s ease;">
-<a href="index.html"><img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;"></a>
-  <div style="display:flex;align-items:center;gap:28px;">
-    <a href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Strategy</a>
-    <a href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Portfolio</a>
-    <a href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Team</a>
-    <a href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Contact</a>
-    <a href="#" style="border:1px solid rgba(255,255,255,0.35);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-decoration:none;">Investor Login</a>
+<a href="index.html">
+  <img id="nav-logo-white" src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;">
+  <img id="nav-logo-color" src="logos/logo-color-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;display:none;">
+</a>
+  <button id="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('mobile-open')">
+    <span id="ham1" style="background:white;"></span>
+    <span id="ham2" style="background:white;"></span>
+    <span id="ham3" style="background:white;"></span>
+  </button>
+  <div id="nav-links" style="display:flex;align-items:center;gap:28px;">
+    <button id="mobile-close" style="display:none;" onclick="document.getElementById('nav-links').classList.remove('mobile-open')">&times;</button>
+    <a href="strategy.html" class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Strategy</a>
+    <a href="portfolio.html" class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Portfolio</a>
+    <a href="team.html" class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Team</a>
+    <a href="esg.html" class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">ESG</a>
+    <a href="contact.html" class="nav-link" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Contact</a>
+    <a href="#" id="nav-login" style="padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Investor Login</a>
   </div>
 </nav>
 
 <script>
 (function() {
   const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > window.innerHeight * 0.7) {
-      nav.style.background = '#1B3A6B';
-      nav.style.boxShadow  = '0 2px 20px rgba(0,0,0,0.25)';
+  const logoWhite = document.getElementById('nav-logo-white');
+  const logoColor = document.getElementById('nav-logo-color');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const loginBtn = document.getElementById('nav-login');
+
+  const hamSpans = document.querySelectorAll('#mobile-toggle span');
+
+  function setNavState(scrolled) {
+    if (scrolled) {
+      nav.style.background = 'white';
+      nav.style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+      logoWhite.style.display = 'none';
+      logoColor.style.display = 'block';
+      navLinks.forEach(a => { a.style.color = '#1B3A6B'; });
+      loginBtn.style.color = '#1B3A6B';
+      loginBtn.style.border = '1px solid #1B3A6B';
+      hamSpans.forEach(s => s.style.background = '#1B3A6B');
     } else {
       nav.style.background = 'transparent';
-      nav.style.boxShadow  = 'none';
+      nav.style.boxShadow = 'none';
+      logoWhite.style.display = 'block';
+      logoColor.style.display = 'none';
+      navLinks.forEach(a => { a.style.color = 'rgba(255,255,255,0.6)'; });
+      loginBtn.style.color = 'rgba(255,255,255,0.9)';
+      loginBtn.style.border = '1px solid rgba(255,255,255,0.35)';
+      hamSpans.forEach(s => s.style.background = 'white');
     }
+  }
+
+  setNavState(false);
+  window.addEventListener('scroll', function() {
+    setNavState(window.scrollY > 80);
   }, { passive: true });
 })();
 </script>
@@ -47,66 +143,243 @@ h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
 <section style="position:relative;">
 
   <!-- Hero image + overlay -->
-  <div style="min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-start;padding:72px 28px 0;">
+  <div style="min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-start;padding:72px 28px 56px;">
     <div style="position:absolute;inset:0;background:url('logos/groton-interior.jpg') center/cover no-repeat;"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(15,34,68,0.97) 0%, rgba(15,34,68,0.93) 35%, rgba(27,58,107,0.70) 65%, rgba(27,58,107,0.45) 100%);"></div>
     <div class="container" style="position:relative;z-index:1;width:100%;padding-top:60px;">
       <div style="max-width:620px;">
-        <h1 style="font-size:48px;font-weight:400;color:white;line-height:1.2;margin-bottom:24px;letter-spacing:-0.02em;">
+        <h1 class="hero-heading" style="font-size:48px;font-weight:400;color:white;line-height:1.2;margin-bottom:24px;letter-spacing:-0.02em;">
           Where Others Build New,
-          <br><em style="color:#F5D76E;font-style:italic;">We Convert Smart.</em>
+          <br><em style="color:#F2C849;font-style:italic;">We Convert Smart.</em>
         </h1>
         <div style="width:48px;height:1px;background:#F2C849;margin-bottom:20px;"></div>
         <p style="font-size:17px;font-weight:300;color:rgba(255,255,255,0.72);line-height:1.8;max-width:500px;margin-bottom:36px;">
           We acquire distressed hotels and convert them into modern, affordable apartments — creating value for investors and housing for America's workforce.
         </p>
-        <div style="display:flex;gap:12px;">
-          <a href="strategy.html" style="background:#F2C849;border:none;padding:13px 30px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;cursor:pointer;text-decoration:none;">Our Strategy</a>
-          <a href="contact.html" style="background:transparent;border:1px solid rgba(255,255,255,0.3);padding:13px 30px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.8);cursor:pointer;text-decoration:none;">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- White area below hero to receive the floating cards -->
-  <div style="background:white;height:72px;"></div>
-
-  <!-- Floating stat cards overlapping the seam -->
-  <div style="position:absolute;bottom:0;left:0;right:0;padding:0 28px;">
-    <div class="container" style="padding:0 28px;">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-
-        <div style="background:white;border-top:3px solid #F2C849;padding:28px 20px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.11);">
-          <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:#1B3A6B;line-height:1;">20</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:10px;">Properties</div>
-        </div>
-
-        <div style="background:white;border-top:3px solid #F2C849;padding:28px 20px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.11);">
-          <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:#1B3A6B;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;">3,000<span style="font-size:18px;color:#F2C849;margin-bottom:5px;">+</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:10px;">Units</div>
-        </div>
-
-        <div style="background:white;border-top:3px solid #F2C849;padding:28px 20px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.11);">
-          <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:#1B3A6B;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:18px;color:#F2C849;margin-bottom:5px;">$</span>424<span style="font-size:18px;color:#F2C849;margin-bottom:5px;">M</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:10px;">Portfolio Value</div>
-        </div>
-
-        <div style="background:white;border-top:3px solid #F2C849;padding:28px 20px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.11);">
-          <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:#1B3A6B;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:18px;color:#F2C849;margin-bottom:5px;">$</span>104<span style="font-size:18px;color:#F2C849;margin-bottom:5px;">M</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:10px;">Equity Raised</div>
-        </div>
-
       </div>
     </div>
   </div>
 
 </section>
 
-<!-- ──────── 3. OUR INVESTMENT APPROACH ──────── -->
+<!-- Gold line: hero → stats -->
+<div style="height:2px;background:linear-gradient(90deg, #F2C849 0%, rgba(242,200,73,0.3) 100%);"></div>
+
+<!-- ──────── STATS + PORTFOLIO MAP ──────── -->
+<section style="background:#0F2244;" id="portfolio-section">
+
+  <!-- Stats row -->
+  <div style="padding:36px 28px 28px;">
+    <div class="container">
+      <div class="stats-row" style="display:flex;justify-content:center;align-items:center;">
+        <div style="text-align:center;flex:1;">
+          <div class="stat-num" style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;">20</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Properties</div>
+        </div>
+        <div class="stat-divider" style="width:1px;height:44px;background:rgba(255,255,255,0.08);"></div>
+        <div style="text-align:center;flex:1;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;">3,000<span style="font-size:15px;color:#F2C849;margin-bottom:4px;">+</span></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Units</div>
+        </div>
+        <div class="stat-divider" style="width:1px;height:44px;background:rgba(255,255,255,0.08);"></div>
+        <div style="text-align:center;flex:1;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:15px;color:#F2C849;margin-bottom:4px;">$</span>424<span style="font-size:15px;color:#F2C849;margin-bottom:4px;">M</span></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Portfolio Value</div>
+        </div>
+        <div class="stat-divider" style="width:1px;height:44px;background:rgba(255,255,255,0.08);"></div>
+        <div style="text-align:center;flex:1;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:15px;color:#F2C849;margin-bottom:4px;">$</span>104<span style="font-size:15px;color:#F2C849;margin-bottom:4px;">M</span></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Equity Raised</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gold line: stats → portfolio content -->
+  <div style="padding:0 28px;"><div class="container"><div style="height:2px;background:linear-gradient(90deg, #F2C849 0%, rgba(242,200,73,0.3) 100%);"></div></div></div>
+
+  <!-- Portfolio content -->
+  <div style="padding:36px 0 60px;">
+  <div class="container">
+
+    <!-- Header -->
+    <div style="margin-bottom:48px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:12px;">Our Portfolio</div>
+      <h2 style="font-size:30px;font-weight:400;color:white;line-height:1.3;">An Active National Presence.</h2>
+    </div>
+
+    <!-- Map canvas (D3 renders here) -->
+    <div id="map-wrap" style="position:relative;width:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:2px;">
+      <svg id="us-map" style="width:100%;display:block;"></svg>
+      <!-- Tooltip -->
+      <div id="map-tooltip" style="display:none;position:absolute;pointer-events:none;background:#0A1628;border:1px solid rgba(242,200,73,0.3);color:white;padding:10px 16px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:13px;line-height:1.5;box-shadow:0 4px 20px rgba(0,0,0,0.5);z-index:50;white-space:nowrap;"></div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend-row" style="display:flex;gap:28px;margin-top:20px;align-items:center;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#4CAF82;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Refinanced</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#F2C849;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Stabilized</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#E07A3A;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Lease-Up</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#6B9FD4;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Development</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.35);"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Under Contract</span>
+      </div>
+      <div style="margin-left:auto;">
+        <a href="#" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#F2C849;text-decoration:none;border-bottom:1px solid rgba(242,200,73,0.4);padding-bottom:2px;">View Full Portfolio →</a>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- D3 + TopoJSON from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+
+<style>
+  .state-path { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.18); stroke-width: 0.6; }
+  .state-path:hover { fill: rgba(255,255,255,0.09); }
+  @keyframes pulse-gold {
+    0%,100% { r: 6; opacity:1; }
+    50%      { r: 9; opacity:0.6; }
+  }
+  @keyframes pulse-blue {
+    0%,100% { r: 6; opacity:1; }
+    50%      { r: 9; opacity:0.6; }
+  }
+</style>
+
+<script>
+(async function() {
+  const properties = [
+    { name: 'Groton, CT',        units: 112,  status: 'refinanced',  lat: 41.35,  lng: -72.08 },
+    { name: 'Warwick, RI',       units: 190,  status: 'refinanced',  lat: 41.71,  lng: -71.42 },
+    { name: 'Detroit, MI',       units: 128,  status: 'refinanced',  lat: 42.33,  lng: -83.05 },
+    { name: 'Erie, PA',          units: 197,  status: 'lease-up',    lat: 42.13,  lng: -80.09 },
+    { name: 'Silver Spring, MD', units: 227,  status: 'development', lat: 38.95,  lng: -77.35 },
+    { name: 'Burlington, NC',    units: 135,  status: 'stabilized',  lat: 36.10,  lng: -79.44 },
+    { name: 'Fayetteville, NC',  units: 228,  status: 'refinanced',  lat: 35.28,  lng: -79.18 },
+    { name: 'Fayetteville, NC',  units: 228,  status: 'refinanced',  lat: 34.82,  lng: -78.58 },
+    { name: 'Columbia, SC',      units: 146,  status: 'development', lat: 34.00,  lng: -81.03 },
+    { name: 'Ringgold, GA',      units: 104,  status: 'stabilized',  lat: 34.92,  lng: -85.11 },
+    { name: 'Dallas, TX',        units: 123,  status: 'development', lat: 33.05,  lng: -97.15 },
+    { name: 'Dallas, TX',        units: 122,  status: 'development', lat: 32.51,  lng: -96.45 },
+    { name: 'San Antonio, TX',   units: 169,  status: 'lease-up',    lat: 29.65,  lng: -98.75 },
+    { name: 'San Antonio, TX',   units: 169,  status: 'development', lat: 29.19,  lng: -98.23 },
+    { name: 'El Paso, TX',       units: 142,  status: 'lease-up',      lat: 31.76,  lng: -106.49 },
+    { name: 'Tucson, AZ',        units: 100,  status: 'development',   lat: 32.22,  lng: -110.97 },
+    { name: 'Norfolk, VA',       units: null, status: 'under-contract', lat: 36.85,  lng: -76.29 },
+    { name: 'Lakewood, CO',      units: null, status: 'under-contract', lat: 39.70,  lng: -105.08 },
+    { name: 'Arlington, VA',     units: null, status: 'under-contract', lat: 38.25,  lng: -77.35 },
+    { name: 'Charleston, NC',    units: null, status: 'under-contract', lat: 34.22,  lng: -77.95 },
+  ];
+
+  const colorMap = { refinanced: '#4CAF82', stabilized: '#F2C849', 'lease-up': '#E07A3A', development: '#6B9FD4', 'under-contract': 'rgba(255,255,255,0.35)' };
+
+  const wrap   = document.getElementById('map-wrap');
+  const svgEl  = document.getElementById('us-map');
+  const tip    = document.getElementById('map-tooltip');
+  const width  = wrap.offsetWidth;
+  const height = Math.round(width * 0.56);
+
+  svgEl.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svgEl.setAttribute('height', height);
+
+  const svg = d3.select('#us-map');
+
+  const projection = d3.geoAlbersUsa()
+    .scale(width * 1.22)
+    .translate([width / 2, height / 2]);
+
+  const path = d3.geoPath().projection(projection);
+
+  const us = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json');
+  const states = topojson.feature(us, us.objects.states);
+  const borders = topojson.mesh(us, us.objects.states, (a,b) => a !== b);
+
+  svg.append('g')
+    .selectAll('path')
+    .data(states.features)
+    .join('path')
+    .attr('class', 'state-path')
+    .attr('d', path);
+
+  svg.append('path')
+    .datum(borders)
+    .attr('fill', 'none')
+    .attr('stroke', 'rgba(255,255,255,0.2)')
+    .attr('stroke-width', 0.5)
+    .attr('d', path);
+
+  properties.forEach(p => {
+    const coords = projection([p.lng, p.lat]);
+    if (!coords) return;
+    const [x, y] = coords;
+    const r = 4;
+    const color = colorMap[p.status];
+
+    svg.append('circle')
+      .attr('cx', x).attr('cy', y).attr('r', r)
+      .attr('fill', 'none')
+      .attr('stroke', color)
+      .attr('stroke-width', 1.5)
+      .attr('opacity', 0)
+      .call(el => {
+        const delay = Math.random() * 1800;
+        setTimeout(function pulse() {
+          el.attr('r', r).attr('opacity', 0.7)
+            .transition().duration(1600)
+            .attr('r', r + 12).attr('opacity', 0)
+            .on('end', pulse);
+        }, delay);
+      });
+
+    svg.append('circle')
+      .attr('cx', x).attr('cy', y).attr('r', r)
+      .attr('fill', color)
+      .attr('stroke', 'rgba(10,22,40,0.8)')
+      .attr('stroke-width', 1.5)
+      .style('cursor', 'pointer')
+      .on('mousemove', (event) => {
+        const statusLabel = p.status.split('-').map(w => w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+        const label = p.units
+          ? `<strong>${p.name}</strong><br>${p.units} units · ${statusLabel}`
+          : `<strong>${p.name}</strong><br>${statusLabel}`;
+        tip.innerHTML = label;
+        tip.style.display = 'block';
+        const rect = wrap.getBoundingClientRect();
+        let tx = event.clientX - rect.left + 14;
+        let ty = event.clientY - rect.top - 48;
+        if (tx + 200 > width) tx = event.clientX - rect.left - 180;
+        tip.style.left = tx + 'px';
+        tip.style.top  = ty + 'px';
+      })
+      .on('mouseleave', () => { tip.style.display = 'none'; })
+      .on('mouseenter', function() { d3.select(this).attr('r', r * 1.5); })
+      .on('mouseleave', function() { d3.select(this).attr('r', r); tip.style.display = 'none'; });
+  });
+})();
+</script>
+
+<!-- ──────── 4. OUR INVESTMENT APPROACH ──────── -->
 <section style="background:white;padding:100px 28px 80px;">
   <div class="container">
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+    <div class="grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
 
       <!-- Left: text -->
       <div>
@@ -178,7 +451,7 @@ h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
           </div>
           <div style="padding-top:6px;padding-bottom:32px;">
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;margin-bottom:4px;">Stabilization & Management</div>
-            <p style="font-size:13px;color:#6B6B6B;line-height:1.6;">GoodHomes Communities operates the asset — 20+ leases signed per month at stabilized properties</p>
+            <p style="font-size:13px;color:#6B6B6B;line-height:1.6;">Professional property management operates each asset — 20+ leases signed per month at stabilized properties</p>
           </div>
         </div>
 
@@ -198,237 +471,38 @@ h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
   </div>
 </section>
 
-<!-- ──────── 4. PORTFOLIO MAP ──────── -->
-<section style="background:#0F2244;padding:80px 0 60px;" id="portfolio-section">
-  <div class="container">
-
-    <!-- Header -->
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;padding:0 0;">
-      <div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:12px;">Our Portfolio</div>
-        <h2 style="font-size:30px;font-weight:400;color:white;line-height:1.3;">An Active National Presence.</h2>
-      </div>
-      <div style="display:flex;gap:40px;padding-bottom:4px;">
-        <div style="text-align:center;">
-          <div style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:white;">20</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:4px;">Properties</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:white;">3,000<span style="font-size:16px;color:#F2C849;">+</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:4px;">Units</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:white;">12<span style="font-size:16px;color:#F2C849;">+</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:4px;">Markets</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Map canvas (D3 renders here) -->
-    <div id="map-wrap" style="position:relative;width:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:2px;">
-      <svg id="us-map" style="width:100%;display:block;"></svg>
-      <!-- Tooltip -->
-      <div id="map-tooltip" style="display:none;position:absolute;pointer-events:none;background:#0A1628;border:1px solid rgba(242,200,73,0.3);color:white;padding:10px 16px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:13px;line-height:1.5;box-shadow:0 4px 20px rgba(0,0,0,0.5);z-index:50;white-space:nowrap;"></div>
-    </div>
-
-    <!-- Legend -->
-    <div style="display:flex;gap:28px;margin-top:20px;align-items:center;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:10px;height:10px;border-radius:50%;background:#4CAF82;"></div>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Refinanced</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:10px;height:10px;border-radius:50%;background:#F2C849;"></div>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Stabilized</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:10px;height:10px;border-radius:50%;background:#E07A3A;"></div>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Lease-Up</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:10px;height:10px;border-radius:50%;background:#6B9FD4;"></div>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Development</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.35);"></div>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Under Contract</span>
-      </div>
-      <div style="margin-left:auto;">
-        <a href="#" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#F2C849;text-decoration:none;border-bottom:1px solid rgba(242,200,73,0.4);padding-bottom:2px;">View Full Portfolio →</a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- D3 + TopoJSON from CDN -->
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-
-<style>
-  .state-path { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.18); stroke-width: 0.6; }
-  .state-path:hover { fill: rgba(255,255,255,0.09); }
-  @keyframes pulse-gold {
-    0%,100% { r: 6; opacity:1; }
-    50%      { r: 9; opacity:0.6; }
-  }
-  @keyframes pulse-blue {
-    0%,100% { r: 6; opacity:1; }
-    50%      { r: 9; opacity:0.6; }
-  }
-</style>
-
-<script>
-(async function() {
-  const properties = [
-    { name: 'Groton, CT',        units: 112,  status: 'refinanced',  lat: 41.35,  lng: -72.08 },
-    { name: 'Warwick, RI',       units: 190,  status: 'refinanced',  lat: 41.71,  lng: -71.42 },
-    { name: 'Detroit, MI',       units: 128,  status: 'refinanced',  lat: 42.33,  lng: -83.05 },
-    { name: 'Erie, PA',          units: 197,  status: 'lease-up',    lat: 42.13,  lng: -80.09 },
-    { name: 'Silver Spring, MD', units: 227,  status: 'development', lat: 38.95,  lng: -77.35 },
-    { name: 'Baltimore, MD',     units: 303,  status: 'development', lat: 39.55,  lng: -76.38 },
-    { name: 'Burlington, NC',    units: 135,  status: 'stabilized',  lat: 36.10,  lng: -79.44 },
-    { name: 'Fayetteville, NC',  units: 228,  status: 'refinanced',  lat: 35.28,  lng: -79.18 },
-    { name: 'Fayetteville, NC',  units: 228,  status: 'refinanced',  lat: 34.82,  lng: -78.58 },
-    { name: 'Columbia, SC',      units: 146,  status: 'development', lat: 34.00,  lng: -81.03 },
-    { name: 'Ringgold, GA',      units: 104,  status: 'stabilized',  lat: 34.92,  lng: -85.11 },
-    { name: 'Dallas, TX',        units: 123,  status: 'development', lat: 33.05,  lng: -97.15 },
-    { name: 'Dallas, TX',        units: 122,  status: 'development', lat: 32.51,  lng: -96.45 },
-    { name: 'San Antonio, TX',   units: 169,  status: 'lease-up',    lat: 29.65,  lng: -98.75 },
-    { name: 'San Antonio, TX',   units: 169,  status: 'development', lat: 29.19,  lng: -98.23 },
-    { name: 'El Paso, TX',       units: 142,  status: 'lease-up',      lat: 31.76,  lng: -106.49 },
-    { name: 'Tucson, AZ',        units: 100,  status: 'development',   lat: 32.22,  lng: -110.97 },
-    { name: 'Norfolk, VA',       units: null, status: 'under-contract', lat: 36.85,  lng: -76.29 },
-    { name: 'Lakewood, CO',      units: null, status: 'under-contract', lat: 39.70,  lng: -105.08 },
-    { name: 'Arlington, VA',     units: null, status: 'under-contract', lat: 38.25,  lng: -77.35 },
-    { name: 'Charleston, NC',    units: null, status: 'under-contract', lat: 34.22,  lng: -77.95 },
-  ];
-
-  const colorMap = { refinanced: '#4CAF82', stabilized: '#F2C849', 'lease-up': '#E07A3A', development: '#6B9FD4', 'under-contract': 'rgba(255,255,255,0.35)' };
-
-  const wrap   = document.getElementById('map-wrap');
-  const svgEl  = document.getElementById('us-map');
-  const tip    = document.getElementById('map-tooltip');
-  const width  = wrap.offsetWidth;
-  const height = Math.round(width * 0.56);
-
-  svgEl.setAttribute('viewBox', `0 0 ${width} ${height}`);
-  svgEl.setAttribute('height', height);
-
-  const svg = d3.select('#us-map');
-
-  const projection = d3.geoAlbersUsa()
-    .scale(width * 1.22)
-    .translate([width / 2, height / 2]);
-
-  const path = d3.geoPath().projection(projection);
-
-  // Load US states TopoJSON
-  const us = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json');
-  const states = topojson.feature(us, us.objects.states);
-  const borders = topojson.mesh(us, us.objects.states, (a,b) => a !== b);
-
-  // Draw states
-  svg.append('g')
-    .selectAll('path')
-    .data(states.features)
-    .join('path')
-    .attr('class', 'state-path')
-    .attr('d', path);
-
-  // Draw state borders (inner)
-  svg.append('path')
-    .datum(borders)
-    .attr('fill', 'none')
-    .attr('stroke', 'rgba(255,255,255,0.2)')
-    .attr('stroke-width', 0.5)
-    .attr('d', path);
-
-  // Draw property dots
-  properties.forEach(p => {
-    const coords = projection([p.lng, p.lat]);
-    if (!coords) return;
-    const [x, y] = coords;
-    const r = 4;
-    const color = colorMap[p.status];
-
-    // Pulse ring — all dots
-    svg.append('circle')
-      .attr('cx', x).attr('cy', y).attr('r', r)
-      .attr('fill', 'none')
-      .attr('stroke', color)
-      .attr('stroke-width', 1.5)
-      .attr('opacity', 0)
-      .call(el => {
-        // stagger start time so all dots don't pulse in sync
-        const delay = Math.random() * 1800;
-        setTimeout(function pulse() {
-          el.attr('r', r).attr('opacity', 0.7)
-            .transition().duration(1600)
-            .attr('r', r + 12).attr('opacity', 0)
-            .on('end', pulse);
-        }, delay);
-      });
-
-    // Main dot
-    svg.append('circle')
-      .attr('cx', x).attr('cy', y).attr('r', r)
-      .attr('fill', color)
-      .attr('stroke', 'rgba(10,22,40,0.8)')
-      .attr('stroke-width', 1.5)
-      .style('cursor', 'pointer')
-      .on('mousemove', (event) => {
-        const statusLabel = p.status.split('-').map(w => w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
-        const label = p.units
-          ? `<strong>${p.name}</strong><br>${p.units} units · ${statusLabel}`
-          : `<strong>${p.name}</strong><br>${statusLabel}`;
-        tip.innerHTML = label;
-        tip.style.display = 'block';
-        const rect = wrap.getBoundingClientRect();
-        let tx = event.clientX - rect.left + 14;
-        let ty = event.clientY - rect.top - 48;
-        if (tx + 200 > width) tx = event.clientX - rect.left - 180;
-        tip.style.left = tx + 'px';
-        tip.style.top  = ty + 'px';
-      })
-      .on('mouseleave', () => { tip.style.display = 'none'; })
-      .on('mouseenter', function() { d3.select(this).attr('r', r * 1.5); })
-      .on('mouseleave', function() { d3.select(this).attr('r', r); tip.style.display = 'none'; });
-  });
-})();
-</script>
-
-<!-- ──────── 5. CTA ──────── -->
-<section style="background:#1B3A6B;padding:64px 28px;">
-  <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:32px;">
-    <div>
-      <h2 style="font-size:24px;font-weight:400;color:white;margin-bottom:8px;">Ready to learn more?</h2>
-      <p style="font-size:15px;color:rgba(255,255,255,0.5);">We work with a limited group of long-term capital partners.</p>
-    </div>
-    <div style="display:flex;gap:12px;flex-shrink:0;">
-      <a href="contact.html" style="background:#F2C849;border:none;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;cursor:pointer;text-decoration:none;">Contact Us</a>
-      <a href="#" style="background:transparent;border:1px solid rgba(255,255,255,0.3);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.8);cursor:pointer;text-decoration:none;">Investor Login</a>
-    </div>
-  </div>
-</section>
-
 <!-- ──────── FOOTER ──────── -->
-<footer style="background:#0A1628;padding:36px 28px 0;">
+<footer style="background:#0F2244;padding:64px 28px 28px;">
   <div class="container">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:48px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,0.07);">
-      <div style="display:flex;align-items:center;gap:32px;">
-        <a href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Strategy</a>
-        <a href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Portfolio</a>
-        <a href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Team</a>
-        <a href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Contact</a>
+    <!-- CTA row -->
+    <div class="footer-cta" style="display:flex;align-items:center;justify-content:space-between;gap:32px;margin-bottom:48px;">
+      <div>
+        <h2 style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:8px;">Ready to learn more?</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.5);">We work with a limited group of long-term capital partners.</p>
       </div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.28);letter-spacing:0.01em;white-space:nowrap;">
-        45 Rockefeller Plaza FL.20, New York, NY &nbsp;<span style="color:rgba(255,255,255,0.14);">|</span>&nbsp; Yad Harutzim 2, Netanya, Israel
+      <div style="display:flex;gap:12px;flex-shrink:0;">
+        <a href="contact.html" style="background:#F2C849;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;text-decoration:none;">Contact Us</a>
+        <a href="#" style="border:1px solid rgba(255,255,255,0.3);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;">Investor Login</a>
       </div>
     </div>
-    <div style="padding:14px 0 18px;display:flex;justify-content:space-between;align-items:center;">
-      <p style="font-size:11px;color:rgba(255,255,255,0.22);font-family:'Barlow',sans-serif;">© 2026 SafeHarbor Investors Group. All rights reserved.</p>
-      <p style="font-size:11px;color:rgba(255,255,255,0.18);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
+    <!-- Logo + addresses -->
+    <div class="footer-addresses-row" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:36px;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;">
+      <img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:40px;width:auto;opacity:0.6;">
+      <div class="footer-addresses" style="display:flex;gap:32px;">
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">United States</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">45 Rockefeller Plaza FL.20<br>New York, NY 10111</div>
+        </div>
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">Israel</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">Yad Harutzim 2<br>Netanya, Israel</div>
+        </div>
+      </div>
+    </div>
+    <!-- Disclaimer -->
+    <div class="footer-disclaimer" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:11px;color:rgba(255,255,255,0.2);font-family:'Barlow',sans-serif;">&copy; 2026 SafeHarbor Investors Group. All rights reserved.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.15);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
     </div>
   </div>
 </footer>

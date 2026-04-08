@@ -1,0 +1,12 @@
+# Local Netlify folder
+.netlify
+
+# Source photos (too large for git)
+Team photos/
+
+# Design drafts
+design-ideas/
+design-options.html
+
+# Claude config
+.claude/

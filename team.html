@@ -11,204 +11,493 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Barlow', sans-serif; background: #fff; color: #1A1A1A; }
 h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
 ::selection { background: #1B3A6B; color: white; }
+a { color: inherit; text-decoration: none; }
+a:visited { color: inherit; }
+a:hover { color: inherit; }
+#main-nav a, #main-nav a:visited, #main-nav a:hover, #main-nav a:active { text-decoration: none !important; }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 
-/* section tag label */
 .tag {
-  display: inline-block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: #F2C849; margin-bottom: 24px;
+  display: inline-block; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #F2C849;
 }
-
-/* divider */
 .divider { height: 1px; background: #E8EAF0; }
 
-/* fade-in on scroll */
+/* ── 3-card grid ── */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.team-card {
+  padding: 52px 36px; text-align: center; cursor: pointer;
+  border-right: 1px solid #E8EAF0; transition: background 0.3s;
+  position: relative;
+}
+.team-card:last-child { border-right: none; }
+.team-card:hover { background: #FAFBFD; }
+.team-card.active { background: #F7F8FA; }
+
+.team-card .headshot {
+  width: 100px; height: 100px; border-radius: 50%; overflow: hidden;
+  margin: 0 auto 20px; transition: transform 0.3s;
+}
+.team-card .headshot img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center 25%;
+  display: block;
+}
+/* per-person face positioning in circle */
+.team-card .headshot img.face-amnon { object-position: center 20%; }
+.team-card .headshot img.face-gil { object-position: center 18%; }
+.team-card:hover .headshot { transform: scale(1.06); }
+.team-card.active .headshot { box-shadow: 0 0 0 2px #F2C849; }
+.team-card h3 { font-size: 20px; font-weight: 700; color: #1B3A6B; margin-bottom: 6px; }
+.team-card .role {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #F2C849; margin-bottom: 18px;
+}
+.team-card .teaser { font-size: 13px; color: #777; line-height: 1.75; margin-bottom: 20px; }
+.team-card .expand-hint {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #1B3A6B;
+  opacity: 0.35; transition: opacity 0.2s, color 0.2s;
+}
+.team-card:hover .expand-hint { opacity: 1; color: #F2C849; }
+.team-card.active .expand-hint { opacity: 1; color: #F2C849; }
+
+/* ── expanded bio panel (dark, like Option C) ── */
+.bio-panel {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s ease;
+  background: #0F2244;
+}
+.bio-panel.open { max-height: 800px; }
+.bio-inner {
+  padding: 56px 48px;
+  display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: start;
+  max-width: 1080px; margin: 0 auto;
+}
+.bio-inner h3 { font-size: 26px; font-weight: 700; color: white; margin-bottom: 6px; }
+.bio-inner .role {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #F2C849; margin-bottom: 22px;
+}
+.bio-inner .bio-divider { height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 22px; }
+.bio-inner .bio-text p {
+  font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.52); margin-bottom: 14px;
+}
+.bio-inner .bio-text p:last-child { margin-bottom: 0; }
+
+/* right column: stat + links */
+.bio-right {
+  border-left: 1px solid rgba(255,255,255,0.08); padding-left: 48px;
+  display: flex; flex-direction: column; justify-content: center;
+  height: 100%;
+}
+.highlight-stat { margin-bottom: 32px; }
+.highlight-stat .num {
+  font-family: 'Libre Baskerville', serif; font-size: 52px; font-weight: 700;
+  color: #F2C849; line-height: 1;
+}
+.highlight-stat .label {
+  font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 8px; line-height: 1.5;
+}
+
+.bio-links { display: flex; flex-direction: column; gap: 12px; }
+.bio-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  transition: color 0.2s;
+}
+.bio-link:hover { color: #F2C849; }
+.bio-link svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+.bio-link .arrow { font-size: 11px; opacity: 0; transition: opacity 0.2s, transform 0.2s; margin-left: 2px; }
+.bio-link:hover .arrow { opacity: 1; transform: translateX(3px); }
+
+/* close button */
+.bio-close {
+  position: absolute; top: 20px; right: 24px;
+  background: rgba(255,255,255,0.06); border: none; color: rgba(255,255,255,0.3);
+  width: 32px; height: 32px; border-radius: 6px; font-size: 18px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.bio-close:hover { background: rgba(255,255,255,0.12); color: white; }
+
+/* ── philosophy section ── */
+.philosophy-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: #E8EAF0;
+}
+.philosophy-card { background: white; padding: 40px 32px; }
+.philosophy-num {
+  font-family: 'Libre Baskerville', serif; font-size: 13px; font-weight: 700;
+  color: rgba(242,200,73,0.4); margin-bottom: 16px;
+}
+.philosophy-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #1B3A6B; margin-bottom: 12px;
+}
+.philosophy-text { font-size: 14px; color: #666; line-height: 1.8; }
+
+/* ── fade-in ── */
 .fade { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .fade.visible { opacity: 1; transform: translateY(0); }
+
+/* Mobile hamburger */
+#mobile-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; z-index:201; }
+#mobile-toggle span { display:block; width:22px; height:2px; background:white; margin:5px 0; transition:0.3s; }
+
+@media (max-width: 768px) {
+  #mobile-toggle { display:block; }
+  #nav-links {
+    display:none !important;
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background:#0F2244;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:24px !important;
+    z-index:300;
+  }
+  #nav-links.mobile-open { display:flex !important; }
+  #nav-links .nav-link, #nav-links a { font-size:16px !important; color:white !important; }
+  #nav-login { font-size:14px !important; }
+  #mobile-close { display:block !important; position:absolute; top:24px; right:28px; background:none; border:none; cursor:pointer; color:white; font-size:28px; }
+
+  .container { padding:0 16px; }
+
+  /* Stack grids */
+  .grid-2col { grid-template-columns:1fr !important; gap:40px !important; }
+
+  /* Team grid responsive */
+  .team-grid { grid-template-columns:1fr !important; }
+  .team-card { border-right:none !important; border-bottom:1px solid #E8EAF0; }
+  .bio-inner { grid-template-columns:1fr !important; gap:32px !important; }
+  .bio-right { border-left:none !important; padding-left:0 !important; border-top:1px solid rgba(255,255,255,0.08); padding-top:24px; }
+  .philosophy-grid { grid-template-columns:1fr !important; }
+
+  /* Footer */
+  .footer-cta { flex-direction:column !important; text-align:center; gap:20px !important; }
+  .footer-addresses-row { flex-direction:column !important; gap:24px !important; }
+  .footer-addresses { flex-direction:column !important; gap:20px !important; }
+  .footer-disclaimer { flex-direction:column !important; gap:8px !important; text-align:center; }
+  .footer-disclaimer p { text-align:center !important; max-width:100% !important; }
+}
+
+@media (max-width: 480px) {
+  .container { padding:0 16px; }
+}
 </style>
 </head>
 <body>
 
 <!-- ──────── NAV ──────── -->
-<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;background:#1B3A6B;padding:0 28px;height:72px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,0.2);">
-  <a href="index.html"><img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;"></a>
-  <div style="display:flex;align-items:center;gap:28px;">
-    <a href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Strategy</a>
-    <a href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Portfolio</a>
-    <a href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:white;text-decoration:none;border-bottom:1px solid #F2C849;padding-bottom:2px;">Team</a>
-    <a href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;">Contact</a>
-    <a href="#" style="border:1px solid rgba(255,255,255,0.35);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-decoration:none;">Investor Login</a>
+<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;background:transparent;padding:0 28px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s ease, box-shadow 0.3s ease;">
+  <a href="index.html"><img id="nav-logo-white" src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;"><img id="nav-logo-color" src="logos/logo-color-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;display:none;"></a>
+  <button id="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  <div id="nav-links" style="display:flex;align-items:center;gap:28px;">
+    <button id="mobile-close" style="display:none;" onclick="document.getElementById('nav-links').classList.remove('mobile-open')">&times;</button>
+    <a class="nav-link" href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Strategy</a>
+    <a class="nav-link" href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Portfolio</a>
+    <a class="nav-link" href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #F2C849;padding-bottom:2px;">Team</a>
+    <a class="nav-link" href="esg.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">ESG</a>
+    <a class="nav-link" href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Contact</a>
+    <a href="#" id="nav-login" style="border:1px solid rgba(255,255,255,0.35);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-decoration:none;">Investor Login</a>
   </div>
 </nav>
+<script>
+(function() {
+  const nav = document.getElementById('main-nav');
+  const logoWhite = document.getElementById('nav-logo-white');
+  const logoColor = document.getElementById('nav-logo-color');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const loginBtn = document.getElementById('nav-login');
+  const hamSpans = document.querySelectorAll('#mobile-toggle span');
+
+  function setNavState(scrolled) {
+    if (scrolled) {
+      nav.style.background = 'white';
+      nav.style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+      logoWhite.style.display = 'none';
+      logoColor.style.display = 'block';
+      navLinks.forEach(a => { a.style.color = '#1B3A6B'; });
+      loginBtn.style.color = '#1B3A6B';
+      loginBtn.style.border = '1px solid #1B3A6B';
+      hamSpans.forEach(s => s.style.background = '#1B3A6B');
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.boxShadow = 'none';
+      logoWhite.style.display = 'block';
+      logoColor.style.display = 'none';
+      navLinks.forEach(a => { a.style.color = 'rgba(255,255,255,0.6)'; });
+      loginBtn.style.color = 'rgba(255,255,255,0.9)';
+      loginBtn.style.border = '1px solid rgba(255,255,255,0.35)';
+      hamSpans.forEach(s => s.style.background = 'white');
+    }
+  }
+
+  setNavState(false);
+  window.addEventListener('scroll', function() {
+    setNavState(window.scrollY > 80);
+  }, { passive: true });
+})();
+</script>
 
 <!-- ──────── HERO ──────── -->
 <section style="background:#0F2244;padding:120px 28px 64px;">
   <div class="container">
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-bottom:14px;">The Team</div>
-    <h1 style="font-size:44px;font-weight:400;color:white;line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px;">Experienced principals.<br><em style="color:#F5D76E;font-style:italic;">Aligned interests.</em></h1>
+    <h1 style="font-size:44px;font-weight:400;color:white;line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px;">Experienced principals.<br><em style="color:#F2C849;font-style:italic;">Aligned interests.</em></h1>
     <div style="width:40px;height:1px;background:#F2C849;margin-bottom:22px;"></div>
-    <p style="font-size:16px;color:rgba(255,255,255,0.55);line-height:1.75;max-width:520px;font-weight:300;">SafeHarbor is led by a team with proven track records in real estate investment, construction, capital markets, and operations — co-investing in every deal.</p>
+    <p style="font-size:16px;color:rgba(255,255,255,0.55);line-height:1.75;max-width:520px;font-weight:300;">SafeHarbor is led by three partners with proven track records in real estate investment, construction, and capital markets — co-investing in every deal alongside our investors.</p>
   </div>
 </section>
 
-<!-- ──────── CO-FOUNDERS ──────── -->
-<section style="background:white;padding:72px 28px 0;">
-  <div class="container">
+<!-- ──────── 3-CARD GRID ──────── -->
+<section style="background:white;">
 
-    <div class="fade" style="margin-bottom:28px;">
-      <span class="tag">Co-Founders</span>
+  <div class="team-grid">
+
+    <!-- Amnon card -->
+    <div class="team-card" onclick="toggleBio('amnon')" id="card-amnon">
+      <div class="headshot"><img src="Team photos/studio/amnon.jpg?v=7" alt="Amnon Bar-Tur" class="face-amnon"></div>
+      <h3>Amnon Bar-Tur</h3>
+      <div class="role">Co-Founder & Managing Partner</div>
+      <div class="teaser">Co-founded BaseCamp Student, acquired for $1B by Xior in 2022. Decades of experience across global real estate markets.</div>
+      <div class="expand-hint">Read Full Bio →</div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:64px;">
-
-      <!-- Amnon -->
-      <div class="fade" style="background:#F7F8FA;padding:48px 40px;">
-        <div style="width:64px;height:64px;border-radius:50%;background:#1B3A6B;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;color:#F2C849;letter-spacing:0.08em;margin-bottom:22px;">ABT</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">Amnon Bar-Tur</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F2C849;margin-bottom:22px;">Co-Founder &amp; Managing Partner</div>
-        <div class="divider" style="margin-bottom:22px;"></div>
-        <p style="font-size:14px;line-height:1.9;color:#555;margin-bottom:16px;">Amnon Bar-Tur is a seasoned real estate investor and entrepreneur with a distinguished track record in the global property market. Together with his son Armon, he co-founded BaseCamp Student, a leading student housing platform that became a market leader in Northern Europe. Under their leadership, the company expanded rapidly and was acquired in 2022 for $1 billion by Xior, a Belgian real estate investment trust — creating the largest European student housing company.</p>
-        <p style="font-size:14px;line-height:1.9;color:#555;margin-bottom:22px;">In addition to BaseCamp, Amnon has been actively involved in real estate investment and development across multiple asset classes, including residential, hospitality, and commercial properties. His expertise spans acquisitions, asset management, and value-driven strategies in international markets.</p>
-        <div style="display:flex;flex-direction:column;gap:5px;">
-          <span style="font-size:13px;color:#1B3A6B;">amnon@safeharbor-capital.com</span>
-          <span style="font-size:13px;color:#777;">+1 917-834-6101</span>
-        </div>
-      </div>
-
-      <!-- Nir -->
-      <div class="fade" style="background:#F7F8FA;padding:48px 40px;transition-delay:0.1s;">
-        <div style="width:64px;height:64px;border-radius:50%;background:#1B3A6B;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;color:#F2C849;letter-spacing:0.08em;margin-bottom:22px;">NY</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">Nir Yanushevsky</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F2C849;margin-bottom:22px;">Co-Founder &amp; Managing Partner</div>
-        <div class="divider" style="margin-bottom:22px;"></div>
-        <p style="font-size:14px;line-height:1.9;color:#555;margin-bottom:16px;">Nir Yanushevsky is the CEO of Yanushevsky Group, one of Israel's leading construction firms with a legacy dating back to 1946. With over 20 years of experience and a GC license, Nir has led the development of over 1,000 residential units in Tel Aviv, specializing in high-density urban renewal and demolition-rebuild projects.</p>
-        <p style="font-size:14px;line-height:1.9;color:#555;margin-bottom:22px;">Beyond residential work, the Group has executed major projects for Israel's most strategic sectors, including military and government infrastructure, and for international organizations including General Electric, Siemens, and Oracle. Today, he directs SafeHarbor's investments into transformative U.S.-based real estate opportunities.</p>
-        <div style="display:flex;flex-direction:column;gap:5px;">
-          <span style="font-size:13px;color:#1B3A6B;">nir@yanushus.com</span>
-          <span style="font-size:13px;color:#777;">+1 201-660-0820</span>
-        </div>
-      </div>
-
+    <!-- Nir card -->
+    <div class="team-card" onclick="toggleBio('nir')" id="card-nir">
+      <div class="headshot"><img src="Team photos/studio/nir.jpg?v=3" alt="Nir Yanushevsky" class="face-nir"></div>
+      <h3>Nir Yanushevsky</h3>
+      <div class="role">Co-Founder & Managing Partner</div>
+      <div class="teaser">CEO of Yanushevsky Group (est. 1946). 20+ years experience, 1,000+ residential units. Former Chairman, Israeli Builders Association.</div>
+      <div class="expand-hint">Read Full Bio →</div>
     </div>
 
-    <!-- ── PRINCIPALS ── -->
-    <div class="fade" style="margin-bottom:28px;">
-      <span class="tag">Principals &amp; Senior Team</span>
+    <!-- Gil card -->
+    <div class="team-card" onclick="toggleBio('gil')" id="card-gil">
+      <div class="headshot"><img src="Team photos/studio/gil.jpg?v=3" alt="Gil Cnaani-Yanushevsky" class="face-gil"></div>
+      <h3>Gil Cnaani-Yanushevsky</h3>
+      <div class="role">Principal & Head of IR</div>
+      <div class="teaser">Seasoned marketing and business development executive. Former Deloitte. BA, MBA, and MA from Tel Aviv University.</div>
+      <div class="expand-hint">Read Full Bio →</div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:64px;">
+  </div>
 
-      <!-- Adam Feldman -->
-      <div class="fade" style="background:white;border:1px solid #E8EAF0;padding:32px 28px;">
-        <div style="width:52px;height:52px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#1B3A6B;letter-spacing:0.06em;margin-bottom:18px;">AF</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">Adam Feldman</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#F2C849;margin-bottom:18px;">Principal</div>
-        <div class="divider" style="margin-bottom:16px;"></div>
-        <p style="font-size:13px;line-height:1.85;color:#666;">Adam Feldman is a Principal of SafeHarbor and GoodHomes. He has been the Co-Managing Partner of Lionbridge Capital LP, a value-oriented investment management firm focused on special situation investing in publicly traded real estate and real estate-related securities across the capital structure.</p>
-      </div>
+  <!-- ──── Expanded Bio Panels (dark) ──── -->
 
-      <!-- Daniel Matian -->
-      <div class="fade" style="background:white;border:1px solid #E8EAF0;padding:32px 28px;transition-delay:0.08s;">
-        <div style="width:52px;height:52px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#1B3A6B;letter-spacing:0.06em;margin-bottom:18px;">DM</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">Daniel Matian</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#F2C849;margin-bottom:18px;">Managing Director, Investments &amp; Capital Markets</div>
-        <div class="divider" style="margin-bottom:16px;"></div>
-        <p style="font-size:13px;line-height:1.85;color:#666;">Daniel Matian is the Managing Director of Investments and Capital Markets for SafeHarbor. He is responsible for sourcing new investments, underwriting, and raising capital. Prior to joining, Daniel served six years on the Investments Team for iStar and Safehold, with an aggregate exposure in excess of $4.5 billion.</p>
-      </div>
-
-      <!-- Leila Feldman -->
-      <div class="fade" style="background:white;border:1px solid #E8EAF0;padding:32px 28px;transition-delay:0.16s;">
-        <div style="width:52px;height:52px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#1B3A6B;letter-spacing:0.06em;margin-bottom:18px;">LF</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">Leila Feldman</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#F2C849;margin-bottom:18px;">Principal, Underwriting &amp; Financial Analysis</div>
-        <div class="divider" style="margin-bottom:16px;"></div>
-        <p style="font-size:13px;line-height:1.85;color:#666;">Leila Feldman is a Principal of SafeHarbor and GoodHomes, responsible for underwriting and financial analysis across the portfolio and new property pipeline. She previously worked in business development at Spotify and as an Associate Consultant at Capco. Leila graduated from the University of Pennsylvania, Wharton School.</p>
-      </div>
-
-      <!-- Gil -->
-      <div class="fade" style="background:white;border:1px solid #E8EAF0;padding:32px 28px;transition-delay:0s;">
-        <div style="width:52px;height:52px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#1B3A6B;letter-spacing:0.06em;margin-bottom:18px;">GCY</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">Gil Cnaani-Yanushevsky</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#F2C849;margin-bottom:18px;">Principal &amp; Head of Investor Relations</div>
-        <div class="divider" style="margin-bottom:16px;"></div>
-        <p style="font-size:13px;line-height:1.85;color:#666;">Gil Cnaani Yanushevsky is a Principal of SafeHarbor and Head of Investor Relations. A seasoned marketing and business development executive, Gil has extensive experience in real estate and corporate strategy, and previously specialized in brand positioning and client engagement at Deloitte.</p>
-      </div>
-
-      <!-- David Sterling -->
-      <div class="fade" style="background:white;border:1px solid #E8EAF0;padding:32px 28px;transition-delay:0.08s;">
-        <div style="width:52px;height:52px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#1B3A6B;letter-spacing:0.06em;margin-bottom:18px;">DS</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">David Sterling</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#F2C849;margin-bottom:18px;">Principal</div>
-        <div class="divider" style="margin-bottom:16px;"></div>
-        <p style="font-size:13px;line-height:1.85;color:#666;">David Sterling is a Principal of SafeHarbor and the owner and CEO of SterlingRisk, one of the largest privately held insurance brokerages in America. He has been an active real estate investor for 20+ years, with holdings across residential, commercial, and industrial.</p>
-      </div>
-
-      <!-- David Mitchell -->
-      <div class="fade" style="background:white;border:1px solid #E8EAF0;padding:32px 28px;transition-delay:0.16s;">
-        <div style="width:52px;height:52px;border-radius:50%;background:#F7F8FA;border:1px solid #E8EAF0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#1B3A6B;letter-spacing:0.06em;margin-bottom:18px;">DM</div>
-        <h3 style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:6px;">David Mitchell</h3>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#F2C849;margin-bottom:18px;">Principal</div>
-        <div class="divider" style="margin-bottom:16px;"></div>
-        <p style="font-size:13px;line-height:1.85;color:#666;">David Mitchell is a Principal of SafeHarbor and the founder of Mitchell Holdings LLC, a real estate firm focused on development of premier residential and commercial properties since 1990. He has over 30 years of finance, M&amp;A, and real estate experience, with over $4 billion in completed transactions.</p>
-      </div>
-
-    </div>
-
-    <!-- ── GC PARTNER ── -->
-    <div class="fade" style="margin-bottom:72px;">
-      <div style="background:#0A1628;padding:44px 52px;display:grid;grid-template-columns:1fr 2fr;gap:52px;align-items:center;">
+  <!-- Amnon Bio -->
+  <div class="bio-panel" id="bio-amnon">
+    <div style="position:relative;">
+      <button class="bio-close" onclick="closeBio(event)">&times;</button>
+      <div class="bio-inner">
         <div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:14px;">Construction Partner</div>
-          <h3 style="font-family:'Libre Baskerville',serif;font-size:22px;font-weight:400;color:white;line-height:1.35;">Innovative Technology Development Group (ITDG)</h3>
+          <h3>Amnon Bar-Tur</h3>
+          <div class="role">Co-Founder & Managing Partner</div>
+          <div class="bio-divider"></div>
+          <div class="bio-text">
+            <p>Amnon Bar-Tur is a seasoned real estate investor and entrepreneur with a distinguished track record in the global property market. Together with his son Armon, he co-founded BaseCamp Student, a leading student housing platform that became a market leader in Northern Europe. Under their leadership, the company expanded rapidly and was acquired in 2022 for $1 billion by Xior, a Belgian real estate investment trust, creating the largest European student housing company.</p>
+            <p>In addition to BaseCamp, Amnon has been actively involved in real estate investment and development across multiple asset classes, including residential, hospitality, and commercial properties. His investment expertise spans acquisitions, asset management, and value-driven strategies in international markets. Prior to BaseCamp, he held senior leadership roles in real estate firms and has played a pivotal role in structuring large-scale transactions.</p>
+          </div>
         </div>
-        <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.85;">ITDG is the general contractor for SafeHarbor's portfolio and the largest converter of hospitality assets to multifamily in the United States, with over 5,000 units delivered. Founded by Dave Williamson, who began his career as an electrical contractor in 1979, ITDG employs over 100 people and has worked with SafeHarbor on nine projects — as well as executing 20+ conversions for other multifamily operators.</p>
+        <div class="bio-right">
+          <div class="highlight-stat">
+            <div class="num">$1B</div>
+            <div class="label">BaseCamp Student exit — acquired by Xior, 2022</div>
+          </div>
+          <div class="bio-links">
+            <a href="https://www.linkedin.com/in/amnon-bar-tur/" target="_blank" class="bio-link">
+              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn Profile <span class="arrow">→</span>
+            </a>
+            <a href="https://basecampstudent.com" target="_blank" class="bio-link">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              BaseCamp Student <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
+  <!-- Nir Bio -->
+  <div class="bio-panel" id="bio-nir">
+    <div style="position:relative;">
+      <button class="bio-close" onclick="closeBio(event)">&times;</button>
+      <div class="bio-inner">
+        <div>
+          <h3>Nir Yanushevsky</h3>
+          <div class="role">Co-Founder & Managing Partner</div>
+          <div class="bio-divider"></div>
+          <div class="bio-text">
+            <p>Nir Yanushevsky is the CEO of Yanushevsky Group, one of Israel's leading construction firms with a legacy dating back to 1946. With over 20 years of experience and a GC license, Nir has led the development of over 1,000 residential units in Tel Aviv, specializing in high-density urban renewal and demolition-rebuild projects.</p>
+            <p>Beyond residential work, the Group — under Nir's leadership — has executed major projects for Israel's most strategic sectors, including military and government infrastructure, and for international organizations including General Electric, Siemens, and Oracle.</p>
+            <p>Nir formerly served as Vice President and Chairman of the Israeli Builders Association, representing the country's top construction firms and influencing national building policy. He is also a recognized industry leader internationally, holding roles in organizations like CICA and the Israel OSHA board.</p>
+          </div>
+        </div>
+        <div class="bio-right">
+          <div class="highlight-stat">
+            <div class="num">1,000+</div>
+            <div class="label">Residential units developed in Tel Aviv since 1946</div>
+          </div>
+          <div class="bio-links">
+            <a href="https://www.linkedin.com/in/nir-yanushevsky/" target="_blank" class="bio-link">
+              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn Profile <span class="arrow">→</span>
+            </a>
+            <a href="https://www.yanushevsky.co.il" target="_blank" class="bio-link">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              Yanushevsky Group <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gil Bio -->
+  <div class="bio-panel" id="bio-gil">
+    <div style="position:relative;">
+      <button class="bio-close" onclick="closeBio(event)">&times;</button>
+      <div class="bio-inner">
+        <div>
+          <h3>Gil Cnaani-Yanushevsky</h3>
+          <div class="role">Principal & Head of Investor Relations</div>
+          <div class="bio-divider"></div>
+          <div class="bio-text">
+            <p>Gil Cnaani-Yanushevsky is a Principal of SafeHarbor and Head of Investor Relations. She holds a BA in Psychology and Communications, an MBA in Marketing and Management, and an MA in Social Studies — all from Tel Aviv University.</p>
+            <p>She is a seasoned marketing and business development executive with extensive experience in real estate and corporate strategy. After relocating to the U.S. nearly a decade ago, Gil played a pivotal role in expanding the company's presence in the U.S. real estate market.</p>
+            <p>Her expertise in marketing, customer relations, and business growth was further honed during her tenure at Deloitte, where she specialized in brand positioning and client engagement. She has successfully led initiatives in strategic partnerships, operational management, and market expansion, driving measurable results across all of SafeHarbor's investor-facing operations.</p>
+          </div>
+        </div>
+        <div class="bio-right">
+          <div class="highlight-stat">
+            <div class="num">10+</div>
+            <div class="label">Years driving investor relations and market expansion in U.S. real estate</div>
+          </div>
+          <div class="bio-links">
+            <a href="https://www.linkedin.com/in/gil-cnaani-yanushevsky/" target="_blank" class="bio-link">
+              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn Profile <span class="arrow">→</span>
+            </a>
+            <a href="https://www.deloitte.com" target="_blank" class="bio-link">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              Formerly at Deloitte <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ──────── PHILOSOPHY ──────── -->
+<section style="background:#F7F8FA;padding:80px 28px;">
+  <div class="container">
+    <div class="fade" style="text-align:center;max-width:680px;margin:0 auto;">
+      <span class="tag" style="margin-bottom:14px;display:block;">How We Operate</span>
+      <h2 style="font-size:28px;font-weight:400;color:#1B3A6B;line-height:1.35;margin-bottom:20px;">We co-invest in every deal. Our capital is deployed alongside yours.</h2>
+      <div style="width:40px;height:1px;background:#F2C849;margin:0 auto 28px;"></div>
+      <p style="font-size:15px;color:#4A4A4A;line-height:1.9;">SafeHarbor was founded with family capital and a multigenerational mindset. We don't manage assets from a distance — we invest our own money, oversee execution on the ground, and hold ourselves accountable to the same outcomes as our partners.</p>
+    </div>
+
+    <div class="philosophy-grid" style="margin-top:56px;">
+      <div class="philosophy-card fade">
+        <div class="philosophy-num">01</div>
+        <div class="philosophy-title">Skin in the Game</div>
+        <p class="philosophy-text">Founded with family capital. We co-invest in every transaction, ensuring full alignment with our investors.</p>
+      </div>
+      <div class="philosophy-card fade" style="transition-delay:0.08s;">
+        <div class="philosophy-num">02</div>
+        <div class="philosophy-title">Field Experience</div>
+        <p class="philosophy-text">Multi-generational contractors and developers. We come from the field, not from a trading desk.</p>
+      </div>
+      <div class="philosophy-card fade" style="transition-delay:0.16s;">
+        <div class="philosophy-num">03</div>
+        <div class="philosophy-title">Margin of Safety</div>
+        <p class="philosophy-text">We deploy capital only with clear downside protection. Conservative assumptions drive every underwriting decision.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ──────── CTA ──────── -->
-<section style="background:#0A1628;padding:80px 28px;">
+<!-- FOOTER -->
+<footer style="background:#0F2244;padding:64px 28px 28px;">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;">
+    <div class="footer-cta" style="display:flex;align-items:center;justify-content:space-between;gap:32px;margin-bottom:48px;">
       <div>
-        <h2 style="font-size:28px;font-weight:400;color:white;line-height:1.35;margin-bottom:12px;">Ready to learn more about our current opportunities?</h2>
-        <p style="font-size:14px;color:rgba(255,255,255,0.38);line-height:1.7;">Detailed fund terms and asset information are available to accredited investors under NDA.</p>
+        <h2 style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:8px;">Ready to learn more?</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.5);">We work with a limited group of long-term capital partners.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
-        <a href="contact.html" style="display:block;background:#F2C849;border:none;padding:13px 32px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;cursor:pointer;white-space:nowrap;text-decoration:none;text-align:center;">Contact Us</a>
-        <a href="portfolio.html" style="display:block;background:transparent;border:1px solid rgba(255,255,255,0.22);padding:13px 32px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);cursor:pointer;white-space:nowrap;text-decoration:none;text-align:center;">Our Portfolio</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ──────── FOOTER ──────── -->
-<footer style="background:#0A1628;padding:36px 28px 0;">
-  <div class="container">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:48px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,0.07);">
-      <div style="display:flex;align-items:center;gap:32px;">
-        <a href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Strategy</a>
-        <a href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Portfolio</a>
-        <a href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Team</a>
-        <a href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;">Contact</a>
-      </div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.28);letter-spacing:0.01em;white-space:nowrap;">
-        45 Rockefeller Plaza FL.20, New York, NY &nbsp;<span style="color:rgba(255,255,255,0.14);">|</span>&nbsp; Yad Harutzim 2, Netanya, Israel
+      <div style="display:flex;gap:12px;flex-shrink:0;">
+        <a href="contact.html" style="background:#F2C849;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;text-decoration:none;">Contact Us</a>
+        <a href="#" style="border:1px solid rgba(255,255,255,0.3);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;">Investor Login</a>
       </div>
     </div>
-    <div style="padding:14px 0 18px;display:flex;justify-content:space-between;align-items:center;">
-      <p style="font-size:11px;color:rgba(255,255,255,0.22);font-family:'Barlow',sans-serif;">© 2026 SafeHarbor Investors Group. All rights reserved.</p>
-      <p style="font-size:11px;color:rgba(255,255,255,0.18);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
+    <div class="footer-addresses-row" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:36px;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;">
+      <img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:40px;width:auto;opacity:0.6;">
+      <div class="footer-addresses" style="display:flex;gap:32px;">
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">United States</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">45 Rockefeller Plaza FL.20<br>New York, NY 10111</div>
+        </div>
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">Israel</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">Yad Harutzim 2<br>Netanya, Israel</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:11px;color:rgba(255,255,255,0.2);font-family:'Barlow',sans-serif;">&copy; 2026 SafeHarbor Investors Group. All rights reserved.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.15);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
     </div>
   </div>
 </footer>
 
 <script>
+let currentOpen = null;
+
+function toggleBio(name) {
+  const panel = document.getElementById('bio-' + name);
+  const card = document.getElementById('card-' + name);
+
+  // If clicking the same one that's open, close it
+  if (currentOpen === name) {
+    panel.classList.remove('open');
+    card.classList.remove('active');
+    currentOpen = null;
+    return;
+  }
+
+  // Close any currently open panel
+  if (currentOpen) {
+    document.getElementById('bio-' + currentOpen).classList.remove('open');
+    document.getElementById('card-' + currentOpen).classList.remove('active');
+  }
+
+  // Open the new one
+  panel.classList.add('open');
+  card.classList.add('active');
+  currentOpen = name;
+
+  // Scroll to show the expanded panel
+  setTimeout(() => {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 150);
+}
+
+function closeBio(event) {
+  event.stopPropagation();
+  if (currentOpen) {
+    document.getElementById('bio-' + currentOpen).classList.remove('open');
+    document.getElementById('card-' + currentOpen).classList.remove('active');
+    currentOpen = null;
+  }
+}
+
 // Fade-in on scroll
 const fades = document.querySelectorAll('.fade');
 const obs = new IntersectionObserver(entries => {
