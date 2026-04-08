@@ -36,6 +36,20 @@ a:hover { color: inherit; }
   appearance: none;
 }
 .form-input:focus { border-color: #1B3A6B; }
+.form-input.error { border-color: #D9534F; }
+.field-error {
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px; color: #D9534F;
+  margin-top: 5px; display: none;
+}
+.toast {
+  position: fixed; top: 24px; right: 24px; z-index: 9999;
+  background: #0F2244; color: white; padding: 18px 28px;
+  font-family: 'Barlow', sans-serif; font-size: 14px;
+  border-left: 4px solid #F2C849; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transform: translateX(120%); transition: transform 0.4s ease;
+}
+.toast.show { transform: translateX(0); }
 select.form-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 textarea.form-input { resize: vertical; min-height: 120px; }
 
@@ -164,11 +178,13 @@ textarea.form-input { resize: vertical; min-height: 120px; }
           <div>
             <label class="form-label" for="f-email">Email Address</label>
             <input class="form-input" type="email" id="f-email" placeholder="you@example.com">
+            <div class="field-error" id="email-error">Please enter a valid email address.</div>
           </div>
         </div>
         <div style="margin-bottom:22px;">
           <label class="form-label" for="f-phone">Phone Number</label>
           <input class="form-input" type="tel" id="f-phone" placeholder="+1 / +972">
+          <div class="field-error" id="phone-error">Please enter a valid phone number.</div>
         </div>
         <div style="margin-bottom:22px;">
           <label class="form-label" for="f-type">Nature of Inquiry</label>
@@ -201,6 +217,9 @@ textarea.form-input { resize: vertical; min-height: 120px; }
         <p style="font-size:15px;color:#777;line-height:1.7;">Thank you for reaching out.<br>A member of our team will be in touch shortly.</p>
       </div>
     </div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
 
 
   </div>
@@ -241,16 +260,96 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 </footer>
 
 <script>
+function showToast(msg, duration) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration || 4000);
+}
+
+function clearError(id) {
+  document.getElementById(id).classList.remove('error');
+  const errEl = document.getElementById(id === 'f-email' ? 'email-error' : 'phone-error');
+  if (errEl) errEl.style.display = 'none';
+}
+
+function showError(id, errId) {
+  document.getElementById(id).classList.add('error');
+  document.getElementById(errId).style.display = 'block';
+}
+
+// live clear errors on input
+document.getElementById('f-email').addEventListener('input', () => clearError('f-email'));
+document.getElementById('f-phone').addEventListener('input', () => clearError('f-phone'));
+
 function submitForm() {
   const name = document.getElementById('f-name').value.trim();
   const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const type = document.getElementById('f-type').value;
+  const msg = document.getElementById('f-msg').value.trim();
+
+  // clear previous errors
+  clearError('f-email');
+  clearError('f-phone');
+
+  let hasError = false;
+
   if (!name || !email) {
-    alert('Please enter your name and email address.');
+    if (!name) showToast('Please enter your name.');
+    if (!email) { showError('f-email', 'email-error'); }
     return;
   }
-  document.getElementById('form-wrap').style.display = 'none';
-  const s = document.getElementById('form-success');
-  s.style.display = 'flex';
+
+  // email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showError('f-email', 'email-error');
+    hasError = true;
+  }
+
+  // phone validation (if provided) — allow +, digits, spaces, dashes, parens
+  if (phone) {
+    const phoneClean = phone.replace(/[\s\-\(\)\+\.]/g, '');
+    if (phoneClean.length < 7 || !/^\d+$/.test(phoneClean)) {
+      showError('f-phone', 'phone-error');
+      hasError = true;
+    }
+  }
+
+  if (hasError) return;
+
+  // send via Formsubmit.co
+  const btn = document.querySelector('#form-wrap button');
+  btn.textContent = 'SENDING...';
+  btn.disabled = true;
+
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('phone', phone || 'Not provided');
+  formData.append('inquiry_type', type || 'Not selected');
+  formData.append('message', msg || 'No message');
+  formData.append('_subject', 'SafeHarbor Website — New ' + (type || 'General') + ' inquiry from ' + name);
+  formData.append('_captcha', 'false');
+  formData.append('_template', 'table');
+
+  fetch('https://formsubmit.co/ajax/gil@yanushus.com', {
+    method: 'POST',
+    body: formData
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('form-wrap').style.display = 'none';
+    const s = document.getElementById('form-success');
+    s.style.display = 'flex';
+    showToast('Your message has been sent successfully!', 5000);
+  })
+  .catch(err => {
+    showToast('Something went wrong. Please try again.', 5000);
+    btn.textContent = 'SEND MESSAGE';
+    btn.disabled = false;
+  });
 }
 
 // Fade-in on scroll
