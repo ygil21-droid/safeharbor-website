@@ -101,6 +101,7 @@ a:hover { color: inherit; }
   .grid-2col { grid-template-columns:1fr !important; gap:40px !important; }
   .impact-grid { grid-template-columns:1fr !important; }
   .philosophy-grid { grid-template-columns:1fr !important; }
+  .split-quote { grid-template-columns:1fr !important; }
 
   /* Footer */
   .footer-cta { flex-direction:column !important; text-align:center; gap:20px !important; }
@@ -227,25 +228,32 @@ a:hover { color: inherit; }
       <div style="width:40px;height:1px;background:#F2C849;margin:0 auto 28px;"></div>
       <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:12px;">38% of the U.S. population falls into the workforce housing category, yet vacancy rates sit at just 3%. These are the people who keep cities running — teachers, nurses, firefighters, military personnel, government workers, retail and warehouse employees. They earn too much for public assistance but cannot afford market-rate housing.</p>
       <p style="font-size:15px;color:#4A4A4A;line-height:1.9;margin-bottom:32px;">SafeHarbor's projects serve renters at 60 to 120% of Area Median Income, transforming neighborhood eyesores into vibrant communities with Class A amenities.</p>
-      <h3 style="font-family:'Libre Baskerville',serif;font-size:22px;font-weight:400;color:#1B3A6B;line-height:1.4;">We don't build discount housing. We build homes people are proud to live in, at rents they can actually afford.</h3>
     </div>
 
-    <div class="fade" style="margin-top:48px;">
-      <div style="max-width:500px;margin:0 auto;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;margin-bottom:16px;">Community Amenities</div>
-        <ul class="gold-dot-list">
-          <li>Pool and indoor pool</li>
-          <li>Fitness center</li>
-          <li>Co-working space</li>
-          <li>Clubhouse and tenant lounge</li>
-          <li>Onsite restaurant</li>
-          <li>Sports court</li>
-          <li>BBQ and picnic area</li>
-          <li>Community firepit</li>
-          <li>Package room</li>
-          <li>Laundry facilities</li>
-          <li>Secured gated community</li>
-        </ul>
+    <!-- Split: gold quote left + amenity list right -->
+    <div class="fade" style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:52px;">
+      <div style="background:linear-gradient(135deg,#F2C849 0%,#E8B830 100%);padding:48px 40px;display:flex;align-items:center;">
+        <h3 style="font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;color:#0F2244;line-height:1.55;">We don't build discount housing. We build homes people are proud to live in, at rents they can actually afford.</h3>
+      </div>
+      <div style="background:white;padding:40px 40px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;margin-bottom:18px;">Community Amenities</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 28px;">
+          <ul class="gold-dot-list">
+            <li>Pool and indoor pool</li>
+            <li>Fitness center</li>
+            <li>Co-working space</li>
+            <li>Clubhouse and lounge</li>
+            <li>Onsite restaurant</li>
+            <li>Sports court</li>
+          </ul>
+          <ul class="gold-dot-list">
+            <li>BBQ and picnic area</li>
+            <li>Community firepit</li>
+            <li>Package room</li>
+            <li>Laundry facilities</li>
+            <li>Secured gated community</li>
+          </ul>
+        </div>
       </div>
     </div>
 
