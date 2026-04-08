@@ -191,16 +191,12 @@ a:hover { color: inherit; }
       <!-- right: highlights -->
       <div style="padding:28px 32px;">
         <div id="modal-highlights" style="display:flex;flex-direction:column;gap:10px;"></div>
-        <div id="modal-website"></div>
       </div>
 
     </div>
 
-    <!-- split CTA buttons -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
-      <a href="https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents" target="_blank" style="display:block;background:#F7F8FA;border:none;border-right:1px solid #E8EAF0;padding:18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#1B3A6B;text-decoration:none;text-align:center;">Investor Login →</a>
-      <a href="contact.html" style="display:block;background:#0F2244;border:none;padding:18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;cursor:pointer;text-decoration:none;text-align:center;">Request Information →</a>
-    </div>
+    <!-- bottom bar (dynamic) -->
+    <div id="modal-bottom-bar"></div>
 
   </div>
 </div>
@@ -876,12 +872,26 @@ function openProperty(key) {
       <p style="font-size:13px;color:#4A4A4A;line-height:1.65;">${h}</p>
     </div>`).join('');
 
-  // website link
-  const wl = document.getElementById('modal-website');
+  // bottom bar — C5 style
+  const bb = document.getElementById('modal-bottom-bar');
+  const linkStyle = "font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.92);text-decoration:none;transition:color 0.2s;";
+  const dot = `<span style="color:#F2C849;font-size:10px;margin:0 20px;">●</span>`;
+  const loginUrl = 'https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents';
+
   if (p.website) {
-    wl.innerHTML = `<a href="${p.website}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;text-decoration:none;border:1px solid #1B3A6B;padding:10px 22px;margin-top:20px;transition:all 0.2s;" onmouseover="this.style.background='#1B3A6B';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#1B3A6B'">Visit Property Website →</a>`;
+    bb.innerHTML = `<div style="background:#0F2244;padding:18px 0;text-align:center;display:flex;align-items:center;justify-content:center;">
+      <a href="${p.website}" target="_blank" style="${linkStyle}" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='rgba(255,255,255,0.92)'">Property Website</a>
+      ${dot}
+      <a href="${loginUrl}" target="_blank" style="${linkStyle}" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='rgba(255,255,255,0.92)'">Investor Login</a>
+      ${dot}
+      <a href="contact.html" style="${linkStyle}" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='rgba(255,255,255,0.92)'">Contact Us</a>
+    </div>`;
   } else {
-    wl.innerHTML = '';
+    bb.innerHTML = `<div style="background:#0F2244;padding:18px 0;text-align:center;display:flex;align-items:center;justify-content:center;">
+      <a href="${loginUrl}" target="_blank" style="${linkStyle}" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='rgba(255,255,255,0.92)'">Investor Login</a>
+      ${dot}
+      <a href="contact.html" style="${linkStyle}" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='rgba(255,255,255,0.92)'">Contact Us</a>
+    </div>`;
   }
 
   // open
