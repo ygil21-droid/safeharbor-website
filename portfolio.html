@@ -191,6 +191,7 @@ a:hover { color: inherit; }
       <!-- right: highlights -->
       <div style="padding:28px 32px;">
         <div id="modal-highlights" style="display:flex;flex-direction:column;gap:10px;"></div>
+        <div id="modal-website"></div>
       </div>
 
     </div>
@@ -384,7 +385,7 @@ a:hover { color: inherit; }
                 <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Ringgold, GA</div>
                 <span class="badge badge-stabilized">Stabilized</span>
               </div>
-              <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Ringgold Residences</div>
+              <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Chattanooga Residences</div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:#AAA;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">104 Units</div>
               <p style="font-size:12px;color:#5A5A5A;line-height:1.6;">Chattanooga suburban workforce corridor. Fully stabilized asset.</p>
             </div>
@@ -656,8 +657,9 @@ const properties = {
     name: 'The Dylan', location: 'Groton, Connecticut', units: '112 Units',
     status: 'refinanced', statusLabel: 'Refinanced',
     img: 'logos/groton-interior.jpg',
-    desc: 'One of SafeHarbor\'s earliest completed assets. A full hotel-to-residential conversion in Southern Connecticut, serving the New London County workforce corridor. The Dylan was stabilized ahead of schedule and subsequently refinanced.',
-    highlights: ['Full hotel-to-residential conversion', 'Stabilized and refinanced ahead of schedule', 'Serves the New London County workforce corridor'],
+    website: 'https://www.goodhomesgroton.com/',
+    desc: 'A 112-unit conversion of an extended-stay hotel into spacious one- and two-bedroom apartments and studios. Located 2 miles from the Naval Submarine Base (7,500+ active duty), 3 miles from General Dynamics Electric Boat (8,000+ employees), and adjacent to Pfizer\'s global headquarters. Stabilized and refinanced ahead of schedule.',
+    highlights: ['Naval Submarine Base & Electric Boat workforce corridor', 'Opportunity Zone designation', 'Stabilized and refinanced ahead of schedule'],
     market: 'New London County, CT · Hotel → Multifamily',
     mapQ: 'Groton,+CT'
   },
@@ -665,8 +667,9 @@ const properties = {
     name: 'The Presley', location: 'Warwick, Rhode Island', units: '207 Units',
     status: 'refinanced', statusLabel: 'Refinanced',
     img: 'logos/bordeaux-interior.jpg',
-    desc: 'Located in the Providence metro workforce corridor, The Bordeaux delivered high-quality affordable apartments to one of New England\'s most supply-constrained rental markets. Successfully stabilized and refinanced.',
-    highlights: ['Providence metro workforce corridor', 'Successfully stabilized and refinanced', 'Strong in-place occupancy'],
+    website: 'https://www.presleyapts.com/',
+    desc: 'A 207-unit conversion of a former Sheraton hotel into 163 studios and 27 one-bedroom apartments in Rhode Island\'s tightest rental market. Adjacent to T.F. Green International Airport and near Amazon\'s 4M sq ft fulfillment center. Indoor pool, co-working space, and onsite restaurant.',
+    highlights: ['Among the lowest vacancy rates in the country', 'Adjacent to T.F. Green Airport & Amazon fulfillment center', 'Indoor pool, co-working, onsite restaurant'],
     market: 'Providence Metro, RI · Hotel → Multifamily',
     mapQ: 'Warwick,+Rhode+Island'
   },
@@ -674,8 +677,9 @@ const properties = {
     name: 'Detroit Commons', location: 'Detroit, Michigan', units: '128 Units',
     status: 'refinanced', statusLabel: 'Refinanced',
     img: 'logos/detroit.jpg',
-    desc: 'A workforce conversion in the greater Detroit metro, serving the automotive, healthcare, and light manufacturing workforce base. Stabilized and refinanced.',
-    highlights: ['Serves automotive and healthcare workforce base', 'Stabilized and refinanced', 'Metro Detroit workforce corridor'],
+    website: 'https://www.goodhomesdetroit.com/',
+    desc: 'A 128-unit community of sixteen standalone buildings offering oversized studios, one-bedroom, and two-bedroom duplex apartments. Located 5 minutes from Ford Motor Company World Headquarters (48,000 employees) and 1.5 miles from University of Michigan–Dearborn. Pool, clubhouse, fitness center, and sports court.',
+    highlights: ['5 min from Ford HQ (48,000 employees)', 'Near University of Michigan–Dearborn', 'Stabilized and refinanced'],
     market: 'Detroit Metro, MI · Hotel → Multifamily',
     mapQ: 'Detroit,+Michigan'
   },
@@ -683,17 +687,19 @@ const properties = {
     name: 'The Louie', location: 'Burlington, North Carolina', units: '135 Units',
     status: 'stabilized', statusLabel: 'Stabilized',
     img: 'logos/burlington.jpg',
-    desc: 'Located in the Piedmont Triad workforce market, Burlington Residences is a fully stabilized asset serving the manufacturing, logistics, and healthcare workforce in the Burlington-Graham corridor.',
-    highlights: ['Fully stabilized with strong occupancy', 'Piedmont Triad workforce market', 'Manufacturing and healthcare demand base'],
+    website: 'https://www.goodhomeslouie.com/',
+    desc: 'A 135-unit studio community in North Carolina\'s fastest-growing region, positioned between the Research Triangle and Piedmont Triad. Located in an Opportunity Zone with proximity to Greensboro (20 min) and Research Triangle Park (40 min). Pool, fitness center, and 4,500 sq ft of commercial space.',
+    highlights: ['Opportunity Zone designation', 'Between Research Triangle & Piedmont Triad', 'Fully stabilized with strong occupancy'],
     market: 'Alamance County, NC · Hotel → Multifamily',
     mapQ: 'Burlington,+North+Carolina'
   },
   ringgold: {
-    name: 'Ringgold Residences', location: 'Ringgold, Georgia', units: '104 Units',
+    name: 'Chattanooga Residences', location: 'Ringgold, Georgia', units: '104 Units',
     status: 'stabilized', statusLabel: 'Stabilized',
-    img: 'logos/groton-interior.jpg',
-    desc: 'A stabilized workforce housing asset in the Chattanooga suburban corridor. Ringgold serves the manufacturing and distribution workforce in one of the Southeast\'s most active industrial markets.',
-    highlights: ['Fully stabilized asset', 'Chattanooga suburban workforce corridor', 'Industrial and manufacturing demand base'],
+    img: 'logos/ringgold.jpg',
+    website: 'https://www.goodhomeschattanooga.com/',
+    desc: 'A 104-unit workforce community in the Chattanooga suburban corridor offering studios, junior one-bedrooms, and full one-bedrooms. Adjacent to a new $100M+ logistics park expected to create 700+ jobs. Clubhouse, pool with cabana, fitness center, and community firepit.',
+    highlights: ['Adjacent to $100M+ logistics park development', 'Immediate leasing upon acquisition', 'Chattanooga suburban workforce corridor'],
     market: 'Catoosa County, GA · Hotel → Multifamily',
     mapQ: 'Ringgold,+Georgia'
   },
@@ -701,17 +707,19 @@ const properties = {
     name: 'Fayetteville Portfolio', location: 'Fayetteville, North Carolina', units: '453 Units · 2 Assets',
     status: 'refinanced', statusLabel: 'Refinanced',
     img: 'logos/fayetteville.jpg',
-    desc: 'A two-asset cluster in the Fayetteville market serving the Fort Bragg / Fort Liberty military installation and the regional healthcare workforce. Both assets have been stabilized and refinanced.',
-    highlights: ['Two-asset cluster in Fayetteville', 'Fort Liberty / military workforce demand', 'Both assets stabilized and refinanced'],
+    website: 'https://www.goodhomesbordeaux.com/',
+    desc: 'Two-asset cluster serving the Fort Liberty military installation (50,000+ active-duty) and Cape Fear Medical Center (7,000 staff). The Bordeaux (255 units) features a clubhouse, pool, and onsite restaurant. Cedar Creek (198 units) includes an indoor pool and 15,000 sq ft of commercial space. Both stabilized and refinanced.',
+    highlights: ['15 min from Fort Liberty (50,000+ soldiers)', 'Walking distance to Cape Fear Medical Center', 'Both assets stabilized and refinanced'],
     market: 'Cumberland County, NC · 2 Hotels → Multifamily',
     mapQ: 'Fayetteville,+North+Carolina'
   },
   erie: {
     name: 'The Bowie', location: 'Erie, Pennsylvania', units: '197 Units',
     status: 'lease-up', statusLabel: 'Lease-Up',
-    img: 'logos/groton-interior.jpg',
-    desc: 'Conversion complete and in active lease-up. Erie serves a strong healthcare and manufacturing workforce base with near-zero vacancy in the affordable rental segment.',
-    highlights: ['Conversion complete; active lease-up phase', 'Healthcare and manufacturing workforce base', 'Near-zero vacancy in affordable segment'],
+    img: 'logos/erie.jpg',
+    website: 'https://www.bowieapts.com/',
+    desc: 'A 197-unit conversion in downtown Erie\'s redevelopment district and Opportunity Zone. Eight-story building one block from Erie Insurance Arena, adjacent to Gannon University (4,500+ students), and within one mile of Saint Vincent Hospital and Erie VA Medical Center. 12,000 sq ft leased to UPMC for medical offices.',
+    highlights: ['Opportunity Zone; downtown redevelopment district', '12,000 sq ft leased to UPMC', 'Adjacent to Gannon University & major hospitals'],
     market: 'Erie County, PA · Hotel → Multifamily',
     mapQ: 'Erie,+Pennsylvania'
   },
@@ -719,8 +727,8 @@ const properties = {
     name: 'Valor Hill', location: 'San Antonio, Texas', units: '118 Units',
     status: 'lease-up', statusLabel: 'Lease-Up',
     img: 'logos/sanantonio.webp',
-    desc: 'One of two San Antonio assets in the portfolio, The William is in active lease-up in one of the fastest-growing workforce markets in Texas. Strong military and healthcare demand from Joint Base San Antonio.',
-    highlights: ['Active lease-up phase; conversion complete', 'Joint Base San Antonio workforce demand', 'One of Texas\'s fastest-growing rental markets'],
+    desc: 'A 118-unit workforce community serving Joint Base San Antonio — one of the largest military installations in the U.S. Active lease-up in one of Texas\'s fastest-growing rental markets with strong military and healthcare demand.',
+    highlights: ['Joint Base San Antonio workforce demand', 'One of Texas\'s fastest-growing rental markets', 'Active lease-up phase'],
     market: 'Bexar County, TX · Hotel → Multifamily',
     mapQ: 'San+Antonio,+Texas'
   },
@@ -728,17 +736,17 @@ const properties = {
     name: 'El Paso Residences', location: 'El Paso, Texas', units: '142 Units',
     status: 'lease-up', statusLabel: 'Lease-Up',
     img: 'logos/elpaso.jpg',
-    desc: 'In active lease-up in El Paso, serving the Fort Bliss military installation and the cross-border workforce corridor. Conversion complete with strong early leasing velocity.',
-    highlights: ['Conversion complete; active lease-up', 'Fort Bliss and border economy workforce demand', 'Strong early leasing velocity'],
+    desc: 'A 142-unit conversion serving the Fort Bliss military installation and cross-border workforce corridor. Conversion complete with strong early leasing velocity in one of the most undersupplied affordable markets in West Texas.',
+    highlights: ['Fort Bliss military workforce demand', 'Cross-border economy workforce corridor', 'Strong early leasing velocity'],
     market: 'El Paso County, TX · Hotel → Multifamily',
     mapQ: 'El+Paso,+Texas'
   },
   silverspring: {
     name: 'Silver Spring Commons', location: 'Silver Spring, Maryland', units: '227 Units',
     status: 'development', statusLabel: 'In Development',
-    img: 'logos/groton-interior.jpg',
-    desc: 'Located minutes from Washington D.C. in one of the highest-demand workforce corridors on the East Coast. Silver Spring Commons is in active conversion with entitlements fully secured.',
-    highlights: ['Minutes from Washington D.C.', 'Federal and healthcare workforce corridor', 'Entitlements secured; conversion underway'],
+    img: 'logos/silverspring.jpg',
+    desc: 'A 227-unit conversion of a former DoubleTree hotel minutes from Washington D.C. in Montgomery County\'s highest-demand workforce corridor. Adjacent to the Silver Spring Metro station, Children\'s Hospital, and major federal employers. Conversion underway with entitlements fully secured.',
+    highlights: ['Minutes from Washington D.C.', 'Adjacent to Metro station & Children\'s Hospital', 'Entitlements secured; conversion underway'],
     market: 'Montgomery County, MD · Hotel → Multifamily',
     mapQ: 'Silver+Spring,+Maryland'
   },
@@ -746,7 +754,7 @@ const properties = {
     name: 'The Billie', location: 'Baltimore, Maryland', units: '303 Units',
     status: 'development', statusLabel: 'In Development',
     img: 'logos/baltimore.jpg',
-    desc: 'The largest asset in the SafeHarbor portfolio. A landmark conversion in Baltimore\'s Inner Harbor workforce district, serving the healthcare, government, and port-economy workforce. Active conversion phase.',
+    desc: 'The largest asset in the SafeHarbor portfolio at 303 units. A landmark conversion at 222 Saint Paul Place in Baltimore\'s Inner Harbor district, serving the healthcare, government, and port-economy workforce. Active conversion phase.',
     highlights: ['Largest asset in the portfolio — 303 units', 'Inner Harbor area workforce demand', 'Healthcare, government, and port-economy base'],
     market: 'Baltimore City, MD · Hotel → Multifamily',
     mapQ: 'Baltimore,+Maryland'
@@ -754,36 +762,36 @@ const properties = {
   columbia: {
     name: 'The Dylan Columbia', location: 'Columbia, South Carolina', units: '146 Units',
     status: 'development', statusLabel: 'In Development',
-    img: 'logos/groton-interior.jpg',
-    desc: 'A workforce conversion in the state capital, serving the government, healthcare, and University of South Carolina workforce base. Conversion currently underway.',
-    highlights: ['State capital workforce and university market', 'Government and healthcare demand base', 'Conversion underway; entitlements secured'],
+    img: 'logos/columbia.jpg',
+    desc: 'A 146-unit conversion at 1930 Marion Street in South Carolina\'s capital city. Serves the state government, healthcare, and University of South Carolina workforce base. Conversion currently underway.',
+    highlights: ['State capital workforce and university market', 'Government and healthcare demand base', 'Conversion underway'],
     market: 'Richland County, SC · Hotel → Multifamily',
     mapQ: 'Columbia,+South+Carolina'
   },
   dallas: {
     name: 'The Otis & The Nora', location: 'Dallas, Texas', units: '245 Units · 2 Assets',
     status: 'development', statusLabel: 'In Development',
-    img: 'logos/groton-interior.jpg',
-    desc: 'Two-asset cluster in the Dallas–Fort Worth metro — one of the fastest-growing workforce markets in the United States. Both assets are entitled and in active conversion.',
-    highlights: ['Two-asset DFW metro cluster', 'One of the fastest-growing U.S. workforce markets', 'Both assets entitled and in active conversion'],
+    img: 'logos/dallas.jpg',
+    desc: 'Two-asset cluster in the Dallas–Fort Worth metro. The Otis (103 units) on N Central Expressway and The Nora (142 units) on N Stemmons Freeway — positioned in one of the fastest-growing workforce markets in the United States. Both in active conversion.',
+    highlights: ['Two-asset DFW metro cluster', 'The Otis (103 units) + The Nora (142 units)', 'One of the fastest-growing U.S. workforce markets'],
     market: 'Dallas-Fort Worth Metro, TX · 2 Hotels → Multifamily',
     mapQ: 'Dallas,+Texas'
   },
   sanantonio_s: {
     name: 'Alamo Plaza', location: 'San Antonio, Texas', units: '220 Units',
     status: 'development', statusLabel: 'In Development',
-    img: 'logos/sanantonio.webp',
-    desc: 'Second San Antonio asset in active conversion, serving the military and medical workforce on the south side of the city. Entitlements secured; conversion underway.',
-    highlights: ['Second San Antonio portfolio asset', 'Military and medical workforce demand', 'Entitlements secured; conversion underway'],
+    img: 'logos/sanantonio-south.jpg',
+    desc: 'A 220-unit conversion of the Sonesta ES Suites at 425 Bonham Street in downtown San Antonio, steps from the Alamo. Serving the city\'s military, medical, and tourism workforce in one of Texas\'s most dynamic markets.',
+    highlights: ['Downtown location near the Alamo', 'Military, medical, and tourism workforce', '220 units — second San Antonio asset'],
     market: 'Bexar County, TX · Hotel → Multifamily',
     mapQ: 'San+Antonio,+Texas'
   },
   tucson: {
     name: 'Tucson Residences', location: 'Tucson, Arizona', units: '100 Units',
     status: 'development', statusLabel: 'In Development',
-    img: 'logos/groton-interior.jpg',
-    desc: 'A conversion serving the University of Arizona and Davis-Monthan Air Force Base workforce corridor. Active conversion underway in one of Arizona\'s most undersupplied affordable markets.',
-    highlights: ['University of Arizona and DMAFB workforce corridor', 'Active conversion underway', 'Undersupplied affordable rental market'],
+    img: 'logos/tucson.jpg',
+    desc: 'A 100-unit conversion serving the University of Arizona and Davis-Monthan Air Force Base workforce corridor. Active conversion underway in one of Arizona\'s most undersupplied affordable rental markets.',
+    highlights: ['University of Arizona & DMAFB workforce corridor', 'Active conversion underway', 'Undersupplied affordable rental market'],
     market: 'Pima County, AZ · Hotel → Multifamily',
     mapQ: 'Tucson,+Arizona'
   },
@@ -867,6 +875,14 @@ function openProperty(key) {
       <div style="width:4px;height:4px;border-radius:50%;background:#F2C849;margin-top:7px;flex-shrink:0;"></div>
       <p style="font-size:13px;color:#4A4A4A;line-height:1.65;">${h}</p>
     </div>`).join('');
+
+  // website link
+  const wl = document.getElementById('modal-website');
+  if (p.website) {
+    wl.innerHTML = `<a href="${p.website}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;text-decoration:none;border:1px solid #1B3A6B;padding:10px 22px;margin-top:20px;transition:all 0.2s;" onmouseover="this.style.background='#1B3A6B';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#1B3A6B'">Visit Property Website →</a>`;
+  } else {
+    wl.innerHTML = '';
+  }
 
   // open
   document.getElementById('prop-modal').classList.add('open');
