@@ -1,8 +1,9 @@
 # Local Netlify folder
 .netlify
 
-# Source photos (too large for git)
-Team photos/
+# Source photos (too large for git — studio/ is small enough to include)
+Team photos/*
+!Team photos/studio/
 
 # Design drafts
 design-ideas/
