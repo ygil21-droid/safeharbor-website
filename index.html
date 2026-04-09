@@ -43,10 +43,11 @@ a:hover { color: inherit; }
   .hero-heading { font-size:32px !important; }
   .hero-sub { font-size:15px !important; }
 
-  /* Stats row */
-  .stats-row { flex-wrap:wrap !important; gap:8px !important; }
-  .stats-row > div[style*="flex:1"] { flex:1 1 40% !important; min-width:120px; }
-  .stats-row .stat-num { font-size:28px !important; }
+  /* Portfolio header bar: stack on mobile */
+  .portfolio-header-bar { flex-direction:column !important; align-items:flex-start !important; gap:16px !important; }
+  .stats-row { flex-wrap:wrap !important; gap:4px !important; }
+  .stats-row > div[style*="padding:0 20px"] { padding:0 12px !important; }
+  .stats-row .stat-num { font-size:22px !important; }
   .stats-row .stat-divider { display:none; }
 
   /* 2-col grids → single col */
@@ -168,45 +169,44 @@ a:hover { color: inherit; }
 <!-- ──────── STATS + PORTFOLIO MAP ──────── -->
 <section style="background:#0F2244;" id="portfolio-section">
 
-  <!-- Stats row -->
-  <div style="padding:36px 28px 28px;">
-    <div class="container">
-      <div class="stats-row" style="display:flex;justify-content:center;align-items:center;">
-        <div style="text-align:center;flex:1;">
-          <div class="stat-num" style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;">20</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Properties</div>
+  <!-- Compact header bar: heading + stats side by side -->
+  <div style="padding:20px 0 16px;">
+  <div class="container">
+    <div class="portfolio-header-bar" style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <!-- Left: heading -->
+      <div style="flex-shrink:0;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">Our Portfolio</div>
+        <h2 style="font-size:22px;font-weight:400;color:white;line-height:1.3;">Selected Markets. Strong Fundamentals. Real Demand.</h2>
+      </div>
+      <!-- Right: stats row -->
+      <div class="stats-row" style="display:flex;align-items:center;flex-shrink:0;">
+        <div style="text-align:center;padding:0 20px;">
+          <div class="stat-num" style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:white;line-height:1;">20</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:4px;">Properties</div>
         </div>
-        <div class="stat-divider" style="width:1px;height:44px;background:rgba(255,255,255,0.08);"></div>
-        <div style="text-align:center;flex:1;">
-          <div style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;">3,000<span style="font-size:15px;color:#F2C849;margin-bottom:4px;">+</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Units</div>
+        <div class="stat-divider" style="width:1px;height:36px;background:rgba(255,255,255,0.08);"></div>
+        <div style="text-align:center;padding:0 20px;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;">3,000<span style="font-size:12px;color:#F2C849;margin-bottom:3px;">+</span></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:4px;">Units</div>
         </div>
-        <div class="stat-divider" style="width:1px;height:44px;background:rgba(255,255,255,0.08);"></div>
-        <div style="text-align:center;flex:1;">
-          <div style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:15px;color:#F2C849;margin-bottom:4px;">$</span>424<span style="font-size:15px;color:#F2C849;margin-bottom:4px;">M</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Portfolio Value</div>
+        <div class="stat-divider" style="width:1px;height:36px;background:rgba(255,255,255,0.08);"></div>
+        <div style="text-align:center;padding:0 20px;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:12px;color:#F2C849;margin-bottom:3px;">$</span>424<span style="font-size:12px;color:#F2C849;margin-bottom:3px;">M</span></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:4px;">Portfolio Value</div>
         </div>
-        <div class="stat-divider" style="width:1px;height:44px;background:rgba(255,255,255,0.08);"></div>
-        <div style="text-align:center;flex:1;">
-          <div style="font-family:'Libre Baskerville',serif;font-size:38px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:15px;color:#F2C849;margin-bottom:4px;">$</span>104<span style="font-size:15px;color:#F2C849;margin-bottom:4px;">M</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:8px;">Equity Raised</div>
+        <div class="stat-divider" style="width:1px;height:36px;background:rgba(255,255,255,0.08);"></div>
+        <div style="text-align:center;padding:0 20px;">
+          <div style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;"><span style="font-size:12px;color:#F2C849;margin-bottom:3px;">$</span>104<span style="font-size:12px;color:#F2C849;margin-bottom:3px;">M</span></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;margin-top:4px;">Equity Raised</div>
         </div>
       </div>
     </div>
   </div>
+  </div>
 
-  <!-- Gold line: stats → portfolio content -->
-  <div style="padding:0 28px;"><div class="container"><div style="height:2px;background:linear-gradient(90deg, #F2C849 0%, rgba(242,200,73,0.3) 100%);"></div></div></div>
-
-  <!-- Portfolio content -->
-  <div style="padding:36px 0 60px;">
+  <!-- Map + legend (tighter padding) -->
+  <div style="padding:0 0 28px;">
   <div class="container">
-
-    <!-- Header -->
-    <div style="margin-bottom:48px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:12px;">Our Portfolio</div>
-      <h2 style="font-size:30px;font-weight:400;color:white;line-height:1.3;">Selected Markets. Strong Fundamentals. Real Demand.</h2>
-    </div>
 
     <!-- Map canvas (D3 renders here) -->
     <div id="map-wrap" style="position:relative;width:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:2px;">
@@ -216,7 +216,7 @@ a:hover { color: inherit; }
     </div>
 
     <!-- Legend -->
-    <div class="legend-row" style="display:flex;gap:28px;margin-top:20px;align-items:center;flex-wrap:wrap;">
+    <div class="legend-row" style="display:flex;gap:28px;margin-top:12px;align-items:center;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:8px;">
         <div style="width:10px;height:10px;border-radius:50%;background:#4CAF82;"></div>
         <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Refinanced</span>
