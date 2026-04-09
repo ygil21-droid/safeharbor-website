@@ -276,25 +276,25 @@ a:hover { color: inherit; }
           <button class="filter-btn active" data-filter="all" style="color:#1B3A6B;" onclick="setFilter('all',this)">
             All Properties
           </button>
-          <button class="filter-btn" data-filter="refinanced" style="color:#2B7A5C;" onclick="setFilter('refinanced',this)">
-            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#4CAF82;flex-shrink:0;"></span>
-            Refinanced
-          </button>
-          <button class="filter-btn" data-filter="stabilized" style="color:#8A6D10;" onclick="setFilter('stabilized',this)">
-            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#F2C849;flex-shrink:0;"></span>
-            Stabilized
-          </button>
-          <button class="filter-btn" data-filter="lease-up" style="color:#A84E10;" onclick="setFilter('lease-up',this)">
-            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#E07A3A;flex-shrink:0;"></span>
-            Lease-Up
+          <button class="filter-btn" data-filter="contract" style="color:#60607A;" onclick="setFilter('contract',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:rgba(150,150,170,0.6);flex-shrink:0;"></span>
+            Under Contract
           </button>
           <button class="filter-btn" data-filter="development" style="color:#2762A0;" onclick="setFilter('development',this)">
             <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#6B9FD4;flex-shrink:0;"></span>
             In Development
           </button>
-          <button class="filter-btn" data-filter="contract" style="color:#60607A;" onclick="setFilter('contract',this)">
-            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:rgba(150,150,170,0.6);flex-shrink:0;"></span>
-            Under Contract
+          <button class="filter-btn" data-filter="lease-up" style="color:#A84E10;" onclick="setFilter('lease-up',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#E07A3A;flex-shrink:0;"></span>
+            Lease-Up
+          </button>
+          <button class="filter-btn" data-filter="stabilized" style="color:#8A6D10;" onclick="setFilter('stabilized',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#F2C849;flex-shrink:0;"></span>
+            Stabilized
+          </button>
+          <button class="filter-btn" data-filter="refinanced" style="color:#2B7A5C;" onclick="setFilter('refinanced',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#4CAF82;flex-shrink:0;"></span>
+            Refinanced
           </button>
           <button class="filter-btn" data-filter="sold" style="color:#6B6B78;" onclick="setFilter('sold',this)">
             <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#9E9EA8;flex-shrink:0;"></span>
@@ -320,8 +320,7 @@ a:hover { color: inherit; }
               <img src="logos/groton-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
             <div style="padding:20px 22px 24px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#F2C849;">Groton, CT</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:8px;">
                 <span class="badge badge-refinanced">Refinanced</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:19px;font-weight:400;color:#1B3A6B;margin-bottom:8px;">Groton, CT</div>
@@ -336,8 +335,7 @@ a:hover { color: inherit; }
               <img src="logos/bordeaux-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
             <div style="padding:20px 22px 24px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#F2C849;">Warwick, RI</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:8px;">
                 <span class="badge badge-refinanced">Refinanced</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:19px;font-weight:400;color:#1B3A6B;margin-bottom:8px;">Warwick, RI</div>
@@ -355,8 +353,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-refinanced prop-item" data-status="refinanced" onclick="openProperty('detroit')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/detroit.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Detroit, MI</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-refinanced">Refinanced</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Detroit, MI</div>
@@ -369,8 +366,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-stabilized prop-item" data-status="stabilized" onclick="openProperty('burlington')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/burlington.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Burlington, NC</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-stabilized">Stabilized</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Burlington, NC</div>
@@ -383,8 +379,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-stabilized prop-item" data-status="stabilized" onclick="openProperty('ringgold')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/ringgold.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Ringgold, GA</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-stabilized">Stabilized</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Ringgold, GA</div>
@@ -397,8 +392,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-refinanced prop-item" data-status="refinanced" onclick="openProperty('fayetteville')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/fayetteville.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Fayetteville, NC</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-refinanced">Refinanced</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Fayetteville, NC</div>
@@ -411,8 +405,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-lease-up prop-item" data-status="lease-up" onclick="openProperty('erie')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/erie.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Erie, PA</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-lease-up">Lease-Up</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Erie, PA</div>
@@ -425,8 +418,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-lease-up prop-item" data-status="lease-up" onclick="openProperty('sanantonio_n')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/sanantonio.webp" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">San Antonio, TX</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-lease-up">Lease-Up</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">San Antonio North, TX</div>
@@ -439,8 +431,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-sold prop-item" data-status="sold" onclick="openProperty('elpaso')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/elpaso.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">El Paso, TX</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-sold">Sold</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">El Paso, TX</div>
@@ -453,8 +444,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('silverspring')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/silverspring.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Silver Spring, MD</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-development">In Development</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Silver Spring, MD</div>
@@ -467,8 +457,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('baltimore')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/baltimore.jpg" style="width:100%;height:100%;object-fit:cover;display:block;object-position:top;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Baltimore, MD</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-development">In Development</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Baltimore, MD</div>
@@ -481,8 +470,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('columbia')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/columbia.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Columbia, SC</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-development">In Development</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Columbia, SC</div>
@@ -495,8 +483,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('dallas')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/dallas.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Dallas, TX</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-development">In Development</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Dallas, TX</div>
@@ -509,8 +496,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('sanantonio_s')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/sanantonio-south.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">San Antonio, TX</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-development">In Development</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">San Antonio South, TX</div>
@@ -523,8 +509,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('tucson')" style="cursor:pointer;">
             <div style="height:150px;overflow:hidden;"><img src="logos/tucson.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Tucson, AZ</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-development">In Development</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#1B3A6B;margin-bottom:6px;">Tucson, AZ</div>
@@ -539,8 +524,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-contract prop-item" data-status="contract" style="opacity:0.7;cursor:pointer;" onclick="openProperty('norfolk')">
             <div style="height:150px;overflow:hidden;"><img src="logos/norfolk.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Norfolk, VA</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-contract">Under Contract</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#8A8A9A;margin-bottom:10px;">Norfolk, VA</div>
@@ -552,8 +536,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-contract prop-item" data-status="contract" style="opacity:0.7;cursor:pointer;" onclick="openProperty('arlington')">
             <div style="height:150px;overflow:hidden;"><img src="logos/arlington.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Arlington, VA</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-contract">Under Contract</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#8A8A9A;margin-bottom:10px;">Arlington, VA</div>
@@ -565,8 +548,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-contract prop-item" data-status="contract" style="opacity:0.7;cursor:pointer;" onclick="openProperty('lakewood')">
             <div style="height:150px;overflow:hidden;"><img src="logos/lakewood.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Lakewood, CO</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-contract">Under Contract</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#8A8A9A;margin-bottom:10px;">Lakewood, CO</div>
@@ -578,8 +560,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-contract prop-item" data-status="contract" style="opacity:0.7;cursor:pointer;" onclick="openProperty('wilmington')">
             <div style="height:150px;overflow:hidden;"><div class="ph ph-contract"></div></div>
             <div style="padding:16px 18px 20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#F2C849;">Wilmington, NC</div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
                 <span class="badge badge-contract">Under Contract</span>
               </div>
               <div style="font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:#8A8A9A;margin-bottom:10px;">Wilmington, NC</div>
