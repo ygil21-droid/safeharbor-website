@@ -170,35 +170,47 @@ a:hover { color: inherit; }
     <button id="modal-close" onclick="closeModal()">✕</button>
 
     <!-- hero photo with headline overlaid -->
-    <div id="modal-photo" style="height:280px;overflow:hidden;position:relative;">
+    <div id="modal-photo" style="height:200px;overflow:hidden;position:relative;">
       <img id="modal-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(10,22,40,0.78) 0%, rgba(10,22,40,0.35) 65%, transparent 100%);"></div>
       <!-- headline on photo -->
       <div style="position:absolute;bottom:28px;left:32px;">
-        <div id="modal-location" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:7px;"></div>
-        <h2 id="modal-name" style="font-family:'Libre Baskerville',serif;font-size:28px;font-weight:400;color:white;margin-bottom:8px;line-height:1.15;"></h2>
+        <div id="modal-location" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:5px;"></div>
+        <h2 id="modal-name" style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:6px;line-height:1.15;"></h2>
         <div id="modal-badge-wrap"></div>
       </div>
     </div>
 
     <!-- content: 2-col -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid #E8EAF0;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
 
       <!-- left: description -->
-      <div style="padding:28px 32px;border-right:1px solid #E8EAF0;">
-        <div id="modal-units" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;"></div>
-        <p id="modal-desc" style="font-size:14px;color:#4A4A4A;line-height:1.85;"></p>
+      <div style="padding:22px 28px 24px;border-right:1px solid #E8EAF0;">
+        <div id="modal-units" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;"></div>
+        <p id="modal-desc" style="font-size:13px;color:#4A4A4A;line-height:1.8;"></p>
       </div>
 
-      <!-- right: highlights -->
-      <div style="padding:28px 32px;">
-        <div id="modal-highlights" style="display:flex;flex-direction:column;gap:10px;"></div>
+      <!-- right: highlights + action links -->
+      <div style="padding:22px 28px 24px;display:flex;flex-direction:column;">
+        <div id="modal-highlights" style="display:flex;flex-direction:column;gap:8px;flex:1;"></div>
+        <!-- Action links (replaces bottom bar) -->
+        <div style="border-top:1px solid #E8EAF0;margin-top:16px;padding-top:14px;display:flex;gap:20px;">
+          <a id="modal-action-login" href="#" target="_blank" style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='#1B3A6B'">
+            <div style="width:30px;height:30px;border-radius:50%;background:rgba(15,34,68,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            Investor Login
+          </a>
+          <a href="contact.html" style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='#1B3A6B'">
+            <div style="width:30px;height:30px;border-radius:50%;background:rgba(15,34,68,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            Contact Us
+          </a>
+        </div>
       </div>
 
     </div>
-
-    <!-- bottom bar (dynamic) -->
-    <div id="modal-bottom-bar"></div>
 
   </div>
 </div>
@@ -642,7 +654,7 @@ const properties = {
     img: 'logos/groton-interior.jpg',
     desc: 'A 112-unit conversion of an extended-stay hotel into spacious one- and two-bedroom apartments and studios. Located 2 miles from the Naval Submarine Base (7,500+ active duty), 3 miles from General Dynamics Electric Boat (8,000+ employees), and adjacent to Pfizer\'s global headquarters. Stabilized and refinanced ahead of schedule.',
     highlights: ['Naval Submarine Base & Electric Boat workforce corridor', 'Opportunity Zone designation', 'Stabilized and refinanced ahead of schedule'],
-    market: 'New London County, CT · Hotel → Multifamily',
+    market: 'New London County, CT',
     mapQ: 'Groton,+CT'
   },
   warwick: {
@@ -651,7 +663,7 @@ const properties = {
     img: 'logos/bordeaux-interior.jpg',
     desc: 'A 207-unit conversion of a former Sheraton hotel into 163 studios and 27 one-bedroom apartments in Rhode Island\'s tightest rental market. Adjacent to T.F. Green International Airport and near Amazon\'s 4M sq ft fulfillment center. Indoor pool, co-working space, and onsite restaurant.',
     highlights: ['Among the lowest vacancy rates in the country', 'Adjacent to T.F. Green Airport & Amazon fulfillment center', 'Indoor pool, co-working, onsite restaurant'],
-    market: 'Providence Metro, RI · Hotel → Multifamily',
+    market: 'Providence Metro, RI',
     mapQ: 'Warwick,+Rhode+Island'
   },
   detroit: {
@@ -660,7 +672,7 @@ const properties = {
     img: 'logos/detroit.jpg',
     desc: 'A 128-unit community of sixteen standalone buildings offering oversized studios, one-bedroom, and two-bedroom duplex apartments. Located 5 minutes from Ford Motor Company World Headquarters (48,000 employees) and 1.5 miles from University of Michigan–Dearborn. Pool, clubhouse, fitness center, and sports court.',
     highlights: ['5 min from Ford HQ (48,000 employees)', 'Near University of Michigan–Dearborn', 'Stabilized and refinanced'],
-    market: 'Detroit Metro, MI · Hotel → Multifamily',
+    market: 'Detroit Metro, MI',
     mapQ: 'Detroit,+Michigan'
   },
   burlington: {
@@ -669,7 +681,7 @@ const properties = {
     img: 'logos/burlington.jpg',
     desc: 'A 135-unit studio community in North Carolina\'s fastest-growing region, positioned between the Research Triangle and Piedmont Triad. Located in an Opportunity Zone with proximity to Greensboro (20 min) and Research Triangle Park (40 min). Pool, fitness center, and 4,500 sq ft of commercial space.',
     highlights: ['Opportunity Zone designation', 'Between Research Triangle & Piedmont Triad', 'Fully stabilized with strong occupancy'],
-    market: 'Alamance County, NC · Hotel → Multifamily',
+    market: 'Alamance County, NC',
     mapQ: 'Burlington,+North+Carolina'
   },
   ringgold: {
@@ -678,7 +690,7 @@ const properties = {
     img: 'logos/ringgold.jpg',
     desc: 'A 104-unit workforce community in the Chattanooga suburban corridor offering studios, junior one-bedrooms, and full one-bedrooms. Adjacent to a new $100M+ logistics park expected to create 700+ jobs. Clubhouse, pool with cabana, fitness center, and community firepit.',
     highlights: ['Adjacent to $100M+ logistics park development', 'Immediate leasing upon acquisition', 'Chattanooga suburban workforce corridor'],
-    market: 'Catoosa County, GA · Hotel → Multifamily',
+    market: 'Catoosa County, GA',
     mapQ: 'Ringgold,+Georgia'
   },
   fayetteville: {
@@ -687,7 +699,7 @@ const properties = {
     img: 'logos/fayetteville.jpg',
     desc: 'Two-asset cluster serving the Fort Liberty military installation (50,000+ active-duty) and Cape Fear Medical Center (7,000 staff). The Bordeaux (255 units) features a clubhouse, pool, and onsite restaurant. Cedar Creek (198 units) includes an indoor pool and 15,000 sq ft of commercial space. Both stabilized and refinanced.',
     highlights: ['15 min from Fort Liberty (50,000+ soldiers)', 'Walking distance to Cape Fear Medical Center', 'Both assets stabilized and refinanced'],
-    market: 'Cumberland County, NC · 2 Hotels → Multifamily',
+    market: 'Cumberland County, NC',
     mapQ: 'Fayetteville,+North+Carolina'
   },
   erie: {
@@ -696,7 +708,7 @@ const properties = {
     img: 'logos/erie.jpg',
     desc: 'A 197-unit conversion in downtown Erie\'s redevelopment district and Opportunity Zone. Eight-story building one block from Erie Insurance Arena, adjacent to Gannon University (4,500+ students), and within one mile of Saint Vincent Hospital and Erie VA Medical Center. 12,000 sq ft leased to UPMC for medical offices.',
     highlights: ['Opportunity Zone; downtown redevelopment district', '12,000 sq ft leased to UPMC', 'Adjacent to Gannon University & major hospitals'],
-    market: 'Erie County, PA · Hotel → Multifamily',
+    market: 'Erie County, PA',
     mapQ: 'Erie,+Pennsylvania'
   },
   sanantonio_n: {
@@ -705,7 +717,7 @@ const properties = {
     img: 'logos/sanantonio.webp',
     desc: 'A 118-unit workforce community serving Joint Base San Antonio — one of the largest military installations in the U.S. Active lease-up in one of Texas\'s fastest-growing rental markets with strong military and healthcare demand.',
     highlights: ['Joint Base San Antonio workforce demand', 'One of Texas\'s fastest-growing rental markets', 'Active lease-up phase'],
-    market: 'Bexar County, TX · Hotel → Multifamily',
+    market: 'Bexar County, TX',
     mapQ: 'San+Antonio,+Texas'
   },
   elpaso: {
@@ -714,7 +726,7 @@ const properties = {
     img: 'logos/elpaso.jpg',
     desc: 'A 142-unit conversion serving the Fort Bliss military installation and cross-border workforce corridor. Conversion complete with strong early leasing velocity in one of the most undersupplied affordable markets in West Texas.',
     highlights: ['Fort Bliss military workforce demand', 'Cross-border economy workforce corridor', 'Strong early leasing velocity'],
-    market: 'El Paso County, TX · Hotel → Multifamily',
+    market: 'El Paso County, TX',
     mapQ: 'El+Paso,+Texas'
   },
   silverspring: {
@@ -723,7 +735,7 @@ const properties = {
     img: 'logos/silverspring.jpg',
     desc: 'A 227-unit conversion of a former DoubleTree hotel minutes from Washington D.C. in Montgomery County\'s highest-demand workforce corridor. Adjacent to the Silver Spring Metro station, Children\'s Hospital, and major federal employers. Conversion underway with entitlements fully secured.',
     highlights: ['Minutes from Washington D.C.', 'Adjacent to Metro station & Children\'s Hospital', 'Entitlements secured; conversion underway'],
-    market: 'Montgomery County, MD · Hotel → Multifamily',
+    market: 'Montgomery County, MD',
     mapQ: 'Silver+Spring,+Maryland'
   },
   baltimore: {
@@ -732,7 +744,7 @@ const properties = {
     img: 'logos/baltimore.jpg',
     desc: 'The largest asset in the SafeHarbor portfolio at 303 units. A landmark conversion at 222 Saint Paul Place in Baltimore\'s Inner Harbor district, serving the healthcare, government, and port-economy workforce. Active conversion phase.',
     highlights: ['Largest asset in the portfolio — 303 units', 'Inner Harbor area workforce demand', 'Healthcare, government, and port-economy base'],
-    market: 'Baltimore City, MD · Hotel → Multifamily',
+    market: 'Baltimore City, MD',
     mapQ: 'Baltimore,+Maryland'
   },
   columbia: {
@@ -741,7 +753,7 @@ const properties = {
     img: 'logos/columbia.jpg',
     desc: 'A 146-unit conversion at 1930 Marion Street in South Carolina\'s capital city. Serves the state government, healthcare, and University of South Carolina workforce base. Conversion currently underway.',
     highlights: ['State capital workforce and university market', 'Government and healthcare demand base', 'Conversion underway'],
-    market: 'Richland County, SC · Hotel → Multifamily',
+    market: 'Richland County, SC',
     mapQ: 'Columbia,+South+Carolina'
   },
   dallas: {
@@ -750,7 +762,7 @@ const properties = {
     img: 'logos/dallas.jpg',
     desc: 'Two-asset cluster in the Dallas–Fort Worth metro. The Otis (103 units) on N Central Expressway and The Nora (142 units) on N Stemmons Freeway — positioned in one of the fastest-growing workforce markets in the United States. Both in active conversion.',
     highlights: ['Two-asset DFW metro cluster', 'The Otis (103 units) + The Nora (142 units)', 'One of the fastest-growing U.S. workforce markets'],
-    market: 'Dallas-Fort Worth Metro, TX · 2 Hotels → Multifamily',
+    market: 'Dallas-Fort Worth Metro, TX',
     mapQ: 'Dallas,+Texas'
   },
   sanantonio_s: {
@@ -759,7 +771,7 @@ const properties = {
     img: 'logos/sanantonio-south.jpg',
     desc: 'A 220-unit conversion of the Sonesta ES Suites at 425 Bonham Street in downtown San Antonio, steps from the Alamo. Serving the city\'s military, medical, and tourism workforce in one of Texas\'s most dynamic markets.',
     highlights: ['Downtown location near the Alamo', 'Military, medical, and tourism workforce', '220 units — second San Antonio asset'],
-    market: 'Bexar County, TX · Hotel → Multifamily',
+    market: 'Bexar County, TX',
     mapQ: 'San+Antonio,+Texas'
   },
   tucson: {
@@ -768,7 +780,7 @@ const properties = {
     img: 'logos/tucson.jpg',
     desc: 'A 100-unit conversion serving the University of Arizona and Davis-Monthan Air Force Base workforce corridor. Active conversion underway in one of Arizona\'s most undersupplied affordable rental markets.',
     highlights: ['University of Arizona & DMAFB workforce corridor', 'Active conversion underway', 'Undersupplied affordable rental market'],
-    market: 'Pima County, AZ · Hotel → Multifamily',
+    market: 'Pima County, AZ',
     mapQ: 'Tucson,+Arizona'
   },
   norfolk: {
@@ -849,20 +861,11 @@ function openProperty(key) {
   hl.innerHTML = p.highlights.map(h => `
     <div style="display:flex;gap:10px;align-items:flex-start;">
       <div style="width:4px;height:4px;border-radius:50%;background:#F2C849;margin-top:7px;flex-shrink:0;"></div>
-      <p style="font-size:13px;color:#4A4A4A;line-height:1.65;">${h}</p>
+      <p style="font-size:12px;color:#4A4A4A;line-height:1.6;">${h}</p>
     </div>`).join('');
 
-  // bottom bar — C5 style
-  const bb = document.getElementById('modal-bottom-bar');
-  const linkStyle = "font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.92);text-decoration:none;transition:color 0.2s;";
-  const dot = `<span style="color:#F2C849;font-size:10px;margin:0 20px;">●</span>`;
-  const loginUrl = 'https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents';
-
-  bb.innerHTML = `<div style="background:#0F2244;padding:18px 0;text-align:center;display:flex;align-items:center;justify-content:center;">
-      <a href="${loginUrl}" target="_blank" style="${linkStyle}" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='rgba(255,255,255,0.92)'">Investor Login</a>
-      ${dot}
-      <a href="contact.html" style="${linkStyle}" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='rgba(255,255,255,0.92)'">Contact Us</a>
-    </div>`;
+  // set login URL on action link
+  document.getElementById('modal-action-login').href = 'https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents';
 
   // open
   document.getElementById('prop-modal').classList.add('open');
