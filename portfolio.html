@@ -327,7 +327,7 @@ a:hover { color: inherit; }
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
 
           <!-- Groton CT -->
-          <div class="prop-card acc-refinanced prop-item" data-status="refinanced" onclick="openProperty('groton')" style="cursor:pointer;">
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('groton')" style="cursor:pointer;">
             <div style="height:130px;overflow:hidden;">
               <img src="logos/groton-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
@@ -339,7 +339,7 @@ a:hover { color: inherit; }
           </div>
 
           <!-- Warwick RI -->
-          <div class="prop-card acc-refinanced prop-item" data-status="refinanced" onclick="openProperty('warwick')" style="cursor:pointer;">
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('warwick')" style="cursor:pointer;">
             <div style="height:130px;overflow:hidden;">
               <img src="logos/bordeaux-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
@@ -353,7 +353,7 @@ a:hover { color: inherit; }
 
 
           <!-- Detroit MI -->
-          <div class="prop-card acc-refinanced prop-item" data-status="refinanced" onclick="openProperty('detroit')" style="cursor:pointer;">
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('detroit')" style="cursor:pointer;">
             <div style="height:130px;overflow:hidden;"><img src="logos/detroit.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:12px 14px 14px;">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Detroit, MI</div><span class="badge badge-refinanced">Refinanced</span></div>
@@ -383,7 +383,7 @@ a:hover { color: inherit; }
           </div>
 
           <!-- Fayetteville I NC (Bordeaux) -->
-          <div class="prop-card acc-refinanced prop-item" data-status="refinanced" onclick="openProperty('bordeaux')" style="cursor:pointer;">
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('bordeaux')" style="cursor:pointer;">
             <div style="height:130px;overflow:hidden;"><img src="logos/bordeaux.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:12px 14px 14px;">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Bordeaux, NC</div><span class="badge badge-refinanced">Refinanced</span></div>
@@ -393,7 +393,7 @@ a:hover { color: inherit; }
           </div>
 
           <!-- Cedar Creek NC -->
-          <div class="prop-card acc-refinanced prop-item" data-status="refinanced" onclick="openProperty('cedarcreek')" style="cursor:pointer;">
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('cedarcreek')" style="cursor:pointer;">
             <div style="height:130px;overflow:hidden;"><img src="logos/cedarcreek.jpg" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center bottom;"></div>
             <div style="padding:12px 14px 14px;">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:14px;font-weight:400;color:#1B3A6B;">Cedar Creek, NC</div><span class="badge badge-refinanced">Refinanced</span></div>
@@ -595,7 +595,8 @@ function setFilter(status, btn) {
   const items = document.querySelectorAll('.prop-item');
   let visible = 0;
   items.forEach(item => {
-    if (status === 'all' || item.dataset.status === status) {
+    const statuses = item.dataset.status.split(' ');
+    if (status === 'all' || statuses.includes(status)) {
       item.classList.remove('hidden'); visible++;
     } else { item.classList.add('hidden'); }
   });
