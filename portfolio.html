@@ -332,7 +332,7 @@ a:hover { color: inherit; }
               <img src="logos/groton-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
             <div style="padding:12px 14px 14px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Groton, CT</div><span class="badge badge-refinanced">Refinanced</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Groton, CT</div><div style="display:flex;gap:4px;"><span class="badge badge-stabilized">Stabilized</span><span class="badge badge-refinanced">Refinanced</span></div></div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">112 Units</div>
               <p style="font-size:11px;color:#5A5A5A;line-height:1.55;">Extended-stay hotel converted into 112 apartments. Located in a major defense and pharmaceutical workforce corridor. Stabilized and refinanced ahead of schedule.</p>
             </div>
@@ -344,7 +344,7 @@ a:hover { color: inherit; }
               <img src="logos/bordeaux-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
             <div style="padding:12px 14px 14px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Warwick, RI</div><span class="badge badge-refinanced">Refinanced</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Warwick, RI</div><div style="display:flex;gap:4px;"><span class="badge badge-stabilized">Stabilized</span><span class="badge badge-refinanced">Refinanced</span></div></div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">190 Units</div>
               <p style="font-size:11px;color:#5A5A5A;line-height:1.55;">Former Sheraton converted into 190 apartments with indoor pool, co-working space, fitness center, and onsite restaurant.</p>
             </div>
@@ -356,7 +356,7 @@ a:hover { color: inherit; }
           <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('detroit')" style="cursor:pointer;">
             <div style="height:130px;overflow:hidden;"><img src="logos/detroit.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div style="padding:12px 14px 14px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Detroit, MI</div><span class="badge badge-refinanced">Refinanced</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Detroit, MI</div><div style="display:flex;gap:4px;"><span class="badge badge-stabilized">Stabilized</span><span class="badge badge-refinanced">Refinanced</span></div></div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">128 Units</div>
               <p style="font-size:11px;color:#5A5A5A;line-height:1.55;">128-unit loft-style community with oversized studios, one-bedrooms, and duplex two-bedrooms. Pool, clubhouse, fitness center, and sports court.</p>
             </div>
@@ -615,7 +615,7 @@ function setFilter(status, btn) {
 const properties = {
   groton: {
     name: 'Groton, CT', location: 'Groton, Connecticut', units: '112 Units',
-    status: 'refinanced', statusLabel: 'Refinanced',
+    status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
     img: 'logos/groton-interior.jpg',
     desc: 'A 112-unit conversion of an extended-stay hotel into spacious one- and two-bedroom apartments and studios. Located 2 miles from the Naval Submarine Base, 3 miles from GD Electric Boat, and 3 miles from Pfizer\'s global research HQ. Features a clubhouse, fitness center, co-working space, and outdoor amenities.',
     highlights: ['Acquired June 2023', 'Completed Q2 2024', '98% occupied by April 2025', 'Opportunity Zone designation', 'Stabilized and refinanced ahead of schedule'],
@@ -624,7 +624,7 @@ const properties = {
   },
   warwick: {
     name: 'Warwick, RI', location: 'Warwick, Rhode Island', units: '190 Units',
-    status: 'refinanced', statusLabel: 'Refinanced',
+    status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
     img: 'logos/bordeaux-interior.jpg',
     desc: 'A former 207-room Sheraton converted into 163 studios and 27 one-bedroom apartments. Adjacent to T.F. Green International Airport in one of the lowest vacancy markets in the U.S. Features an indoor pool, clubhouse, co-working space, fitness center, and onsite restaurant.',
     highlights: ['Acquired June 2023', 'Target Completion Q2 2025', 'Stabilized and refinanced'],
@@ -633,7 +633,7 @@ const properties = {
   },
   detroit: {
     name: 'Detroit, MI', location: 'Detroit, Michigan', units: '128 Units',
-    status: 'refinanced', statusLabel: 'Refinanced',
+    status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
     img: 'logos/detroit.jpg',
     desc: 'A 128-unit loft-style community offering oversized studios, one-bedrooms, and two-bedroom duplexes. Located 5 minutes from Ford World HQ and 1.5 miles from University of Michigan–Dearborn. Features an outdoor pool, clubhouse, fitness center, and sports court.',
     highlights: ['Acquired June 2023', 'Completed January 2024', 'Stabilized and refinanced'],
@@ -830,8 +830,11 @@ function openProperty(key) {
   }
 
   // badge on photo
-  document.getElementById('modal-badge-wrap').innerHTML =
-    `<span class="badge ${badgeClass[p.status]}" style="background:rgba(0,0,0,0.45);color:white;border:1px solid rgba(255,255,255,0.22);">${p.statusLabel}</span>`;
+  const statuses = Array.isArray(p.status) ? p.status : [p.status];
+  const labels = Array.isArray(p.statusLabel) ? p.statusLabel : [p.statusLabel];
+  document.getElementById('modal-badge-wrap').innerHTML = statuses.map((s,i) =>
+    `<span class="badge ${badgeClass[s]}" style="background:rgba(0,0,0,0.45);color:white;border:1px solid rgba(255,255,255,0.22);">${labels[i]}</span>`
+  ).join('');
 
   // text
   document.getElementById('modal-location').textContent = p.location;
