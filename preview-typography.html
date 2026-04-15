@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeHarbor — Portfolio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; font-weight: 400; background: #fff; color: #1A1A1A; }
+h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
+::selection { background: #1B3A6B; color: white; }
+a { color: inherit; text-decoration: none; }
+a:visited { color: inherit; }
+a:hover { color: inherit; }
+#main-nav a, #main-nav a:visited, #main-nav a:hover, #main-nav a:active { text-decoration: none !important; }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+/* status badges */
+.badge {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 2px;
+  white-space: nowrap;
+}
+.badge-refinanced  { background: rgba(76,175,130,0.13); color: #2B7A5C; }
+.badge-stabilized  { background: rgba(242,200,73,0.18); color: #8A6D10; }
+.badge-lease-up    { background: rgba(224,122,58,0.13); color: #A84E10; }
+.badge-development { background: rgba(107,159,212,0.18); color: #2762A0; }
+.badge-contract    { background: rgba(150,150,170,0.15); color: #60607A; }
+.badge-sold        { background: rgba(130,130,140,0.13); color: #6B6B78; }
+
+/* left accent per status */
+.acc-refinanced  { border-left: 4px solid #4CAF82; }
+.acc-stabilized  { border-left: 4px solid #F2C849; }
+.acc-lease-up    { border-left: 4px solid #E07A3A; }
+.acc-development { border-left: 4px solid #6B9FD4; }
+.acc-contract    { border-left: 4px solid rgba(150,150,170,0.4); }
+.acc-sold        { border-left: 4px solid #9E9EA8; }
+
+/* photo placeholder */
+.ph {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #1B3A6B 0%, #0A1628 100%);
+  position: relative; overflow: hidden;
+}
+.ph::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,0.018) 22px,rgba(255,255,255,0.018) 23px);
+}
+.ph-contract {
+  background: linear-gradient(135deg, #252D42 0%, #141820 100%);
+}
+
+/* card hover */
+.prop-card {
+  background: white;
+  border: 1px solid #E8EAF0;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.prop-card:hover {
+  box-shadow: 0 8px 32px rgba(27,58,107,0.12);
+  transform: translateY(-2px);
+}
+
+/* sidebar filter button */
+.filter-btn {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%;
+  background: transparent; border: none; border-radius: 3px;
+  text-align: left; padding: 9px 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.15s;
+}
+.filter-btn:hover { background: #F0F2F7; }
+.filter-btn.active { background: #1B3A6B; color: white !important; }
+.filter-btn.active .dot { opacity: 0 !important; }
+
+/* hidden when filtered */
+.prop-item { transition: opacity 0.2s; }
+.prop-item.hidden { display: none; }
+
+/* ── modal ── */
+#prop-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(10,22,40,0.72);
+  backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+  padding: 24px;
+}
+#prop-modal.open { display: flex; }
+#modal-box {
+  background: white;
+  max-width: 820px; width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalIn 0.22s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#modal-close {
+  position: absolute; top: 16px; right: 16px; z-index: 10;
+  width: 36px; height: 36px;
+  background: rgba(15,34,68,0.85);
+  border: none; border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 18px; line-height: 1;
+  transition: background 0.15s;
+}
+#modal-close:hover { background: #0F2244; }
+
+/* Mobile hamburger */
+#mobile-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; z-index:201; }
+#mobile-toggle span { display:block; width:22px; height:2px; background:white; margin:5px 0; transition:0.3s; }
+
+@media (max-width: 768px) {
+  #mobile-toggle { display:block; }
+  #nav-links {
+    display:none !important;
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background:#0F2244;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:24px !important;
+    z-index:300;
+  }
+  #nav-links.mobile-open { display:flex !important; }
+  #nav-links .nav-link, #nav-links a { font-size:16px !important; color:white !important; }
+  #nav-login { font-size:14px !important; }
+  #mobile-close { display:block !important; position:absolute; top:24px; right:28px; background:none; border:none; cursor:pointer; color:white; font-size:28px; }
+
+  .container { padding:0 16px; }
+
+  /* Stack grids */
+  .grid-2col { grid-template-columns:1fr !important; gap:40px !important; }
+
+  /* Footer */
+  .footer-cta { flex-direction:column !important; text-align:center; gap:20px !important; }
+  .footer-addresses-row { flex-direction:column !important; gap:24px !important; }
+  .footer-addresses { flex-direction:column !important; gap:20px !important; }
+  .footer-disclaimer { flex-direction:column !important; gap:8px !important; text-align:center; }
+  .footer-disclaimer p { text-align:center !important; max-width:100% !important; }
+
+  /* Contact form */
+  .form-2col { grid-template-columns:1fr !important; }
+}
+
+@media (max-width: 480px) {
+  .container { padding:0 16px; }
+}
+</style>
+</head>
+<body>
+<div style="position:fixed;top:12px;right:12px;z-index:500;background:#F2C849;color:#0F2244;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;padding:8px 14px;text-transform:uppercase;">Typography preview</div>
+<div style="position:fixed;top:56px;right:12px;z-index:500;display:flex;gap:6px;"><a href="portfolio.html" style="background:#0F2244;color:white;font-family:'Barlow Condensed',sans-serif;font-size:11px;padding:6px 10px;text-decoration:none;border-radius:2px;">Current</a><a href="preview-typography.html" style="background:#0F2244;color:white;font-family:'Barlow Condensed',sans-serif;font-size:11px;padding:6px 10px;text-decoration:none;border-radius:2px;">Preview</a></div>
+
+<!-- ──────── PROPERTY MODAL ──────── -->
+<div id="prop-modal" onclick="if(event.target===this)closeModal()">
+  <div id="modal-box">
+    <button id="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- hero photo with headline overlaid -->
+    <div id="modal-photo" style="height:200px;overflow:hidden;position:relative;">
+      <img id="modal-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(10,22,40,0.78) 0%, rgba(10,22,40,0.35) 65%, transparent 100%);"></div>
+      <!-- headline on photo -->
+      <div style="position:absolute;bottom:28px;left:32px;">
+        <div id="modal-location" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:5px;"></div>
+        <h2 id="modal-name" style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:6px;line-height:1.15;"></h2>
+        <div id="modal-badge-wrap"></div>
+      </div>
+    </div>
+
+    <!-- content: 2-col -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+
+      <!-- left: description -->
+      <div style="padding:22px 28px 24px;border-right:1px solid #E8EAF0;">
+        <div id="modal-units" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;"></div>
+        <p id="modal-desc" style="font-size:17px;color:#2F2F2F;line-height:1.7;max-width:640px;"></p>
+      </div>
+
+      <!-- right: highlights + action links -->
+      <div style="padding:22px 28px 24px;display:flex;flex-direction:column;">
+        <div id="modal-highlights" style="display:flex;flex-direction:column;gap:8px;flex:1;"></div>
+        <!-- Action links (replaces bottom bar) -->
+        <div style="border-top:1px solid #E8EAF0;margin-top:16px;padding-top:14px;display:flex;gap:20px;">
+          <a id="modal-action-login" href="#" target="_blank" style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='#1B3A6B'">
+            <div style="width:30px;height:30px;border-radius:50%;background:rgba(15,34,68,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            Investor Login
+          </a>
+          <a href="contact.html" style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1B3A6B;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#F2C849'" onmouseout="this.style.color='#1B3A6B'">
+            <div style="width:30px;height:30px;border-radius:50%;background:rgba(15,34,68,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            Contact Us
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ──────── NAV ──────── -->
+<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;background:transparent;padding:0 28px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s ease, box-shadow 0.3s ease;">
+<a href="index.html"><img id="nav-logo-white" src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;"><img id="nav-logo-color" src="logos/logo-color-cropped.png" alt="SafeHarbor" style="height:50px;width:auto;display:none;"></a>
+  <button id="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  <div id="nav-links" style="display:flex;align-items:center;gap:28px;">
+    <button id="mobile-close" style="display:none;" onclick="document.getElementById('nav-links').classList.remove('mobile-open')">&times;</button>
+    <a class="nav-link" href="strategy.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Strategy</a>
+    <a class="nav-link" href="portfolio.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #F2C849;padding-bottom:2px;">Portfolio</a>
+    <a class="nav-link" href="team.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Team</a>
+    <a class="nav-link" href="esg.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">ESG</a>
+    <a class="nav-link" href="contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Contact</a>
+    <a href="https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents" target="_blank" id="nav-login" style="border:1px solid rgba(255,255,255,0.35);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-decoration:none;">Investor Login</a>
+  </div>
+</nav>
+<script>
+(function() {
+  const nav = document.getElementById('main-nav');
+  const logoWhite = document.getElementById('nav-logo-white');
+  const logoColor = document.getElementById('nav-logo-color');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const loginBtn = document.getElementById('nav-login');
+  const hamSpans = document.querySelectorAll('#mobile-toggle span');
+
+  function setNavState(scrolled) {
+    if (scrolled) {
+      nav.style.background = 'white';
+      nav.style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+      logoWhite.style.display = 'none';
+      logoColor.style.display = 'block';
+      navLinks.forEach(a => { a.style.color = '#1B3A6B'; });
+      loginBtn.style.color = '#1B3A6B';
+      loginBtn.style.border = '1px solid #1B3A6B';
+      hamSpans.forEach(s => s.style.background = '#1B3A6B');
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.boxShadow = 'none';
+      logoWhite.style.display = 'block';
+      logoColor.style.display = 'none';
+      navLinks.forEach(a => { a.style.color = 'rgba(255,255,255,0.6)'; });
+      loginBtn.style.color = 'rgba(255,255,255,0.9)';
+      loginBtn.style.border = '1px solid rgba(255,255,255,0.35)';
+      hamSpans.forEach(s => s.style.background = 'white');
+    }
+  }
+
+  setNavState(false);
+  window.addEventListener('scroll', function() {
+    setNavState(window.scrollY > 80);
+  }, { passive: true });
+})();
+</script>
+
+<!-- ──────── HERO BAND ──────── -->
+<section style="background:#0F2244;padding:120px 28px 56px;">
+  <div class="container">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-bottom:14px;">Our Portfolio</div>
+    <h1 style="font-size:52px;font-weight:400;color:white;line-height:1.15;letter-spacing:-0.02em;">A Multi-State Portfolio<br><em style="color:#F2C849;font-style:italic;">of Workforce Housing.</em></h1>
+  </div>
+</section>
+
+<!-- ──────── MAIN: SIDEBAR + GRID ──────── -->
+<section style="background:white;padding:48px 28px 96px;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:172px 1fr;gap:44px;align-items:start;">
+
+      <!-- ── SIDEBAR ── -->
+      <div style="position:sticky;top:88px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#BBB;margin-bottom:10px;padding-left:12px;">Status</div>
+
+        <div style="display:flex;flex-direction:column;gap:1px;">
+          <button class="filter-btn active" data-filter="all" style="color:#1B3A6B;" onclick="setFilter('all',this)">
+            All Properties
+          </button>
+          <button class="filter-btn" data-filter="development" style="color:#2762A0;" onclick="setFilter('development',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#6B9FD4;flex-shrink:0;"></span>
+            In Development
+          </button>
+          <button class="filter-btn" data-filter="lease-up" style="color:#A84E10;" onclick="setFilter('lease-up',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#E07A3A;flex-shrink:0;"></span>
+            Lease-Up
+          </button>
+          <button class="filter-btn" data-filter="stabilized" style="color:#8A6D10;" onclick="setFilter('stabilized',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#F2C849;flex-shrink:0;"></span>
+            Stabilized
+          </button>
+          <button class="filter-btn" data-filter="refinanced" style="color:#2B7A5C;" onclick="setFilter('refinanced',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#4CAF82;flex-shrink:0;"></span>
+            Refinanced
+          </button>
+          <button class="filter-btn" data-filter="sold" style="color:#6B6B78;" onclick="setFilter('sold',this)">
+            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#9E9EA8;flex-shrink:0;"></span>
+            Sold
+          </button>
+        </div>
+
+        <div id="count-label" style="display:none;"></div>
+      </div>
+
+      <!-- ── PROPERTY GRID ── -->
+      <div>
+
+        <!-- ── FEATURED ROW: 2 large (real photos) ── -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+
+          <!-- Groton CT -->
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('groton')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;">
+              <img src="logos/groton-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Groton, CT</div><div style="display:flex;gap:4px;"><span class="badge badge-stabilized">Stabilized</span><span class="badge badge-refinanced">Refinanced</span></div></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">112 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Extended-stay hotel converted into 112 apartments. Located in a major defense and pharmaceutical workforce corridor. Stabilized and refinanced ahead of schedule.</p>
+            </div>
+          </div>
+
+          <!-- Warwick RI -->
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('warwick')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;">
+              <img src="logos/bordeaux-interior.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Warwick, RI</div><div style="display:flex;gap:4px;"><span class="badge badge-stabilized">Stabilized</span><span class="badge badge-refinanced">Refinanced</span></div></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">190 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former Sheraton converted into 190 apartments with indoor pool, co-working space, fitness center, and onsite restaurant.</p>
+            </div>
+          </div>
+
+
+
+          <!-- Detroit MI -->
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced stabilized" onclick="openProperty('detroit')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/detroit.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Detroit, MI</div><div style="display:flex;gap:4px;"><span class="badge badge-stabilized">Stabilized</span><span class="badge badge-refinanced">Refinanced</span></div></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">128 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">128-unit loft-style community with oversized studios, one-bedrooms, and duplex two-bedrooms. Pool, clubhouse, fitness center, and sports court.</p>
+            </div>
+          </div>
+
+          <!-- Burlington NC -->
+          <div class="prop-card acc-stabilized prop-item" data-status="stabilized" onclick="openProperty('burlington')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/burlington.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Burlington, NC</div><span class="badge badge-stabilized">Stabilized</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">135 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former OYO hotel converted into 135 studio apartments at attainable rents. Pool, fitness center, clubhouse, and 4,500 SF of retail space.</p>
+            </div>
+          </div>
+
+          <!-- Ringgold GA -->
+          <div class="prop-card acc-stabilized prop-item" data-status="stabilized" onclick="openProperty('ringgold')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/ringgold.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Chattanooga, GA</div><span class="badge badge-stabilized">Stabilized</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">104 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former hotel converted into 104 apartments in the Chattanooga metro. Delivered with full CO, leasing began immediately upon closing.</p>
+            </div>
+          </div>
+
+          <!-- Fayetteville I NC (Bordeaux) -->
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced lease-up" onclick="openProperty('bordeaux')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/bordeaux.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Bordeaux, NC</div><div style="display:flex;gap:4px;"><span class="badge badge-lease-up">Lease-Up</span><span class="badge badge-refinanced">Refinanced</span></div></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">255 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former 298-room Ramada Plaza converted into 255 apartments near Fort Liberty, the largest U.S. military base. Pool, clubhouse, and onsite restaurant.</p>
+            </div>
+          </div>
+
+          <!-- Cedar Creek NC -->
+          <div class="prop-card acc-refinanced prop-item" data-status="refinanced lease-up" onclick="openProperty('cedarcreek')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/cedarcreek.jpg" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center bottom;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:14px;font-weight:400;color:#1B3A6B;">Cedar Creek, NC</div><div style="display:flex;gap:4px;"><span class="badge badge-lease-up">Lease-Up</span><span class="badge badge-refinanced">Refinanced</span></div></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">201 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">201-unit conversion near Fort Liberty, the largest U.S. military base. Indoor pool and 15,000 SF of commercial space.</p>
+            </div>
+          </div>
+
+          <!-- Erie PA -->
+          <div class="prop-card acc-lease-up prop-item" data-status="lease-up" onclick="openProperty('erie')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/erie.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Erie, PA</div><span class="badge badge-lease-up">Lease-Up</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">197 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former Avalon Hotel converted into 197 apartments in downtown Erie. Adjacent to Gannon University, 12,000 SF leased to UPMC.</p>
+            </div>
+          </div>
+
+          <!-- San Antonio TX (lease-up) -->
+          <div class="prop-card acc-lease-up prop-item" data-status="lease-up" onclick="openProperty('sanantonio_n')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/sanantonio.webp" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Valor Hill, TX</div><span class="badge badge-lease-up">Lease-Up</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">118 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">118-unit veteran-focused workforce community in San Antonio. Partnered with SAMMinistries and HUD-VASH for supportive housing.</p>
+            </div>
+          </div>
+
+          <!-- El Paso TX -->
+          <div class="prop-card acc-sold prop-item" data-status="sold" onclick="openProperty('elpaso')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/elpaso.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">El Paso, TX</div><span class="badge badge-sold">Sold</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">142 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former 142-unit senior housing community converted and sold to El Paso Housing Authority within 6 months. 1.35x net multiple to LP investors.</p>
+            </div>
+          </div>
+
+          <!-- Silver Spring MD -->
+          <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('silverspring')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/silverspring.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Silver Spring, MD</div><span class="badge badge-development">In Development</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">227 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former DoubleTree hotel conversion minutes from D.C. Adjacent to Silver Spring Metro, Children's National Hospital, and federal agency campuses.</p>
+            </div>
+          </div>
+
+          <!-- Baltimore MD -->
+          <div class="prop-card acc-development prop-item" data-status="development lease-up" onclick="openProperty('baltimore')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/baltimore.jpg" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center bottom;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Baltimore, MD</div><div style="display:flex;gap:4px;"><span class="badge badge-development">In Development</span><span class="badge badge-lease-up">Lease-Up</span></div></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">302 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Largest asset in the portfolio. Inner Harbor area workforce demand. Active conversion phase.</p>
+            </div>
+          </div>
+
+          <!-- Columbia SC -->
+          <div class="prop-card acc-development prop-item" data-status="development lease-up" onclick="openProperty('columbia')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/columbia.jpg" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center bottom;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">Columbia, SC</div><div style="display:flex;gap:4px;"><span class="badge badge-development">In Development</span><span class="badge badge-lease-up">Lease-Up</span></div></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">146 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">17-story senior housing high-rise conversion in downtown Columbia. Adjacent to the BullStreet District and one mile from USC.</p>
+            </div>
+          </div>
+
+          <!-- Dallas I TX (The Nora) -->
+          <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('dallas_nora')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/dallas.png" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">N Stemmons Fwy, Dallas, TX</div><span class="badge badge-development">In Development</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">142 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former Sonesta ES Suites conversion in Dallas's Medical District, off I-35E. Adjacent to Clements University Hospital, Parkland Health, and Children's Medical Center.</p>
+            </div>
+          </div>
+
+          <!-- Dallas II TX (The Otis) -->
+          <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('dallas_otis')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/dallas2.png" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">N Central Expressway, Dallas, TX</div><span class="badge badge-development">In Development</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">103 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">Former Sonesta ES Suites conversion on North Central Expressway. Near Medical City, UT Dallas, SMU, and Texas Instruments headquarters.</p>
+            </div>
+          </div>
+
+          <!-- San Antonio TX (development) -->
+          <div class="prop-card acc-development prop-item" data-status="development" onclick="openProperty('sanantonio_s')" style="cursor:pointer;">
+            <div style="height:130px;overflow:hidden;"><img src="logos/sanantonio-south.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="padding:12px 14px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:#1B3A6B;">San Antonio South, TX</div><span class="badge badge-development">In Development</span></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">220 Units</div>
+              <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">13-story former Sonesta ES Suites conversion in downtown San Antonio. Steps from the River Walk and the proposed $3.5B Project Marvel arena district.</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- end 3-col grid -->
+
+      </div>
+      <!-- end main grid -->
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0F2244;padding:64px 28px 28px;">
+  <div class="container">
+    <div class="footer-cta" style="display:flex;align-items:center;justify-content:space-between;gap:32px;margin-bottom:48px;">
+      <div>
+        <h2 style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:8px;">Ready to learn more?</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.5);">We work with a limited group of long-term capital partners.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-shrink:0;">
+        <a href="contact.html" style="background:#F2C849;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;text-decoration:none;">Contact Us</a>
+        <a href="https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents" target="_blank" style="border:1px solid rgba(255,255,255,0.3);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;">Investor Login</a>
+      </div>
+    </div>
+    <div class="footer-addresses-row" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:36px;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;">
+      <img src="logos/logo-white-cropped.png" alt="SafeHarbor" style="height:40px;width:auto;opacity:0.6;">
+      <div class="footer-addresses" style="display:flex;gap:32px;">
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">United States</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">45 Rockefeller Plaza FL.20<br>New York, NY 10111</div>
+        </div>
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">Israel</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">Yad Harutzim 2<br>Netanya, Israel</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:11px;color:rgba(255,255,255,0.2);font-family:'Barlow',sans-serif;">&copy; 2026 SafeHarbor Investors Group. All rights reserved.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.15);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── filter ──
+function setFilter(status, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const items = document.querySelectorAll('.prop-item');
+  let visible = 0;
+  items.forEach(item => {
+    const statuses = item.dataset.status.split(' ');
+    if (status === 'all' || statuses.includes(status)) {
+      item.classList.remove('hidden'); visible++;
+    } else { item.classList.add('hidden'); }
+  });
+  const labels = {
+    all: '20 completed · 4 pipeline',
+    refinanced: visible + ' refinanced assets',
+    stabilized: visible + ' stabilized assets',
+    'lease-up': visible + ' assets in lease-up',
+    development: visible + ' assets in development',
+    contract: visible + ' assets under contract'
+  };
+  document.getElementById('count-label').textContent = labels[status] || visible + ' properties';
+}
+
+// ── property data ──
+const properties = {
+  groton: {
+    name: 'Groton, CT', location: 'Groton, Connecticut', units: '112 Units',
+    status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
+    img: 'logos/groton-interior.jpg',
+    desc: 'A 112-unit conversion of an extended-stay hotel into spacious one- and two-bedroom apartments and studios. Located 2 miles from the Naval Submarine Base, 3 miles from GD Electric Boat, and 3 miles from Pfizer\'s global research HQ. Features a clubhouse, fitness center, co-working space, and outdoor amenities.',
+    highlights: ['Acquired June 2023', 'Opportunity Zone designation', 'Stabilized and refinanced ahead of schedule'],
+    market: 'New London County, CT',
+    mapQ: 'Groton,+CT'
+  },
+  warwick: {
+    name: 'Warwick, RI', location: 'Warwick, Rhode Island', units: '190 Units',
+    status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
+    img: 'logos/bordeaux-interior.jpg',
+    desc: 'A former 207-room Sheraton converted into 163 studios and 27 one-bedroom apartments. Adjacent to T.F. Green International Airport in one of the lowest vacancy markets in the U.S. Features an indoor pool, clubhouse, co-working space, fitness center, and onsite restaurant.',
+    highlights: ['Acquired June 2023', 'Stabilized November 2025', 'Refinanced ahead of schedule'],
+    market: 'Providence Metro, RI',
+    mapQ: 'Warwick,+Rhode+Island'
+  },
+  detroit: {
+    name: 'Detroit, MI', location: 'Detroit, Michigan', units: '128 Units',
+    status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
+    img: 'logos/detroit.jpg',
+    desc: 'A 128-unit loft-style community offering oversized studios, one-bedrooms, and two-bedroom duplexes. Located 5 minutes from Ford World HQ and 1.5 miles from University of Michigan–Dearborn. Features an outdoor pool, clubhouse, fitness center, and sports court.',
+    highlights: ['Acquired June 2023', 'Completed January 2024', 'Stabilized June 2025', 'Refinanced ahead of schedule'],
+    market: 'Detroit Metro, MI',
+    mapQ: 'Detroit,+Michigan'
+  },
+  burlington: {
+    name: 'Burlington, NC', location: 'Burlington, North Carolina', units: '135 Units',
+    status: 'stabilized', statusLabel: 'Stabilized',
+    img: 'logos/burlington.jpg',
+    desc: 'A former OYO hotel converted into 135 studio apartments at attainable rents. Located between the Research Triangle and Piedmont Triad in one of NC\'s fastest-growing metros (1.6M+ MSA). Features a pool, fitness center, clubhouse, and 4,500 SF of retail space.',
+    highlights: ['Acquired April 2024', 'Stabilized March 2026', 'Opportunity Zone designation'],
+    market: 'Alamance County, NC',
+    mapQ: 'Burlington,+North+Carolina'
+  },
+  ringgold: {
+    name: 'Chattanooga, GA', location: 'Ringgold, Georgia', units: '104 Units',
+    status: 'stabilized', statusLabel: 'Stabilized',
+    img: 'logos/ringgold.jpg',
+    desc: 'A former hotel converted into 104 apartments offering studios, junior one-bedrooms, and one-bedrooms. Located in Ringgold, GA within the Chattanooga MSA, next to I-75 and across from a new Costco center. Half a mile from a new Amazon distribution center and 1 mile from a $100M+ logistics park (700+ new jobs). Features a pool with cabana, clubhouse, fitness center, and community firepit.',
+    highlights: ['Acquired April 2024', 'Stabilized August 2025', 'Delivered with full CO — leasing began at closing'],
+    market: 'Catoosa County, GA',
+    mapQ: 'Ringgold,+Georgia'
+  },
+  bordeaux: {
+    name: 'Bordeaux, NC', location: 'Fayetteville, North Carolina', units: '255 Units',
+    status: 'refinanced', statusLabel: 'Refinanced',
+    img: 'logos/bordeaux.jpg',
+    desc: 'A former 298-room Ramada Plaza converted into 210 studios and 45 one-bedrooms. Located 15 minutes from Fort Liberty, the largest U.S. military base, and walking distance from Cape Fear Medical Center (7,000 employees). Features a pool, clubhouse, fitness center, co-working space, and onsite restaurant.',
+    highlights: ['Acquired June 2023', 'Completed August 2024', 'Refinanced ahead of schedule'],
+    market: 'Cumberland County, NC',
+    mapQ: 'Fayetteville,+North+Carolina'
+  },
+  cedarcreek: {
+    name: 'Cedar Creek, NC', location: 'Fayetteville, North Carolina', units: '201 Units',
+    status: 'refinanced', statusLabel: 'Refinanced',
+    img: 'logos/cedarcreek.jpg',
+    desc: 'A 201-unit conversion near Fort Liberty, the largest U.S. military base, and Cape Fear Medical Center. Features an indoor pool and 15,000 SF of commercial space.',
+    highlights: ['Acquired June 2023', 'Refinanced ahead of schedule'],
+    market: 'Cumberland County, NC',
+    mapQ: 'Fayetteville,+North+Carolina'
+  },
+  erie: {
+    name: 'Erie, PA', location: 'Erie, Pennsylvania', units: '197 Units',
+    status: 'lease-up', statusLabel: 'Lease-Up',
+    img: 'logos/erie.jpg',
+    desc: 'A former eight-story Avalon Hotel converted into 184 studios and 13 one-bedrooms in downtown Erie. Adjacent to Gannon University, one block from Erie Insurance Arena, and 10 minutes from LECOM, the nation\'s largest medical college. 12,000 SF ground-floor retail leased to UPMC for medical offices.',
+    highlights: ['Acquired April 2024 via tax-exempt municipal bond financing', 'Completed Q2 2025', 'Partnership with Community Finance Corporation (not-for-profit)', 'Enterprise Zone and Opportunity Zone'],
+    market: 'Erie County, PA',
+    mapQ: 'Erie,+Pennsylvania'
+  },
+  sanantonio_n: {
+    name: 'Valor Hill, TX', location: 'San Antonio, Texas', units: '118 Units',
+    status: 'lease-up', statusLabel: 'Lease-Up',
+    img: 'logos/sanantonio.webp',
+    desc: 'A 118-unit veteran-focused workforce community in San Antonio featuring a main building and cottages. Amenities include a clubhouse, fitness center, community garden, and 66 new parking spaces.',
+    highlights: ['24 units leased to SAMMinistries (nonprofit)', '20 HUD-VASH project-based vouchers', 'Onsite VA and Endeavors offices for supportive services'],
+    market: 'Bexar County, TX',
+    mapQ: 'San+Antonio,+Texas'
+  },
+  elpaso: {
+    name: 'El Paso, TX', location: 'El Paso, Texas', units: '142 Units',
+    status: 'sold', statusLabel: 'Sold',
+    img: 'logos/elpaso.jpg',
+    desc: 'A 142-unit senior housing community converted to workforce housing in El Paso. Originally comprised of 75 Independent Living and 67 Assisted Living units. Located near Fort Bliss, UTEP, and multiple hospitals in the Mesa Hills neighborhood.',
+    highlights: ['Acquired March 2024', '6-month hold period', 'Sold September 2024 to El Paso Housing Authority'],
+    market: 'El Paso County, TX',
+    mapQ: 'El+Paso,+Texas'
+  },
+  silverspring: {
+    name: 'Silver Spring, MD', location: 'Silver Spring, Maryland', units: '227 Units',
+    status: 'development', statusLabel: 'In Development',
+    img: 'logos/silverspring.jpg',
+    desc: 'A 227-unit conversion of a former DoubleTree hotel in Silver Spring, Maryland, minutes from Washington D.C. Located in Montgomery County\'s strongest workforce corridor, adjacent to the Silver Spring Metro station, Children\'s National Hospital, and major federal agency campuses.',
+    highlights: ['Acquired June 2025', 'Opportunity Zone designation', 'Entitlements secured; conversion underway'],
+    market: 'Montgomery County, MD',
+    mapQ: 'Silver+Spring,+Maryland'
+  },
+  baltimore: {
+    name: 'Baltimore, MD', location: 'Baltimore, Maryland', units: '302 Units',
+    status: 'development', statusLabel: 'In Development',
+    img: 'logos/baltimore.jpg',
+    desc: 'The largest asset in the SafeHarbor portfolio at 302 units. A landmark hotel-to-multifamily conversion in Baltimore\'s Inner Harbor district, serving the healthcare, government, and port-economy workforce. Active conversion phase.',
+    highlights: ['Largest asset in the portfolio — 302 units', 'Inner Harbor area workforce demand', 'Healthcare, government, and port-economy base'],
+    market: 'Baltimore City, MD',
+    mapQ: 'Baltimore,+Maryland'
+  },
+  columbia: {
+    name: 'Columbia, SC', location: 'Columbia, South Carolina', units: '146 Units',
+    status: 'development', statusLabel: 'In Development',
+    img: 'logos/columbia.jpg',
+    desc: 'A 146-unit conversion of a 17-story former senior housing high-rise in downtown Columbia, South Carolina. Located in the University Hill neighborhood, adjacent to the BullStreet District — a $1B+ mixed-use development — and one mile from the University of South Carolina\'s main campus. Near Fort Jackson, the largest Army basic training facility in the U.S.',
+    highlights: ['Acquired March 2025', 'Partnership with Opportunity South Carolina (non-profit)', '100% property tax abatement'],
+    market: 'Richland County, SC',
+    mapQ: 'Columbia,+South+Carolina'
+  },
+  dallas_nora: {
+    name: 'N Stemmons Fwy, Dallas, TX', location: 'Dallas, Texas', units: '142 Units',
+    status: 'development', statusLabel: 'In Development',
+    img: 'logos/dallas.png',
+    desc: 'A 142-unit conversion of a 3-story former Sonesta ES Suites in Dallas\'s Medical District, one of the largest healthcare and research hubs in the country. Adjacent to Clements University Hospital, Parkland Health, and Children\'s Medical Center Dallas — together offering 1,800+ beds and serving 4.5M+ patients annually. Located directly off I-35E, minutes from Love Field Airport, Dallas Market Center, and the Design District. Amenities include a fitness center, outdoor pool, basketball court, and coworking space.',
+    highlights: ['Acquired November 2025', 'Partnering with the Dallas Public Facility Corporation to benefit from a 100% property tax abatement', '6-month renovation; 12-month lease-up target'],
+    market: 'Dallas-Fort Worth Metro, TX',
+    mapQ: 'Dallas,+Texas'
+  },
+  dallas_otis: {
+    name: 'N Central Expressway, Dallas, TX', location: 'Dallas, Texas', units: '103 Units',
+    status: 'development', statusLabel: 'In Development',
+    img: 'logos/dallas2.png',
+    desc: 'A 103-unit conversion of a former Sonesta ES Suites on North Central Expressway in North Dallas. Located near Medical City, UT Dallas, Southern Methodist University, and the Texas Instruments headquarters campus. Adjacent to NorthPark Center and the Shops at Park Lane in one of Dallas\'s strongest employment corridors.',
+    highlights: ['Acquired December 2025', 'Extended-stay unit configurations are well-suited for apartment conversion', 'Dallas continues to experience nation-leading population growth (30%+ since 2010)'],
+    market: 'Dallas-Fort Worth Metro, TX',
+    mapQ: 'Dallas,+Texas'
+  },
+  sanantonio_s: {
+    name: 'San Antonio South, TX', location: 'San Antonio, Texas', units: '220 Units',
+    status: 'development', statusLabel: 'In Development',
+    img: 'logos/sanantonio-south.jpg',
+    desc: '220-unit, 13-story conversion of a former extended-stay in the heart of downtown San Antonio — the 7th most populous city in the U.S. Proximate to major employers, the Shops at Rivercenter, the San Antonio River Walk, and the proposed $3.5 billion Project Marvel development (new Spurs stadium).',
+    highlights: ['Acquired December 2025', 'Residential use is permitted under the existing zoning designation', '100% property tax abatement via San Antonio Housing Trust PFC'],
+    market: 'Bexar County, TX',
+    mapQ: 'San+Antonio,+Texas'
+  }
+};
+
+const statusColors = {
+  refinanced: '#4CAF82', stabilized: '#F2C849',
+  'lease-up': '#E07A3A', development: '#6B9FD4', contract: 'rgba(150,150,170,0.5)', sold: '#9E9EA8'
+};
+const badgeClass = {
+  refinanced: 'badge-refinanced', stabilized: 'badge-stabilized',
+  'lease-up': 'badge-lease-up', development: 'badge-development', contract: 'badge-contract', sold: 'badge-sold'
+};
+
+function openProperty(key) {
+  const p = properties[key];
+  if (!p) return;
+
+  // hero photo
+  const imgEl = document.getElementById('modal-img');
+  const photoDiv = document.getElementById('modal-photo');
+  if (p.img) {
+    imgEl.src = p.img;
+    imgEl.style.display = 'block';
+    photoDiv.style.background = '';
+  } else {
+    imgEl.style.display = 'none';
+    photoDiv.style.background = 'linear-gradient(135deg,#252D42,#141820)';
+  }
+
+  // badge on photo
+  const statuses = Array.isArray(p.status) ? p.status : [p.status];
+  const labels = Array.isArray(p.statusLabel) ? p.statusLabel : [p.statusLabel];
+  document.getElementById('modal-badge-wrap').innerHTML = statuses.map((s,i) =>
+    `<span class="badge ${badgeClass[s]}" style="background:rgba(0,0,0,0.45);color:white;border:1px solid rgba(255,255,255,0.22);">${labels[i]}</span>`
+  ).join('');
+
+  // text
+  document.getElementById('modal-location').textContent = p.location;
+  document.getElementById('modal-name').textContent = p.name;
+  document.getElementById('modal-units').textContent = p.units + '  ·  ' + p.market;
+  document.getElementById('modal-desc').textContent = p.desc;
+
+  // highlights
+  const hl = document.getElementById('modal-highlights');
+  hl.innerHTML = p.highlights.map(h => `
+    <div style="display:flex;gap:10px;align-items:flex-start;">
+      <div style="width:4px;height:4px;border-radius:50%;background:#F2C849;margin-top:7px;flex-shrink:0;"></div>
+      <p style="font-size:15px;color:#3A3A3A;line-height:1.65;">${h}</p>
+    </div>`).join('');
+
+  // set login URL on action link
+  document.getElementById('modal-action-login').href = 'https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents';
+
+  // open
+  document.getElementById('prop-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('prop-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
