@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy headline — break variations</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow',sans-serif;background:#0F2244;color:white;padding:40px 28px;}
+.wrap{max-width:1000px;margin:0 auto;}
+.intro{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:8px;}
+.intro-sub{font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:40px;line-height:1.5;}
+.variant{border-top:1px solid rgba(255,255,255,0.1);padding:40px 0;}
+.label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-bottom:16px;}
+.note{font-size:13px;color:rgba(255,255,255,0.5);margin-top:14px;font-style:italic;}
+h1{font-family:'Libre Baskerville',serif;font-size:50px;font-weight:400;color:white;line-height:1.15;letter-spacing:-0.02em;max-width:780px;}
+h1 em{color:#F2C849;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">Strategy page · Hero headline</div>
+  <div class="intro-sub">Same copy, different line breaks. The heading is Libre Baskerville 50px on navy. Italic yellow portion is always the closing "We Deliver the Solution."</div>
+
+  <!-- CURRENT -->
+  <div class="variant">
+    <div class="label">Current (3 lines + tagline)</div>
+    <h1>America's Housing Crisis<br>Created the Opportunity.<br><em>We Deliver the Solution.</em></h1>
+    <div class="note">Four visual breaks. Bold rhythm but reads choppy — "Housing" and "Crisis" stay together only by luck of the break.</div>
+  </div>
+
+  <!-- VARIANT A -->
+  <div class="variant">
+    <div class="label">Variant A — 2 lines, clean split</div>
+    <h1>America's Housing Crisis Created the Opportunity.<br><em>We Deliver the Solution.</em></h1>
+    <div class="note">Two clauses, two lines. Statement → resolution. Most editorial. Recommended.</div>
+  </div>
+
+  <!-- VARIANT B -->
+  <div class="variant">
+    <div class="label">Variant B — Break after "Crisis"</div>
+    <h1>America's Housing Crisis<br>Created the Opportunity. <em>We Deliver the Solution.</em></h1>
+    <div class="note">Crisis sits alone as a declaration; the response lands in one flowing line.</div>
+  </div>
+
+  <!-- VARIANT C -->
+  <div class="variant">
+    <div class="label">Variant C — Break before "We Deliver"</div>
+    <h1>America's Housing Crisis Created <br>the Opportunity. <em>We Deliver the Solution.</em></h1>
+    <div class="note">Breaks mid-clause. Less clean than A but creates rhythm.</div>
+  </div>
+
+  <!-- VARIANT D -->
+  <div class="variant">
+    <div class="label">Variant D — 3 lines, tighter</div>
+    <h1>America's Housing Crisis<br>Created the Opportunity.<br><em>We Deliver the Solution.</em></h1>
+    <div class="note">Same as current. Stacked rhythm. Works well if type is sized right.</div>
+  </div>
+
+  <!-- VARIANT E -->
+  <div class="variant">
+    <div class="label">Variant E — Single line (wide screens)</div>
+    <h1 style="max-width:1100px;font-size:40px;">America's Housing Crisis Created the Opportunity. <em>We Deliver the Solution.</em></h1>
+    <div class="note">No manual breaks; browser wraps naturally. Feels like editorial prose. Smaller size to avoid overflow.</div>
+  </div>
+
+  <!-- VARIANT F -->
+  <div class="variant">
+    <div class="label">Variant F — Emphasis on "Opportunity"</div>
+    <h1>America's Housing Crisis <em>Created the Opportunity.</em><br>We Deliver the Solution.</h1>
+    <div class="note">Flips the italic: the opportunity is highlighted in gold, the solution is the straight statement.</div>
+  </div>
+
+  <!-- VARIANT G -->
+  <div class="variant">
+    <div class="label">Variant G — Tight 2-line with break after "Created"</div>
+    <h1>America's Housing Crisis Created<br>the Opportunity. <em>We Deliver the Solution.</em></h1>
+    <div class="note">Break after a verb — more propulsive than breaking after the noun phrase.</div>
+  </div>
+
+</div>
+</body>
+</html>
