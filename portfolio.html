@@ -288,10 +288,6 @@ a:hover { color: inherit; }
           <button class="filter-btn active" data-filter="all" style="color:#1B3A6B;" onclick="setFilter('all',this)">
             All Properties
           </button>
-          <button class="filter-btn" data-filter="contract" style="color:#60607A;" onclick="setFilter('contract',this)">
-            <span class="dot" style="width:7px;height:7px;border-radius:50%;background:rgba(150,150,170,0.6);flex-shrink:0;"></span>
-            Under Contract
-          </button>
           <button class="filter-btn" data-filter="development" style="color:#2762A0;" onclick="setFilter('development',this)">
             <span class="dot" style="width:7px;height:7px;border-radius:50%;background:#6B9FD4;flex-shrink:0;"></span>
             In Development
@@ -499,48 +495,6 @@ a:hover { color: inherit; }
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Tucson, AZ</div><span class="badge badge-development">In Development</span></div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">100 Units</div>
               <p style="font-size:11px;color:#5A5A5A;line-height:1.55;">Fully entitled ground-up development of a 2-story, 100-unit project. Near the University of Arizona, Raytheon, and Davis-Monthan Air Force Base.</p>
-            </div>
-          </div>
-
-          <!-- ── UNDER CONTRACT: 4 greyed cards ── -->
-
-          <!-- Norfolk VA -->
-          <div class="prop-card acc-contract prop-item" data-status="contract" style="cursor:pointer;" onclick="openProperty('norfolk')">
-            <div style="height:130px;overflow:hidden;"><img src="logos/norfolk.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-            <div style="padding:12px 14px 14px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Norfolk, VA</div><span class="badge badge-contract">Under Contract</span></div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">160 Units</div>
-              <p style="font-size:11px;color:#4A4A4A;line-height:1.55;">Hampton Roads military and healthcare market. Details available to qualified investors.</p>
-            </div>
-          </div>
-
-          <!-- Arlington VA -->
-          <div class="prop-card acc-contract prop-item" data-status="contract" style="cursor:pointer;" onclick="openProperty('arlington')">
-            <div style="height:130px;overflow:hidden;"><img src="logos/arlington.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-            <div style="padding:12px 14px 14px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Arlington, VA</div><span class="badge badge-contract">Under Contract</span></div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">187 Units</div>
-              <p style="font-size:11px;color:#4A4A4A;line-height:1.55;">Inside the Beltway federal and defense workforce corridor. Details available to qualified investors.</p>
-            </div>
-          </div>
-
-          <!-- Lakewood CO -->
-          <div class="prop-card acc-contract prop-item" data-status="contract" style="cursor:pointer;" onclick="openProperty('lakewood')">
-            <div style="height:130px;overflow:hidden;"><img src="logos/lakewood.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-            <div style="padding:12px 14px 14px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">Lakewood, CO</div><span class="badge badge-contract">Under Contract</span></div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">147 Units</div>
-              <p style="font-size:11px;color:#4A4A4A;line-height:1.55;">Denver metro workforce market. Details available to qualified investors.</p>
-            </div>
-          </div>
-
-          <!-- North Charleston SC -->
-          <div class="prop-card acc-contract prop-item" data-status="contract" style="cursor:pointer;" onclick="openProperty('charleston')">
-            <div style="height:130px;overflow:hidden;"><img src="logos/ncharleston.png" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-            <div style="padding:12px 14px 14px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;"><div style="font-family:'Libre Baskerville',serif;font-size:15px;font-weight:400;color:#1B3A6B;">North Charleston, SC</div><span class="badge badge-contract">Under Contract</span></div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;color:#AAA;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">132 Units</div>
-              <p style="font-size:11px;color:#4A4A4A;line-height:1.55;">Charleston metro workforce market. Details available to qualified investors.</p>
             </div>
           </div>
 
@@ -765,42 +719,6 @@ const properties = {
     highlights: ['Fully entitled for multifamily', 'Oversized studios and efficient 1-bedroom unit mix', 'Diversified economic base anchored by the University of Arizona, Raytheon Technologies, and Davis-Monthan Air Force Base'],
     market: 'Pima County, AZ',
     mapQ: 'Tucson,+Arizona'
-  },
-  norfolk: {
-    name: 'Norfolk, VA', location: 'Norfolk, Virginia', units: '160 Units',
-    status: 'contract', statusLabel: 'Under Contract',
-    img: null,
-    desc: 'A pipeline acquisition in the Hampton Roads military and healthcare workforce market. Full details available to qualified investors under NDA.',
-    highlights: ['Hampton Roads military and healthcare market', 'Strong workforce demand from Naval Station Norfolk', 'Details available under NDA'],
-    market: 'Hampton Roads, VA',
-    mapQ: 'Norfolk,+Virginia'
-  },
-  arlington: {
-    name: 'Arlington, VA', location: 'Arlington, Virginia', units: '187 Units',
-    status: 'contract', statusLabel: 'Under Contract',
-    img: null,
-    desc: 'A pipeline acquisition inside the Beltway, serving the federal and defense workforce corridor. Full details available to qualified investors under NDA.',
-    highlights: ['Inside the Beltway federal workforce corridor', 'Defense and government workforce demand', 'Details available under NDA'],
-    market: 'Arlington County, VA',
-    mapQ: 'Arlington,+Virginia'
-  },
-  lakewood: {
-    name: 'Lakewood, CO', location: 'Lakewood, Colorado', units: '147 Units',
-    status: 'contract', statusLabel: 'Under Contract',
-    img: null,
-    desc: 'A pipeline acquisition in the Denver metro workforce market. Full details available to qualified investors under NDA.',
-    highlights: ['Denver metro workforce market', 'Strong employment base and high rental demand', 'Details available under NDA'],
-    market: 'Jefferson County, CO',
-    mapQ: 'Lakewood,+Colorado'
-  },
-  charleston: {
-    name: 'North Charleston, SC', location: 'North Charleston, South Carolina', units: '132 Units',
-    status: 'contract', statusLabel: 'Under Contract',
-    img: 'logos/ncharleston.png',
-    desc: 'A 132-unit pipeline acquisition in the Charleston metro workforce market. Full details available to qualified investors under NDA.',
-    highlights: ['Charleston metro workforce market', 'Port economy and healthcare demand base', 'Details available under NDA'],
-    market: 'Charleston County, SC',
-    mapQ: 'North+Charleston,+South+Carolina'
   }
 };
 
