@@ -26,13 +26,24 @@ a:hover { color: inherit; }
 .divider { height: 1px; background: #E8EAF0; }
 
 /* ── 3-card grid ── */
-.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
 .team-card {
   padding: 52px 36px; text-align: center; cursor: pointer;
-  border-right: 1px solid #E8EAF0; transition: background 0.3s;
+  transition: background 0.3s;
   position: relative;
 }
-.team-card:last-child { border-right: none; }
+/* Short centered divider between cards */
+.team-card:not(:last-child)::after {
+  content: ""; position: absolute; top: 20%; right: 0; height: 60%;
+  width: 1px; background: #D6D9E2;
+}
+/* Outer flanking lines on the whole row */
+.team-grid::before, .team-grid::after {
+  content: ""; position: absolute; top: 20%; height: 60%;
+  width: 1px; background: #D6D9E2;
+}
+.team-grid::before { left: 0; }
+.team-grid::after { right: 0; }
 .team-card:hover { background: #FAFBFD; }
 .team-card.active { background: #F7F8FA; }
 
