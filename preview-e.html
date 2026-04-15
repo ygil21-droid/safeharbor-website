@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview E — Split hero</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow',sans-serif;background:#fff;color:#1A1A1A}
+h1,h2{font-family:'Libre Baskerville',serif}
+.container{max-width:960px;margin:0 auto;padding:0 28px}
+.label{position:fixed;top:12px;right:12px;z-index:500;background:#F2C849;color:#0F2244;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;padding:8px 14px;text-transform:uppercase}
+.nav-row{position:fixed;top:56px;right:12px;z-index:500;display:flex;gap:6px}
+.nav-row a{background:#0F2244;color:white;font-family:'Barlow Condensed',sans-serif;font-size:11px;padding:6px 10px;text-decoration:none;border-radius:2px}
+.split{min-height:100vh;display:grid;grid-template-columns:45% 55%}
+.split .left{background:#0F2244;display:flex;align-items:center;padding:72px 48px 56px;}
+.split .right{background:url('logos/groton-interior.jpg') center/cover no-repeat;border-left:3px solid #F2C849;}
+@media(max-width:768px){.split{grid-template-columns:1fr;}.split .right{min-height:40vh;}}
+</style>
+</head>
+<body>
+<div class="label">Preview E — Split hero</div>
+<div class="nav-row"><a href="preview-a.html">A</a><a href="preview-b.html">B</a><a href="preview-c.html">C</a><a href="preview-d.html">D</a><a href="preview-e.html">E</a></div>
+
+<section class="split">
+  <div class="left">
+    <div style="max-width:440px;">
+      <h1 style="font-size:44px;font-weight:400;color:white;line-height:1.2;margin-bottom:24px;letter-spacing:-0.02em;">
+        Where Others Build New,
+        <br><em style="color:#F2C849;font-style:italic;">We Convert Smart.</em>
+      </h1>
+      <div style="width:48px;height:1px;background:#F2C849;margin-bottom:20px;"></div>
+      <p style="font-size:16px;font-weight:300;color:rgba(255,255,255,0.78);line-height:1.8;">
+        We acquire distressed hotels and convert them into modern, affordable apartments, creating value for investors and housing for America's workforce.
+      </p>
+    </div>
+  </div>
+  <div class="right"></div>
+</section>
+<div style="height:2px;background:linear-gradient(90deg, #F2C849 0%, rgba(242,200,73,0.3) 100%);"></div>
+<section style="background:#0F2244;padding:56px 28px;color:white;text-align:center;font-family:'Libre Baskerville',serif;">— Next section begins here —</section>
+</body>
+</html>
