@@ -338,7 +338,7 @@ function submitForm() {
     document.getElementById('form-wrap').style.display = 'none';
     const s = document.getElementById('form-success');
     s.style.display = 'flex';
-    showToast('Your message has been sent successfully!', 5000);
+    // success — form-success panel is now visible
   })
   .catch(err => {
     showToast('Something went wrong. Please try again.', 5000);
