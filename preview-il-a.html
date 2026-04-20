@@ -62,13 +62,10 @@ input:focus{border-color:#F2C849}
 .criteria-item:last-child{border-bottom:none}
 .custom-cb{width:20px;height:20px;min-width:20px;border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all 0.15s;flex-shrink:0}
 .criteria-item.checked .custom-cb{background:#F2C849;border-color:#F2C849}
-.custom-cb::after{content:'';display:none;width:5px;height:9px;border:2px solid #0F2244;border-top:none;border-right:none;transform:rotate(-45deg) translateY(-1px)}
+.custom-cb::after{content:'';display:none;width:5px;height:9px;border:2px solid #0F2244;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px)}
 .criteria-item.checked .custom-cb::after{display:block}
 .criteria-item label{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;cursor:pointer}
 .criteria-item.checked label{color:#fff}
-
-/* Undertakings */
-.undertakings-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin:28px 0 14px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
 
 /* Divider */
 .divider{border:none;border-top:1px solid rgba(255,255,255,0.08);margin:28px 0 22px}
@@ -89,7 +86,7 @@ input:focus{border-color:#F2C849}
 <body>
 
 <div class="nav-bar">
-  <div class="nav-logo"><img src="logos/sh-white-full.png" alt="SafeHarbor"/></div>
+  <div class="nav-logo"><img src="logos/logo-white-cropped.png" alt="SafeHarbor"/></div>
   <div class="nav-links">
     <a href="/contact.html">צור קשר</a>
     <a href="/" style="color:#F2C849;border-bottom:1px solid rgba(242,200,73,0.3);padding-bottom:2px;">אתר החברה</a>
@@ -184,24 +181,11 @@ input:focus{border-color:#F2C849}
       </div>
     </div>
 
-    <!-- Undertakings -->
-    <p class="undertakings-title">הצהרות והתחייבויות</p>
-    <div class="criteria-item" onclick="this.classList.toggle('checked')">
-      <div class="custom-cb"></div>
-      <label>הנני מאשר/ת כי אני מודע/ת להשלכות סיווגי כ"משקיע מסווג" ומסכים/ה להיחשב ככזה.</label>
-    </div>
-    <div class="criteria-item" onclick="this.classList.toggle('checked')">
-      <div class="custom-cb"></div>
-      <label>הנני מתחייב/ת להודיע ל-SafeHarbor סייף הרבור על כל שינוי במעמדי כמשקיע מסווג.</label>
-    </div>
-    <div class="criteria-item" onclick="this.classList.toggle('checked')">
-      <div class="custom-cb"></div>
-      <label>הנני מאשר/ת כי מידע אישי שמסרתי ישמר בהתאם למדיניות הפרטיות של SafeHarbor סייף הרבור.</label>
-    </div>
-
     <hr class="divider"/>
 
-    <p class="fine-print">הצהרה זו ניתנת לצורך בחינת התאמתי כמשקיע מסווג בהתאם לחוק ניירות ערך, התשכ"ח-1968. הנני מאשר/ת כי כל הפרטים שמסרתי נכונים ומדויקים.</p>
+    <p class="fine-print">בבחירת החלופות דלעיל, אני/אנו מסכים/מסכימים בזאת להיחשב כ"משקיע מסווג", ומודע/ים להשלכות קביעה זו. אני/אנו מתחייב/ים להודיע ל-SafeHarbor סייף הרבור על כל שינוי שעשוי להשפיע על הסיווג של הח"מ כ"משקיע מתוחכם" ולספק ל-SafeHarbor סייף הרבור מסמכים ו/או אישורים המעידים על הסיווג כאמור, כפי שיידרש על ידי SafeHarbor סייף הרבור מעת לעת.</p>
+
+    <p class="fine-print" style="margin-top:12px;">אני/אנו מסכים/מים כי מידע אישי שיימסר על ידי/נו יישמר במאגרי המידע של SafeHarbor סייף הרבור, וכי SafeHarbor סייף הרבור תעבד ותעשה שימוש במידע בהתאם למטרות המוגדרות במדיניות הפרטיות של SafeHarbor סייף הרבור.</p>
 
     <button class="submit-btn" onclick="submitForm()">שליחת הצהרה</button>
 
