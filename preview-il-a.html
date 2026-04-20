@@ -3,37 +3,35 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Preview A — Dark Navy (Full Brand)</title>
+<title>SafeHarbor — הצהרת משקיע כשיר</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;500;600&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;500;600&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Heebo',sans-serif;background:#0F2244;color:#fff;min-height:100vh;direction:rtl}
 
-/* Label at top */
-.preview-label{position:fixed;top:0;left:0;right:0;z-index:999;background:#F2C849;color:#0F2244;text-align:center;
-font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.1em;padding:10px;text-transform:uppercase}
-
 /* Nav bar */
-.nav-bar{background:#0F2244;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:88px;margin-top:44px}
+.nav-bar{background:#0F2244;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:88px}
 .nav-logo img{height:64px}
 .nav-links{display:flex;gap:28px;align-items:center}
-.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
 
 /* Hero header */
 .hero{background:#0F2244;padding:64px 28px 48px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)}
 .hero .eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-bottom:14px}
-.hero h1{font-family:'Frank Ruhl Libre','Libre Baskerville',serif;font-size:40px;font-weight:400;color:white;line-height:1.35;margin-bottom:14px}
-.hero .subtitle{font-family:'Frank Ruhl Libre',serif;font-size:17px;color:rgba(255,255,255,0.6);font-weight:300}
+.hero h1{font-family:'Libre Baskerville',serif;font-size:38px;font-weight:400;color:white;line-height:1.35;margin-bottom:14px}
+.hero .subtitle{font-family:'Heebo',sans-serif;font-size:17px;color:rgba(255,255,255,0.7);font-weight:300}
 
 /* Gold line */
 .gold-line{height:2px;background:linear-gradient(90deg,#F2C849 0%,rgba(242,200,73,0.3) 100%)}
 
 /* Form section */
 .form-section{background:#0A1628;padding:56px 28px 80px}
-.form-card{max-width:680px;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:48px 44px;position:relative}
+.form-card{max-width:720px;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:48px 44px;position:relative}
 .form-card::before{content:'';position:absolute;top:0;right:0;width:3px;height:100%;background:#F2C849}
+@media(max-width:600px){.form-card{padding:28px 20px}}
 
 /* Form inputs */
 .input-row{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}
@@ -45,7 +43,7 @@ input::placeholder{color:rgba(255,255,255,0.3)}
 input:focus{border-color:#F2C849}
 
 /* Declaration intro */
-.declaration-intro{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.8;margin:24px 0 20px;border-top:1px solid rgba(255,255,255,0.06);padding-top:20px}
+.declaration-intro{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.8;margin:24px 0 20px;border-top:1px solid rgba(255,255,255,0.06);padding-top:20px}
 
 /* Type selector */
 .type-label-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px}
@@ -56,7 +54,9 @@ input:focus{border-color:#F2C849}
 .type-label.selected .dot{background:#F2C849}
 .type-label:hover{border-color:rgba(255,255,255,0.25)}
 
-/* Criteria */
+/* Criteria sections */
+.criteria-section{display:none}
+.criteria-section.active{display:block}
 .criteria-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin:20px 0 14px}
 .criteria-item{display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer}
 .criteria-item:last-child{border-bottom:none}
@@ -64,25 +64,29 @@ input:focus{border-color:#F2C849}
 .criteria-item.checked .custom-cb{background:#F2C849;border-color:#F2C849}
 .custom-cb::after{content:'';display:none;width:5px;height:9px;border:2px solid #0F2244;border-top:none;border-right:none;transform:rotate(-45deg) translateY(-1px)}
 .criteria-item.checked .custom-cb::after{display:block}
-.criteria-item label{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;cursor:pointer}
+.criteria-item label{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;cursor:pointer}
 .criteria-item.checked label{color:#fff}
+
+/* Undertakings */
+.undertakings-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin:28px 0 14px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
 
 /* Divider */
 .divider{border:none;border-top:1px solid rgba(255,255,255,0.08);margin:28px 0 22px}
 
 /* Fine print */
-.fine-print{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.9;margin-bottom:8px}
+.fine-print{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.9;margin-bottom:8px}
 
 /* Submit */
 .submit-btn{width:100%;padding:16px;background:#F2C849;color:#0F2244;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;margin-top:24px}
 .submit-btn:hover{background:#d4b23e}
 
-/* Footer */
-.page-footer{text-align:center;padding:28px;font-size:12px;color:rgba(255,255,255,0.3);font-family:'Barlow',sans-serif}
+/* Success message */
+.success-msg{display:none;text-align:center;padding:48px 24px}
+.success-msg h2{font-family:'Libre Baskerville',serif;font-size:28px;color:#F2C849;margin-bottom:16px}
+.success-msg p{font-size:16px;color:rgba(255,255,255,0.8);line-height:1.6}
 </style>
 </head>
 <body>
-<div class="preview-label">Preview A — Dark Navy, Full Brand</div>
 
 <div class="nav-bar">
   <div class="nav-logo"><img src="logos/sh-white-full.png" alt="SafeHarbor"/></div>
@@ -101,50 +105,211 @@ input:focus{border-color:#F2C849}
 <div class="gold-line"></div>
 
 <div class="form-section">
-  <div class="form-card">
+  <div class="form-card" id="formCard">
     <div class="input-row">
-      <input type="text" placeholder="שם מלא"/>
-      <input type="tel" placeholder="טלפון נייד"/>
+      <input type="text" id="fullName" placeholder="שם מלא"/>
+      <input type="tel" id="phone" placeholder="טלפון נייד"/>
     </div>
     <div class="input-row">
-      <input type="email" placeholder="אימייל"/>
+      <input type="email" id="email" placeholder="אימייל"/>
     </div>
 
-    <p class="declaration-intro">הצהרתי זו לראייה כי התנאים הבאים נכונים לגביי הריני/נו להצהיר כי אני/ אנו נחשב/ים כ"משקיע מסווג" מאחר שמתקיימים בי/בנו התנאים המנויים (יש לסמן את הסעיף הרלוונטי):</p>
+    <p class="declaration-intro">הריני/נו להצהיר כי אני/אנו נחשב/ים כ"משקיע מסווג" כהגדרתו בתוספת הראשונה לחוק ניירות ערך, התשכ"ח-1968, מאחר שמתקיימים בי/בנו התנאים המנויים להלן (יש לסמן את הסעיף הרלוונטי):</p>
 
-    <div class="type-label-row">
-      <label class="type-label selected"><span class="dot"></span>משקיע פרטי</label>
-      <label class="type-label"><span class="dot"></span>חברה/תאגיד</label>
-      <label class="type-label"><span class="dot"></span>מוסדי/מורשה</label>
-      <label class="type-label"><span class="dot"></span>פאמילי אופיס</label>
+    <!-- Investor type selector -->
+    <div class="type-label-row" id="typeRow">
+      <label class="type-label selected" data-type="private"><span class="dot"></span>משקיע פרטי</label>
+      <label class="type-label" data-type="company"><span class="dot"></span>חברה/תאגיד</label>
+      <label class="type-label" data-type="institutional"><span class="dot"></span>מוסדי/מורשה</label>
+      <label class="type-label" data-type="family"><span class="dot"></span>פאמילי אופיס</label>
     </div>
 
-    <p class="criteria-title">הצהרה – משקיע פרטי</p>
+    <!-- Private Investor Criteria -->
+    <div class="criteria-section active" id="section-private">
+      <p class="criteria-title">הצהרה – משקיע פרטי</p>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>השווי הכולל של הנכסים הנזילים שבבעלותי עולה על 9,411,809 ש"ח (נכסים נזילים: מזומנים, פיקדונות, נכסים פיננסיים כהגדרתם בחוק הסדרת העיסוק בייעוץ השקעות, השקעות ביחידות של קרנות הרשומות מחוץ לישראל, ניירות ערך הנסחרים בבורסה).</label>
+      </div>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>גובה הכנסתי בכל אחת מהשנתיים האחרונות עולה על 1,411,772 ש"ח, או שגובה הכנסת התא המשפחתי אליו אני משתייך/ת עולה על 2,117,657 ש"ח.</label>
+      </div>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>השווי הכולל של הנכסים הנזילים שבבעלותי עולה על 5,882,380 ש"ח וגובה הכנסתי בכל אחת מהשנתיים האחרונות עולה על 705,885 ש"ח, או שגובה הכנסת התא המשפחתי אליו אני משתייך/ת עולה על 1,058,827 ש"ח.</label>
+      </div>
+    </div>
 
-    <div class="criteria-item checked" onclick="this.classList.toggle('checked')">
+    <!-- Company Criteria -->
+    <div class="criteria-section" id="section-company">
+      <p class="criteria-title">הצהרה – חברה / תאגיד</p>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>תאגיד שההון העצמי שלו עולה על 50 מיליון ש"ח.</label>
+      </div>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>גוף שכל בעלי הזכויות בו הם משקיעים כשירים.</label>
+      </div>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>תאגיד העומד בתנאים ספציפיים לפי החוק, לרבות: קרן השקעות, חברה מנהלת של קרן פנסיה, חברת ביטוח, תאגיד בנקאי, קרן הון סיכון.</label>
+      </div>
+    </div>
+
+    <!-- Institutional Criteria -->
+    <div class="criteria-section" id="section-institutional">
+      <p class="criteria-title">הצהרה – מוסדי / מורשה</p>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>קרן נאמנות, קופת גמל, קרן פנסיה, חברת ביטוח, תאגיד בנקאי, מנהל תיקים, יועץ השקעות, חבר בורסה, חתם, או קרן הון סיכון.</label>
+      </div>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>תאגיד שעיסוקו העיקרי הוא בשוק ההון ואשר קיבל רישיון או היתר מרשות ניירות ערך או מרשות שוק ההון.</label>
+      </div>
+    </div>
+
+    <!-- Family Office Criteria -->
+    <div class="criteria-section" id="section-family">
+      <p class="criteria-title">הצהרה – פאמילי אופיס</p>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>מנהל תיקים או בעל רישיון לייעוץ השקעות, המבקש להציע מוצרים ללקוחות מסווגים בלבד, ומתחייב שלא לרכוש עבור חשבונו האישי.</label>
+      </div>
+      <div class="criteria-item" onclick="this.classList.toggle('checked')">
+        <div class="custom-cb"></div>
+        <label>גוף המנהל נכסים עבור משפחה אחת או יותר, אשר סך הנכסים המנוהלים על ידו עולה על 50 מיליון ש"ח.</label>
+      </div>
+    </div>
+
+    <!-- Undertakings -->
+    <p class="undertakings-title">הצהרות והתחייבויות</p>
+    <div class="criteria-item" onclick="this.classList.toggle('checked')">
       <div class="custom-cb"></div>
-      <label>השווי הכולל של הנכסים הנזילים שבבעלותי עולה על 9,411,809 שקלים חדשים (נכסים נזילים: מזומנים, פיקדונות, השקעות ביחידות של קרנות הרשומות מחוץ לישראל, ניירות ערך הנסחרים בבורסה).</label>
+      <label>הנני מאשר/ת כי אני מודע/ת להשלכות סיווגי כ"משקיע מסווג" ומסכים/ה להיחשב ככזה.</label>
     </div>
     <div class="criteria-item" onclick="this.classList.toggle('checked')">
       <div class="custom-cb"></div>
-      <label>גובה הכנסתי בכל אחת מהשנתיים האחרונות, עולה על 1,411,772 מיליון שקלים חדשים, או שגובה הכנסת התא המשפחתי אליו אני משתייך/ת עולה על 2,117,657 מיליון שקלים חדשים.</label>
+      <label>הנני מתחייב/ת להודיע ל-SafeHarbor סייף הרבור על כל שינוי במעמדי כמשקיע מסווג.</label>
+    </div>
+    <div class="criteria-item" onclick="this.classList.toggle('checked')">
+      <div class="custom-cb"></div>
+      <label>הנני מאשר/ת כי מידע אישי שמסרתי ישמר בהתאם למדיניות הפרטיות של SafeHarbor סייף הרבור.</label>
     </div>
 
     <hr class="divider"/>
 
-    <p class="fine-print">בבחירת החלופות דלעיל, אני/אנו מסכים/מסכימים בזאת להיחשב כ"משקיע מסווג", ומודע/ים להשלכות קביעה זו.</p>
+    <p class="fine-print">הצהרה זו ניתנת לצורך בחינת התאמתי כמשקיע מסווג בהתאם לחוק ניירות ערך, התשכ"ח-1968. הנני מאשר/ת כי כל הפרטים שמסרתי נכונים ומדויקים.</p>
 
-    <button class="submit-btn">שליחה</button>
+    <button class="submit-btn" onclick="submitForm()">שליחת הצהרה</button>
+
+    <div class="success-msg" id="successMsg">
+      <h2>ההצהרה נשלחה בהצלחה</h2>
+      <p>תודה רבה. צוות SafeHarbor סייף הרבור יצור עמך קשר בהקדם.</p>
+    </div>
   </div>
 </div>
 
-<div class="page-footer">
-  <div style="height:1px;background:rgba(255,255,255,0.06);max-width:680px;margin:0 auto 24px"></div>
-  <div style="display:flex;justify-content:center;gap:28px;margin-bottom:12px">
-    <a href="/" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none">safeharbor-investors.com</a>
-    <a href="/contact.html" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none">צור קשר</a>
+<footer style="background:#0F2244;padding:64px 28px 28px;">
+  <div style="max-width:1240px;margin:0 auto;padding:0 32px;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:40px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:280px;">
+        <h2 style="font-family:'Libre Baskerville',serif;font-size:26px;font-weight:400;color:white;margin-bottom:10px;">Ready to learn more?</h2>
+        <p style="font-size:17px;color:rgba(255,255,255,0.95);line-height:1.55;margin-bottom:22px;">We work with a limited group of long-term capital partners.</p>
+        <a href="/contact.html" style="display:inline-block;background:#F2C849;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F2244;text-decoration:none;">Contact Us</a>
+      </div>
+      <div style="display:flex;gap:32px;flex-shrink:0;">
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">United States</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.95);line-height:1.5;">45 Rockefeller Plaza FL.20<br>New York, NY 10111</div>
+        </div>
+        <div style="border-left:2px solid rgba(242,200,73,0.4);padding-left:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#F2C849;margin-bottom:4px;">Israel</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.95);line-height:1.5;">Yad Harutzim 31<br>Netanya, Israel</div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:11px;color:rgba(255,255,255,0.95);font-family:'Barlow',sans-serif;">&copy; 2026 SafeHarbor Investors Group. All rights reserved.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.95);font-family:'Barlow',sans-serif;max-width:460px;text-align:right;line-height:1.5;">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
+    </div>
   </div>
-  &copy; 2026 SafeHarbor Investors Group. All rights reserved.
-</div>
+</footer>
+
+<script>
+// Type selector logic
+const typeRow = document.getElementById('typeRow');
+const typeLabels = typeRow.querySelectorAll('.type-label');
+const sections = {
+  private: document.getElementById('section-private'),
+  company: document.getElementById('section-company'),
+  institutional: document.getElementById('section-institutional'),
+  family: document.getElementById('section-family')
+};
+
+typeLabels.forEach(label => {
+  label.addEventListener('click', () => {
+    typeLabels.forEach(l => l.classList.remove('selected'));
+    label.classList.add('selected');
+    const type = label.dataset.type;
+    Object.values(sections).forEach(s => s.classList.remove('active'));
+    sections[type].classList.add('active');
+  });
+});
+
+// Form submission
+function submitForm() {
+  const name = document.getElementById('fullName').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+
+  if (!name || !phone || !email) {
+    alert('נא למלא את כל השדות');
+    return;
+  }
+
+  // Collect checked criteria
+  const checkedItems = document.querySelectorAll('.criteria-item.checked label');
+  const criteria = Array.from(checkedItems).map(l => l.textContent.trim());
+
+  if (criteria.length === 0) {
+    alert('נא לסמן לפחות סעיף אחד');
+    return;
+  }
+
+  // Get selected type
+  const selectedType = document.querySelector('.type-label.selected').textContent.trim();
+
+  // Submit via Formspree
+  const data = {
+    name: name,
+    phone: phone,
+    email: email,
+    investor_type: selectedType,
+    criteria: criteria.join('\n\n'),
+    _subject: `הצהרת משקיע כשיר – ${name}`
+  };
+
+  fetch('https://formspree.io/f/xovdgvpz', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+      document.getElementById('successMsg').parentElement.style.display = 'block';
+    } else {
+      alert('שגיאה בשליחה. נא לנסות שוב.');
+    }
+  })
+  .catch(() => {
+    alert('שגיאה בשליחה. נא לנסות שוב.');
+  });
+}
+</script>
 </body>
 </html>
