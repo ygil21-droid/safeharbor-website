@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Preview B — Hero + White Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;500;600&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;background:#F7F8FA;color:#1B3A6B;min-height:100vh;direction:rtl}
+
+.preview-label{position:fixed;top:0;left:0;right:0;z-index:999;background:#F2C849;color:#0F2244;text-align:center;
+font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.1em;padding:10px;text-transform:uppercase}
+
+/* Hero */
+.hero{background:#0F2244;padding:140px 28px 64px;text-align:center;margin-top:44px}
+.hero .logo{margin-bottom:24px}
+.hero .logo img{height:72px}
+.hero .eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-bottom:16px}
+.hero h1{font-family:'Libre Baskerville',serif;font-size:42px;font-weight:400;color:white;line-height:1.3;margin-bottom:14px}
+.hero .subtitle{font-size:17px;color:rgba(255,255,255,0.7);font-weight:300}
+.hero .gold-bar{width:48px;height:2px;background:#F2C849;margin:20px auto 0}
+
+/* Form section — white card overlapping hero */
+.form-section{padding:0 28px 80px;margin-top:-20px;position:relative;z-index:1}
+.form-card{max-width:720px;margin:0 auto;background:white;box-shadow:0 8px 40px rgba(0,0,0,0.08);padding:52px 48px}
+@media(max-width:600px){.form-card{padding:32px 20px}}
+
+/* Inputs */
+.input-row{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.input-row input{flex:1;min-width:150px}
+input[type="text"],input[type="tel"],input[type="email"]{
+width:100%;background:#F7F8FA;border:1px solid #E0E3EA;
+padding:14px 16px;font-family:'Heebo',sans-serif;font-size:15px;color:#1B3A6B;outline:none;direction:rtl;transition:border-color 0.2s}
+input::placeholder{color:#A0A8B8}
+input:focus{border-color:#F2C849;box-shadow:0 0 0 3px rgba(242,200,73,0.12)}
+
+/* Declaration */
+.declaration-intro{font-size:14px;color:#5A6578;line-height:1.8;margin:24px 0 22px;border-top:1px solid #E8EAF0;padding-top:22px}
+
+/* Type selector */
+.type-label-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px}
+@media(max-width:520px){.type-label-row{grid-template-columns:repeat(2,1fr)}}
+.type-label{border:1px solid #E0E3EA;padding:14px 10px;text-align:center;cursor:pointer;font-size:14px;font-weight:600;color:#8A93A5;transition:all 0.2s;user-select:none}
+.type-label .dot{display:block;width:8px;height:8px;border-radius:50%;background:#D0D5DE;margin:0 auto 8px;transition:background 0.2s}
+.type-label.selected{background:#0F2244;border-color:#0F2244;color:white}
+.type-label.selected .dot{background:#F2C849}
+.type-label:hover{border-color:#1B3A6B}
+
+/* Criteria */
+.criteria-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin:22px 0 14px}
+.criteria-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid #F0F1F4;cursor:pointer}
+.criteria-item:last-child{border-bottom:none}
+.custom-cb{width:20px;height:20px;min-width:20px;border:2px solid #D0D5DE;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all 0.15s;flex-shrink:0}
+.criteria-item.checked .custom-cb{background:#0F2244;border-color:#0F2244}
+.custom-cb::after{content:'';display:none;width:5px;height:9px;border:2px solid #F2C849;border-top:none;border-right:none;transform:rotate(-45deg) translateY(-1px)}
+.criteria-item.checked .custom-cb::after{display:block}
+.criteria-item label{font-size:14px;color:#5A6578;line-height:1.7;cursor:pointer}
+.criteria-item.checked label{color:#1B3A6B;font-weight:500}
+
+/* Divider */
+.divider{border:none;border-top:1px solid #E8EAF0;margin:28px 0 22px}
+
+/* Fine print */
+.fine-print{font-size:12px;color:#A0A8B8;line-height:1.9;margin-bottom:8px}
+
+/* Submit */
+.submit-btn{width:100%;padding:16px;background:#F2C849;color:#0F2244;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;margin-top:24px}
+.submit-btn:hover{background:#d4b23e}
+
+/* Footer */
+.page-footer{background:#0F2244;text-align:center;padding:28px;font-size:12px;color:rgba(255,255,255,0.4);font-family:'Barlow',sans-serif}
+</style>
+</head>
+<body>
+<div class="preview-label">Preview B — Navy Hero + White Card Form</div>
+
+<div class="hero">
+  <div class="logo"><img src="logos/sh-white-full.png" alt="SafeHarbor"/></div>
+  <div class="eyebrow">Qualified Investor Declaration</div>
+  <h1>הצהרת משקיע כשיר</h1>
+  <div class="subtitle">בהתאם לחוק הרשות לניירות ערך</div>
+  <div class="gold-bar"></div>
+</div>
+
+<div class="form-section">
+  <div class="form-card">
+    <div class="input-row">
+      <input type="text" placeholder="שם מלא"/>
+      <input type="tel" placeholder="טלפון נייד"/>
+    </div>
+    <div class="input-row">
+      <input type="email" placeholder="אימייל"/>
+    </div>
+
+    <p class="declaration-intro">הצהרתי זו לראייה כי התנאים הבאים נכונים לגביי הריני/נו להצהיר כי אני/ אנו נחשב/ים כ"משקיע מסווג" מאחר שמתקיימים בי/בנו התנאים המנויים (יש לסמן את הסעיף הרלוונטי):</p>
+
+    <div class="type-label-row">
+      <label class="type-label selected"><span class="dot"></span>משקיע פרטי</label>
+      <label class="type-label"><span class="dot"></span>חברה/תאגיד</label>
+      <label class="type-label"><span class="dot"></span>מוסדי/מורשה</label>
+      <label class="type-label"><span class="dot"></span>פאמילי אופיס</label>
+    </div>
+
+    <p class="criteria-title">הצהרה – משקיע פרטי</p>
+
+    <div class="criteria-item checked" onclick="this.classList.toggle('checked')">
+      <div class="custom-cb"></div>
+      <label>השווי הכולל של הנכסים הנזילים שבבעלותי עולה על 9,411,809 שקלים חדשים (נכסים נזילים: מזומנים, פיקדונות, השקעות ביחידות של קרנות הרשומות מחוץ לישראל, ניירות ערך הנסחרים בבורסה).</label>
+    </div>
+    <div class="criteria-item" onclick="this.classList.toggle('checked')">
+      <div class="custom-cb"></div>
+      <label>גובה הכנסתי בכל אחת מהשנתיים האחרונות, עולה על 1,411,772 מיליון שקלים חדשים, או שגובה הכנסת התא המשפחתי אליו אני משתייך/ת עולה על 2,117,657 מיליון שקלים חדשים.</label>
+    </div>
+
+    <hr class="divider"/>
+
+    <p class="fine-print">בבחירת החלופות דלעיל, אני/אנו מסכים/מסכימים בזאת להיחשב כ"משקיע מסווג", ומודע/ים להשלכות קביעה זו.</p>
+
+    <button class="submit-btn">שליחה</button>
+  </div>
+</div>
+
+<div class="page-footer">SafeHarbor Investors Group &copy; 2026</div>
+</body>
+</html>
