@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafeHarbor – Accredited Investor Declaration (US)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: #1a2a3a;
+      background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10,22,35,0.72);
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 720px;
+      padding: 48px 24px 80px;
+    }
+
+    .logo-area { text-align: center; margin-bottom: 32px; }
+    .logo-area img { height: 80px; width: auto; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #fff; }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 40px 44px;
+    }
+    @media (max-width: 600px) { .card { padding: 28px 20px; } }
+
+    .card-title { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 6px; }
+    .card-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 32px; line-height: 1.6; }
+
+    .input-row { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+    input[type="text"], input[type="tel"], input[type="email"] {
+      flex: 1; min-width: 160px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 14px; color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input::placeholder { color: rgba(255,255,255,0.4); }
+    input:focus { border-color: rgba(255,255,255,0.45); }
+    input.field-error { border-color: #e05555; }
+
+    .validation-note { font-size: 12px; color: #e07575; margin-bottom: 16px; display: none; }
+    .validation-note.show { display: block; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin: 26px 0 14px;
+    }
+
+    .criteria-section {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+    }
+    .criteria-section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 12px;
+    }
+    .criteria-section-sublabel {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      margin-bottom: 14px; font-style: italic; line-height: 1.5;
+    }
+
+    .criteria-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+    }
+    .criteria-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .criteria-item.checked { background: rgba(91,163,217,0.08); border-radius: 6px; padding-left: 8px; }
+
+    .criteria-item input[type="checkbox"] { display: none; }
+    .custom-cb {
+      width: 18px; height: 18px; min-width: 18px;
+      border: 1.5px solid rgba(255,255,255,0.3); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px; transition: all 0.15s; flex-shrink: 0;
+    }
+    .criteria-item.checked .custom-cb { background: #2c5aa0; border-color: #5ba3d9; }
+    .custom-cb::after {
+      content: ''; display: none;
+      width: 5px; height: 9px;
+      border: 2px solid #fff; border-top: none; border-left: none;
+      transform: rotate(45deg) translateY(-1px);
+    }
+    .criteria-item.checked .custom-cb::after { display: block; }
+    .criteria-item label { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; cursor: pointer; }
+    .criteria-item.checked label { color: #fff; }
+    .criteria-item label strong { color: #fff; font-weight: 700; }
+
+    .item-number {
+      font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35);
+      min-width: 18px; margin-top: 3px; flex-shrink: 0;
+    }
+
+    .divider-line { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 28px 0 22px; }
+    .fine-print { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.8; margin-bottom: 20px; }
+
+    .submit-btn {
+      width: 100%; padding: 14px;
+      background: #2c5aa0; color: #fff;
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px; font-weight: 700;
+      border: none; border-radius: 8px; cursor: pointer;
+      letter-spacing: 0.5px; transition: background 0.2s;
+    }
+    .submit-btn:hover { background: #3a6fc0; }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .success-msg, .error-msg { display: none; margin-top: 20px; border-radius: 8px; padding: 16px 20px; font-size: 14px; line-height: 1.6; }
+    .success-msg { background: rgba(50,160,100,0.2); border: 1px solid rgba(50,160,100,0.4); color: #7ae0a8; }
+    .error-msg   { background: rgba(200,60,60,0.2);  border: 1px solid rgba(200,60,60,0.4);  color: #f08080; }
+
+    .footer { position: relative; z-index: 1; margin-top: 40px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
+    .footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- Netlify Forms detection (hidden) -->
+<form name="us-declaration" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="bot-field"/>
+  <input name="fullname"/>
+  <input name="phone"/>
+  <input name="email"/>
+  <input name="criteria"/>
+  <input name="date"/>
+  <input name="time"/>
+  <textarea name="full_summary"></textarea>
+</form>
+
+<div class="page-wrap">
+
+  <div class="logo-area">
+    <img src="logo.png" alt="SafeHarbor Investors Group"/>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to region selection</a>
+
+  <div class="card">
+    <div class="card-title">Accredited Investor Declaration</div>
+    <div class="card-subtitle">
+      SafeHarbor Texas 3 Pack LP &nbsp;·&nbsp; Exhibit B<br/>
+      Pursuant to Rule 501(a) of Regulation D under the Securities Act of 1933<br/>
+      Please sign below all categories which describe you.
+    </div>
+
+    <div class="input-row">
+      <input type="text"  id="fullname" placeholder="Full Name *"/>
+    </div>
+    <div class="input-row">
+      <input type="tel"   id="phone"    placeholder="Phone *"/>
+      <input type="email" id="email"    placeholder="Email *"/>
+    </div>
+    <div class="validation-note" id="fields-error">Please complete all required fields.</div>
+
+    <div class="section-label">Check all categories that apply to you</div>
+    <div class="criteria-section-sublabel" style="margin-bottom:16px; font-size:13px; color:rgba(255,255,255,0.45);">
+      The Investor hereby represents and warrants that he, she or it is correctly and in all respects described by the category or categories set forth below.
+    </div>
+
+    <div class="criteria-section">
+
+      <div class="criteria-item" id="wrap-1" onclick="toggle('wrap-1','cb-1')">
+        <input type="checkbox" id="cb-1"/>
+        <div class="item-number">1.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-1">The Investor is a natural person whose net worth (excluding the value of such person's primary residence), either individually or jointly with such person's spouse, at the time of his purchase, exceeds <strong>$1,000,000</strong>.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-2" onclick="toggle('wrap-2','cb-2')">
+        <input type="checkbox" id="cb-2"/>
+        <div class="item-number">2.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-2">The Investor is a natural person who had individual income in excess of <strong>$200,000</strong>, or joint income with that person's spouse in excess of <strong>$300,000</strong>, in the two most recent calendar years and reasonably expects to reach the same income level in the current year.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-3" onclick="toggle('wrap-3','cb-3')">
+        <input type="checkbox" id="cb-3"/>
+        <div class="item-number">3.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-3">The Investor is a corporation, partnership, limited liability company or other organization described in Section 501(c)(3) of the Internal Revenue Code, or Massachusetts or similar business trust <strong>not formed for the specific purpose of acquiring the securities offered</strong>, with total assets in excess of <strong>$5,000,000</strong>.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4a" onclick="toggle('wrap-4a','cb-4a')">
+        <input type="checkbox" id="cb-4a"/>
+        <div class="item-number">4a.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4a">The Investor is a <strong>bank</strong> as defined in Section 3(a)(2) of the Securities Act, or any savings and loan association or other institution as defined in Section 3(a)(5)(A) of the Securities Act, whether acting in its individual or a fiduciary capacity.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4b" onclick="toggle('wrap-4b','cb-4b')">
+        <input type="checkbox" id="cb-4b"/>
+        <div class="item-number">4b.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4b">The Investor is a <strong>broker or dealer</strong> registered pursuant to Section 15 of the Securities Exchange Act of 1934.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4c" onclick="toggle('wrap-4c','cb-4c')">
+        <input type="checkbox" id="cb-4c"/>
+        <div class="item-number">4c.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4c">The Investor is an <strong>insurance company</strong> as defined in Section 2(13) of the Securities Act.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4d" onclick="toggle('wrap-4d','cb-4d')">
+        <input type="checkbox" id="cb-4d"/>
+        <div class="item-number">4d.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4d">The Investor is an <strong>investment company registered</strong> under the Investment Company Act of 1940 or a business development company as defined in Section 2(a)(48) of that Act.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4e" onclick="toggle('wrap-4e','cb-4e')">
+        <input type="checkbox" id="cb-4e"/>
+        <div class="item-number">4e.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4e">The Investor is a <strong>Small Business Investment Company</strong> licensed by the U.S. Small Business Administration under Section 301(c) or (d) of the Small Business Investment Act of 1958.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4f" onclick="toggle('wrap-4f','cb-4f')">
+        <input type="checkbox" id="cb-4f"/>
+        <div class="item-number">4f.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4f">The Investor is any <strong>plan established and maintained by a state</strong>, its political subdivisions, or any agency or instrumentality of a state or its political subdivisions, for the benefit of its employees, if such a plan has total assets in excess of <strong>$5,000,000</strong>.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4g" onclick="toggle('wrap-4g','cb-4g')">
+        <input type="checkbox" id="cb-4g"/>
+        <div class="item-number">4g.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4g">The Investor is any <strong>private business development company</strong> as defined in Section 202(a)(22) of the Investment Advisers Act of 1940.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4h" onclick="toggle('wrap-4h','cb-4h')">
+        <input type="checkbox" id="cb-4h"/>
+        <div class="item-number">4h.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4h">The Investor is an <strong>employee benefit plan</strong> within the meaning of Title I of the Employee Retirement Income Security Act of 1974, if the investment decision is made by a plan fiduciary (a bank, savings and loan association, insurance company, or registered investment adviser), or if the employee benefit plan has total assets in excess of <strong>$5,000,000</strong>, or if a self-directed plan with investment decisions made solely by persons that are accredited investors.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-4i" onclick="toggle('wrap-4i','cb-4i')">
+        <input type="checkbox" id="cb-4i"/>
+        <div class="item-number">4i.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-4i">The Investor is a <strong>trust</strong>, with total assets in excess of <strong>$5,000,000</strong>, not formed for the specific purpose of acquiring the securities offered, whose purchase is directed by a sophisticated person as described in Rule 506(b)(2)(ii) of Regulation D.</label>
+      </div>
+
+      <div class="criteria-item" id="wrap-5" onclick="toggle('wrap-5','cb-5')">
+        <input type="checkbox" id="cb-5"/>
+        <div class="item-number">5.</div>
+        <div class="custom-cb"></div>
+        <label for="cb-5">The Investor is an entity in which <strong>all of the equity owners are accredited investors</strong> and described in one or more of the categories set forth in paragraphs 1 through 4 above.</label>
+      </div>
+
+    </div>
+
+    <div class="validation-note" id="checkbox-error">Please check at least one category that describes you.</div>
+
+    <hr class="divider-line"/>
+    <div class="fine-print">
+      By submitting this declaration, I/we represent and warrant that the information provided is true, correct and complete in all respects, and I/we understand the implications of being classified as an Accredited Investor. I/we undertake to notify SafeHarbor Investors Group of any change that may affect this status, and to provide supporting documentation upon request.<br/><br/>
+      I/we agree that personal information provided will be stored in SafeHarbor Investors Group's records and processed in accordance with its Privacy Policy.
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Submit Declaration</button>
+
+    <div class="success-msg" id="successMsg">
+      ✓ Declaration submitted successfully! The SafeHarbor presentation will open in a new window shortly.<br/>
+      <a href="https://drive.google.com/file/d/14EHjUEowI-JoJ7Ikq16PLIz-nwpa87Oh/view?usp=drive_link" target="_blank" style="color:#7ae0a8;">Click here if it didn't open automatically.</a>
+    </div>
+    <div class="error-msg" id="errorMsg">Submission error. Please try again or contact us directly.</div>
+
+  </div><!-- /card -->
+
+  <div class="footer">
+    SafeHarbor Investors Group<br/>
+    45 Rockefeller Plaza, 20th Fl. New York, NY 10111<br/>
+    <a href="mailto:Gil@yanushus.com">Gil@yanushus.com</a>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+  function toggle(wrapId, cbId) {
+    const cb   = document.getElementById(cbId);
+    const wrap = document.getElementById(wrapId);
+    if (cb && wrap) { cb.checked = !cb.checked; wrap.classList.toggle('checked', cb.checked); }
+    document.getElementById('checkbox-error').classList.remove('show');
+  }
+
+  async function handleSubmit() {
+    ['fields-error','checkbox-error'].forEach(id =>
+      document.getElementById(id).classList.remove('show'));
+    ['fullname','phone','email'].forEach(id =>
+      document.getElementById(id).classList.remove('field-error'));
+
+    const name  = document.getElementById('fullname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    let valid = true;
+
+    if (!name)  { document.getElementById('fullname').classList.add('field-error'); valid = false; }
+    if (!phone) { document.getElementById('phone').classList.add('field-error');    valid = false; }
+    if (!email || !email.includes('@')) { document.getElementById('email').classList.add('field-error'); valid = false; }
+    if (!name || !phone || !email || !email.includes('@')) {
+      document.getElementById('fields-error').classList.add('show'); valid = false;
+    }
+
+    const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+    let checkedLabels = [];
+    if (checked.length === 0) {
+      document.getElementById('checkbox-error').classList.add('show'); valid = false;
+    } else {
+      checked.forEach(cb => {
+        const lbl = document.querySelector('label[for="' + cb.id + '"]');
+        if (lbl) checkedLabels.push(lbl.textContent.trim());
+      });
+    }
+
+    if (!valid) {
+      const firstErr = document.querySelector('.validation-note.show, .field-error');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const now     = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { day:'2-digit', month:'2-digit', year:'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+
+    const messageBody = [
+      '══════════════════════════════════════',
+      ' SafeHarbor – US Accredited Investor Declaration',
+      ' Exhibit B – Rule 501(a), Regulation D',
+      '══════════════════════════════════════',
+      '',
+      '📅 Date: ' + dateStr,
+      '🕐 Time: ' + timeStr,
+      '',
+      '── Declarant Details ──',
+      '👤 Name:  ' + name,
+      '📞 Phone: ' + phone,
+      '📧 Email: ' + email,
+      '',
+      '── Categories Checked ──',
+      ...checkedLabels.map((l, i) => '✔ [' + (i+1) + '] ' + l),
+      '',
+      '══════════════════════════════════════',
+    ].join('\n');
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    try {
+      const resp = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'us-declaration',
+          fullname: name,
+          phone: phone,
+          email: email,
+          criteria: checkedLabels.join(' | '),
+          date: dateStr,
+          time: timeStr,
+          full_summary: messageBody
+        }).toString()
+      });
+
+      if (!resp.ok) throw new Error('Netlify form error ' + resp.status);
+
+      document.getElementById('successMsg').style.display = 'block';
+      document.getElementById('submitBtn').style.display  = 'none';
+      document.getElementById('errorMsg').style.display   = 'none';
+
+      setTimeout(() => {
+        window.open('https://drive.google.com/file/d/14EHjUEowI-JoJ7Ikq16PLIz-nwpa87Oh/view?usp=drive_link', '_blank');
+      }, 1500);
+
+    } catch(err) {
+      console.error(err);
+      document.getElementById('errorMsg').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit Declaration';
+    }
+  }
+</script>
+</body>
+</html>

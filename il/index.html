@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafeHarbor – הצהרת משקיע כשיר</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: #1a2a3a;
+      background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover; background-position: center top; background-attachment: fixed;
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+      color: #fff; direction: rtl;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: rgba(10,22,35,0.75); z-index: 0;
+    }
+    .page-wrap { position: relative; z-index: 1; width: 100%; max-width: 680px; padding: 52px 24px 80px; }
+    .logo-area { text-align: center; margin-bottom: 28px; }
+    .logo-area img { height: 72px; width: auto; }
+    .page-title { font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 6px; line-height: 1.2; }
+    .page-subtitle { font-size: 14px; color: rgba(255,255,255,0.55); text-align: center; margin-bottom: 36px; }
+    .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.13); border-radius: 16px; padding: 36px 40px; }
+    @media (max-width: 600px) { .card { padding: 24px 18px; } }
+    .input-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+    .input-row input { flex: 1; min-width: 150px; }
+    input[type="text"], input[type="tel"], input[type="email"] {
+      width: 100%; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px; padding: 11px 14px; font-family: 'Heebo', sans-serif;
+      font-size: 14px; color: #fff; outline: none; direction: rtl; transition: border-color 0.2s;
+    }
+    input::placeholder { color: rgba(255,255,255,0.38); }
+    input:focus { border-color: rgba(255,255,255,0.45); }
+    input.field-error { border-color: #e05555; }
+    .declaration-intro {
+      font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.75;
+      margin: 20px 0 18px; border-top: 1px solid rgba(255,255,255,0.09); padding-top: 18px;
+    }
+    .type-label-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 4px; }
+    @media (max-width: 520px) { .type-label-row { grid-template-columns: repeat(2,1fr); } }
+    .type-label {
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 10px 8px;
+      text-align: center; cursor: pointer; font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.6); transition: all 0.2s; user-select: none;
+    }
+    .type-label input[type="radio"] { display: none; }
+    .type-label .dot {
+      display: block; width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.25); margin: 0 auto 6px; transition: background 0.2s;
+    }
+    .type-label.selected { background: rgba(44,90,160,0.35); border-color: #5ba3d9; color: #fff; }
+    .type-label.selected .dot { background: #5ba3d9; }
+    .type-label:hover { border-color: rgba(255,255,255,0.38); }
+    .criteria-block { display: none; margin-top: 18px; }
+    .criteria-block.active { display: block; }
+    .criteria-title { font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 12px; }
+    .criteria-item {
+      display: flex; align-items: flex-start; gap: 12px; padding: 11px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07); cursor: pointer;
+    }
+    .criteria-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .criteria-item.checked { background: rgba(91,163,217,0.08); border-radius: 6px; padding-right: 8px; padding-left: 4px; }
+    .criteria-item input[type="checkbox"] { display: none; }
+    .custom-cb {
+      width: 18px; height: 18px; min-width: 18px;
+      border: 1.5px solid rgba(255,255,255,0.3); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px; transition: all 0.15s; flex-shrink: 0;
+    }
+    .criteria-item.checked .custom-cb { background: #2c5aa0; border-color: #5ba3d9; }
+    .custom-cb::after {
+      content: ''; display: none; width: 5px; height: 9px;
+      border: 2px solid #fff; border-top: none; border-right: none;
+      transform: rotate(-45deg) translateY(-1px);
+    }
+    .criteria-item.checked .custom-cb::after { display: block; }
+    .criteria-item label { font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.65; cursor: pointer; }
+    .criteria-item.checked label { color: #fff; }
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 24px 0 20px; }
+    .fine-print { font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.85; margin-bottom: 8px; }
+    .fine-print a { color: rgba(255,255,255,0.55); text-decoration: underline; }
+    .validation-note { font-size: 12px; color: #e07575; margin-bottom: 16px; display: none; }
+    .validation-note.show { display: block; }
+    .submit-btn {
+      width: 100%; padding: 14px; background: #2c5aa0; color: #fff;
+      font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 700;
+      border: none; border-radius: 8px; cursor: pointer; letter-spacing: 0.5px;
+      transition: background 0.2s; margin-top: 20px;
+    }
+    .submit-btn:hover { background: #3a6fc0; }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .success-msg, .error-msg { display: none; margin-top: 20px; border-radius: 8px; padding: 16px 20px; font-size: 14px; line-height: 1.7; }
+    .success-msg { background: rgba(50,160,100,0.2); border: 1px solid rgba(50,160,100,0.4); color: #7ae0a8; }
+    .error-msg   { background: rgba(200,60,60,0.2);  border: 1px solid rgba(200,60,60,0.4);  color: #f09090; }
+    .footer { text-align: center; margin-top: 36px; font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="logo-area">
+    <img src="logo.png" alt="SafeHarbor Investors Group"/>
+  </div>
+
+  <h1 class="page-title">הצהרת משקיע כשיר</h1>
+  <p class="page-subtitle">בהתאם לחוק הרשות לניירות ערך</p>
+
+  <div class="card">
+    <form name="il-declaration" method="POST" action="https://formspree.io/f/xkoqgral" id="ilForm" novalidate>
+      <input type="hidden" name="investor-type" id="hiddenType"/>
+      <input type="hidden" name="selected-criteria" id="hiddenCriteria"/>
+      <input type="hidden" name="_subject" value="הצהרת משקיע כשיר – SafeHarbor"/>
+
+      <div class="input-row">
+        <input type="text"  name="full-name" id="fieldName"  placeholder="שם מלא"     required/>
+        <input type="tel"   name="phone"     id="fieldPhone" placeholder="טלפון נייד" required/>
+      </div>
+      <div class="input-row">
+        <input type="email" name="email"     id="fieldEmail" placeholder="אימייל"     required/>
+      </div>
+
+      <p class="declaration-intro">
+        הצהרתי זו לראייה כי התנאים הבאים נכונים לגביי הריני/נו להצהיר כי אני/ אנו נחשב/ים כ"משקיע מסווג" מאחר שמתקיימים בי/בנו התנאים המנויים (יש לסמן את הסעיף הרלוונטי):
+      </p>
+
+      <div class="type-label-row">
+        <label class="type-label" id="lbl-prati">
+          <input type="radio" name="investor-type-radio" value="משקיע פרטי"/>
+          <span class="dot"></span>משקיע פרטי
+        </label>
+        <label class="type-label" id="lbl-hevra">
+          <input type="radio" name="investor-type-radio" value="חברה/תאגיד"/>
+          <span class="dot"></span>חברה/תאגיד
+        </label>
+        <label class="type-label" id="lbl-mosdi">
+          <input type="radio" name="investor-type-radio" value="מוסדי/מורשה"/>
+          <span class="dot"></span>מוסדי/מורשה
+        </label>
+        <label class="type-label" id="lbl-family">
+          <input type="radio" name="investor-type-radio" value="פאמילי אופיס"/>
+          <span class="dot"></span>פאמילי אופיס
+        </label>
+      </div>
+
+      <!-- PRIVATE -->
+      <div class="criteria-block" id="block-prati">
+        <p class="criteria-title">הצהרה – משקיע פרטי</p>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="נכסים נזילים מעל 9,411,809 ש״ח"/>
+          <div class="custom-cb"></div>
+          <label>השווי הכולל של הנכסים הנזילים שבבעלותי עולה על 9,411,809 שקלים חדשים (נכסים נזילים: מזומנים, פיקדונות, השקעות ביחידות של קרנות הרשומות מחוץ לישראל, ניירות ערך הנסחרים בבורסה ונכסים פיננסיים כהגדרתם בחוק הסדרת העיסוק בייעוץ השקעות, בשיווק השקעות ובניהול תיקי השקעות, התשנ"ה-1995).</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="הכנסה מעל 1,411,772 ש״ח"/>
+          <div class="custom-cb"></div>
+          <label>גובה הכנסתי בכל אחת מהשנתיים האחרונות, עולה על 1,411,772 מיליון שקלים חדשים, או שגובה הכנסת התא המשפחתי אליו אני משתייך/ת עולה על 2,117,657 מיליון שקלים חדשים.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="נכסים נזילים מעל 5,882,380 ש״ח + הכנסה מעל 705,885 ש״ח"/>
+          <div class="custom-cb"></div>
+          <label>השווי הכולל של הנכסים הנזילים שבבעלותי עולה על 5,882,380 שקלים חדשים וגובה הכנסתי בכל אחת מהשנתיים האחרונות עולה על 705,885 שקלים חדשים, או שגובה הכנסה כאמור של התא המשפחתי שאליו אני משתייך/ת עולה על 1,058,827 שקלים חדשים.</label>
+        </div>
+      </div>
+
+      <!-- COMPANY -->
+      <div class="criteria-block" id="block-hevra">
+        <p class="criteria-title">הצהרה – חברה / תאגיד</p>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="הון עצמי מעל 50 מיליון ש״ח"/>
+          <div class="custom-cb"></div>
+          <label>תאגיד, למעט תאגיד שהתאגד למטרת רכישת ניירות ערך בהצעה מסויימת, שההון העצמי שלו עולה על 50 מיליון שקלים חדשים.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="תאגיד בבעלות מלאה של משקיעים כשירים"/>
+          <div class="custom-cb"></div>
+          <label>תאגיד הנמצא בבעלות מלאה של "משקיעים כשירים". "משקיע כשיר" לצורך הצהרה זו הוא יחיד, אשר מתקיים בו לפחות אחד מאלה: (1) השווי הכולל של הנכסים הנזילים שבבעלותו עולה על 9,411,809 שקלים חדשים. או (2) גובה הכנסתו עולה על 1,411,772 שקלים חדשים. או (3) השווי הכולל של הנכסים הנזילים שבבעלותו עולה על 5,882,380 שקלים חדשים וגובה הכנסתו עולה על 705,885 שקלים חדשים.</label>
+        </div>
+      </div>
+
+      <!-- INSTITUTIONAL -->
+      <div class="criteria-block" id="block-mosdi">
+        <p class="criteria-title">הצהרה – משקיע מוסדי / מורשה</p>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="קרן להשקעות משותפות בנאמנות"/>
+          <div class="custom-cb"></div>
+          <label>קרן להשקעות משותפות בנאמנות, כמשמעותה בחוק השקעות משותפות בנאמנות, תשנ"ד-1994, או חברה לניהול קרן כאמור.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="קופת גמל או חברה מנהלת"/>
+          <div class="custom-cb"></div>
+          <label>קופת גמל או חברה מנהלת כהגדרתן בחוק הפיקוח על שירותים פיננסיים (קופות גמל), התשס"ה-2005.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="מבטח"/>
+          <div class="custom-cb"></div>
+          <label>מבטח כמשמעותו בחוק הפיקוח על הביטוח, תשמ"א-1981.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="תאגיד בנקאי ותאגיד עזר"/>
+          <div class="custom-cb"></div>
+          <label>תאגיד בנקאי ותאגיד עזר כמשמעותם בחוק הבנקאות (רישוי), תשמ"א-1981, למעט חברת שירותים משותפת, הרוכשים בעבור עצמם או בעבור לקוחות שהם משקיעים המנויים בסעיף 15א(ב) לחוק.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="מנהל תיקים"/>
+          <div class="custom-cb"></div>
+          <label>מנהל תיקים כמשמעותו בסעיף 8(ב) בחוק הסדרת העיסוק בייעוץ השקעות ובניהול תיקי השקעות, תשנ"ה-1995, הרוכש בעבור עצמו או בעבור לקוחות שהם משקיעים המנויים בסעיף 15א(ב) לחוק.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="יועץ השקעות או משווק השקעות"/>
+          <div class="custom-cb"></div>
+          <label>יועץ השקעות או משווק השקעות, כמשמעותם בסעיף 7(ג) בחוק הסדרת העיסוק בייעוץ השקעות ובניהול תיקי השקעות, תשנ"ה-1995, הרוכש בעבור עצמו.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="חבר בורסה"/>
+          <div class="custom-cb"></div>
+          <label>חבר בורסה, הרוכש בעבור עצמו ובעבור לקוחות שהם משקיעים המנויים בסעיף 15א(ב) לחוק.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="חתם"/>
+          <div class="custom-cb"></div>
+          <label>חתם שמתקיימים בו תנאי הכשירות לפי סעיף 56(ג), הרוכש בעבור עצמו.</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="קרן הון סיכון"/>
+          <div class="custom-cb"></div>
+          <label>קרן הון סיכון; לענין זה, "קרן הון סיכון" — תאגיד שעיקר עיסוקו השקעה בתאגידים אשר בעת ביצוע ההשקעה בהם עיקר עיסוקם מחקר ופיתוח או ייצור של מוצרים או תהליכים חדשניים ועתירי ידע, ושהסיכון בהשקעה בהם גבוה מהמקובל בהשקעות אחרות.</label>
+        </div>
+      </div>
+
+      <!-- FAMILY OFFICE -->
+      <div class="criteria-block" id="block-family">
+        <p class="criteria-title">הצהרה – פאמילי אופיס</p>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="מנהל תיקים עבור משקיעים מסווגים"/>
+          <div class="custom-cb"></div>
+          <label>מנהל תיקים כמשמעותו בסעיף 8(ב) בחוק הסדרת העיסוק בייעוץ השקעות ובניהול תיקי השקעות, תשנ"ה-1995, הרוכש בעבור עצמו או בעבור לקוחות שהם משקיעים המנויים בסעיף 15א(ב) לחוק ניירות ערך "משקיעים כשירים".</label>
+        </div>
+        <div class="criteria-item" onclick="toggleCheck(this)">
+          <input type="checkbox" name="criteria[]" value="בעל מקצוע בתחום הפיננסי המציע ללקוחות מסווגים"/>
+          <div class="custom-cb"></div>
+          <label>הנני בעל מקצוע או תאגיד העוסק בתחום הפיננסי והמבקש לקבל מידע על מוצרים המנוהלים על ידי SafeHarbor על מנת שאוכל להציע אותם ללקוחותיי המנויים בתוספת הראשונה לחוק ניירות ערך, 1968 ("משקיעים מסווגים"). הריני מתחייב כי: (א) אינני מתעניין במוצרים עבור עצמי; ו-(ב) ככל שאציע אותם ללקוחותיי, הצעה זו תעשה רק ללקוחות שהינם משקיעים מסווגים ואשר חתמו על הצהרה כנדרש בחוק.</label>
+        </div>
+      </div>
+
+      <hr class="divider"/>
+
+      <p class="fine-print">
+        בבחירת החלופות דלעיל, אני/אנו מסכים/מסכימים בזאת להיחשב כ"משקיע מסווג", ומודע/ים להשלכות קביעה זו. אני/אנו מתחייב/ים להודיע ל-SafeHarbor Investors Group על כל שינוי שעשוי להשפיע על הסיווג של הח"מ כ"משקיע מסווג" ולספק מסמכים ו/או אישורים המעידים על הסיווג כאמור, כפי שיידרש מעת לעת.
+      </p>
+      <p class="fine-print">
+        אני/אנו מסכים/מים כי מידע אישי שיימסר על ידי/נו יישמר במאגרי המידע של SafeHarbor Investors Group, וכי SafeHarbor תעבד ותעשה שימוש במידע בהתאם למטרות המוגדרות במדיניות הפרטיות.
+      </p>
+
+      <p class="validation-note" id="validNote">יש למלא את כל השדות ולסמן לפחות קריטריון אחד.</p>
+      <button type="button" class="submit-btn" id="submitBtn" onclick="handleSubmit()">שליחה</button>
+      <!-- success: shown after submit, includes presentation link if provided -->
+      <div class="success-msg" id="successMsg">
+        <div id="successText">✓ הצהרתך התקבלה בהצלחה.</div>
+        <div id="presSection" style="display:none; margin-top:16px; text-align:center;">
+          <p style="margin-bottom:12px; font-size:14px; color:rgba(255,255,255,0.85);">המצגת עבורך מוכנה:</p>
+          <a id="presLink" href="#" target="_blank" style="
+            display:inline-block; padding:12px 28px;
+            background:#2c5aa0; color:#fff; border-radius:8px;
+            text-decoration:none; font-weight:700; font-size:15px;
+            margin-left:8px; transition:background 0.2s;">
+            📄 צפה במצגת
+          </a>
+          <a id="presDownload" href="#" target="_blank" download style="
+            display:inline-block; padding:12px 28px;
+            background:rgba(255,255,255,0.1); color:#fff; border-radius:8px;
+            text-decoration:none; font-weight:700; font-size:15px;
+            border:1px solid rgba(255,255,255,0.25); transition:background 0.2s;">
+            ⬇ הורד
+          </a>
+        </div>
+      </div>
+      <div class="error-msg" id="errorMsg">אירעה שגיאה בשליחת הטופס. אנא נסה שוב או פנה אלינו ישירות.</div>
+    </form>
+  </div>
+
+  <div class="footer">SafeHarbor Investors Group</div>
+</div>
+
+<script>
+  // ── Read ?pres= URL parameter (the presentation link Gil encoded) ──────────
+  var presUrl = null;
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var encoded = params.get('pres');
+    if (encoded) presUrl = atob(encoded);
+  } catch(e) {}
+
+  // ── Investor type selector ─────────────────────────────────────────────────
+  var typeInputs = document.querySelectorAll('input[type="radio"][name="investor-type-radio"]');
+  var blocks = { 'משקיע פרטי':'block-prati', 'חברה/תאגיד':'block-hevra', 'מוסדי/מורשה':'block-mosdi', 'פאמילי אופיס':'block-family' };
+  var lblMap  = { 'משקיע פרטי':'lbl-prati',   'חברה/תאגיד':'lbl-hevra',   'מוסדי/מורשה':'lbl-mosdi',   'פאמילי אופיס':'lbl-family' };
+
+  typeInputs.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      Object.values(blocks).forEach(function(id){ document.getElementById(id).classList.remove('active'); });
+      document.querySelectorAll('.type-label').forEach(function(l){ l.classList.remove('selected'); });
+      var val = this.value;
+      if (blocks[val])  document.getElementById(blocks[val]).classList.add('active');
+      if (lblMap[val])  document.getElementById(lblMap[val]).classList.add('selected');
+      document.getElementById('hiddenType').value = val;
+    });
+  });
+
+  // ── Checkbox toggle ────────────────────────────────────────────────────────
+  function toggleCheck(item) {
+    item.classList.toggle('checked');
+    var cb = item.querySelector('input[type="checkbox"]');
+    if (cb) cb.checked = !cb.checked;
+  }
+
+  // ── Form submit ────────────────────────────────────────────────────────────
+  function handleSubmit() {
+    var name  = document.getElementById('fieldName').value.trim();
+    var phone = document.getElementById('fieldPhone').value.trim();
+    var email = document.getElementById('fieldEmail').value.trim();
+    var type  = document.getElementById('hiddenType').value;
+    var checked = document.querySelectorAll('.criteria-item.checked input[type="checkbox"]');
+    var criteria = Array.from(checked).map(function(cb){ return cb.value; });
+    document.getElementById('hiddenCriteria').value = criteria.join(' | ');
+
+    var note = document.getElementById('validNote');
+    if (!name || !phone || !email || !type || criteria.length === 0) { note.classList.add('show'); return; }
+    note.classList.remove('show');
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'שולח...';
+    var form = document.getElementById('ilForm');
+
+    fetch('https://formspree.io/f/xkoqgral', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(function(r) {
+      if (r.ok) {
+        // Show success + presentation buttons if a link was provided
+        if (presUrl) {
+          document.getElementById('presLink').href = presUrl;
+          document.getElementById('presDownload').href = presUrl;
+          document.getElementById('presSection').style.display = 'block';
+          document.getElementById('successText').textContent = '✓ הצהרתך התקבלה בהצלחה. תוכל כעת לצפות במצגת:';
+        }
+        document.getElementById('successMsg').style.display = 'block';
+        // Reset form UI
+        form.reset();
+        document.querySelectorAll('.criteria-block').forEach(function(b){ b.classList.remove('active'); });
+        document.querySelectorAll('.type-label').forEach(function(l){ l.classList.remove('selected'); });
+        document.querySelectorAll('.criteria-item').forEach(function(i){ i.classList.remove('checked'); });
+        document.getElementById('hiddenType').value = '';
+        btn.style.display = 'none';
+      } else { throw new Error(); }
+    }).catch(function() {
+      document.getElementById('errorMsg').style.display = 'block';
+      btn.disabled = false; btn.textContent = 'שליחה';
+    });
+  }
+</script>
+</body>
+</html>

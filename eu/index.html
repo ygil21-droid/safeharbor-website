@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafeHarbor – Qualified Investor Declaration (Europe)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: #1a2a3a;
+      background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10,22,35,0.72);
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 720px;
+      padding: 48px 24px 80px;
+    }
+
+    .logo-area { text-align: center; margin-bottom: 32px; }
+    .logo-area img { height: 80px; width: auto; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #fff; }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 40px 44px;
+    }
+    @media (max-width: 600px) { .card { padding: 28px 20px; } }
+
+    .card-title { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 6px; }
+    .card-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .input-row { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+    input[type="text"], input[type="tel"], input[type="email"] {
+      flex: 1; min-width: 160px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 14px;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input::placeholder { color: rgba(255,255,255,0.4); }
+    input:focus { border-color: rgba(255,255,255,0.45); }
+    input.field-error { border-color: #e05555; }
+
+    .validation-note { font-size: 12px; color: #e07575; margin-bottom: 16px; display: none; }
+    .validation-note.show { display: block; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin: 26px 0 14px;
+    }
+
+    .investor-type-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .investor-type-label {
+      flex: 1; min-width: 130px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      padding: 10px 14px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .investor-type-label input { display: none; }
+    .investor-type-label.selected { background: rgba(44,90,160,0.35); border-color: #5ba3d9; color: #fff; }
+    .investor-type-label:hover { border-color: rgba(255,255,255,0.35); }
+
+    .criteria-block { display: none; margin-top: 6px; }
+    .criteria-block.active { display: block; }
+
+    .criteria-section {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+    }
+    .criteria-section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 12px;
+    }
+
+    .criteria-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+    }
+    .criteria-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .criteria-item.checked { background: rgba(91,163,217,0.08); border-radius: 6px; padding-left: 8px; }
+
+    .criteria-item input[type="checkbox"] { display: none; }
+    .custom-cb {
+      width: 18px; height: 18px; min-width: 18px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+      transition: all 0.15s;
+    }
+    .criteria-item.checked .custom-cb { background: #2c5aa0; border-color: #5ba3d9; }
+    .custom-cb::after {
+      content: ''; display: none;
+      width: 5px; height: 9px;
+      border: 2px solid #fff; border-top: none; border-left: none;
+      transform: rotate(45deg) translateY(-1px);
+    }
+    .criteria-item.checked .custom-cb::after { display: block; }
+    .criteria-item label { font-size: 13.5px; color: rgba(255,255,255,0.75); line-height: 1.55; cursor: pointer; }
+    .criteria-item.checked label { color: #fff; }
+
+    /* Note box for multi-criteria requirement */
+    .note-box {
+      background: rgba(91,163,217,0.1);
+      border: 1px solid rgba(91,163,217,0.3);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .divider-line { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 28px 0 22px; }
+    .fine-print { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.75; margin-bottom: 20px; }
+
+    .submit-btn {
+      width: 100%; padding: 14px;
+      background: #2c5aa0; color: #fff;
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px; font-weight: 700;
+      border: none; border-radius: 8px; cursor: pointer;
+      letter-spacing: 0.5px; transition: background 0.2s;
+    }
+    .submit-btn:hover { background: #3a6fc0; }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .success-msg, .error-msg { display: none; margin-top: 20px; border-radius: 8px; padding: 16px 20px; font-size: 14px; line-height: 1.6; }
+    .success-msg { background: rgba(50,160,100,0.2); border: 1px solid rgba(50,160,100,0.4); color: #7ae0a8; }
+    .error-msg { background: rgba(200,60,60,0.2); border: 1px solid rgba(200,60,60,0.4); color: #f08080; }
+
+    .footer { position: relative; z-index: 1; margin-top: 40px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
+    .footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- Netlify Forms detection (hidden) -->
+<form name="eu-declaration" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="bot-field"/>
+  <input name="fullname"/>
+  <input name="phone"/>
+  <input name="email"/>
+  <input name="investor_type"/>
+  <input name="criteria"/>
+  <input name="date"/>
+  <input name="time"/>
+  <textarea name="full_summary"></textarea>
+</form>
+
+<div class="page-wrap">
+
+  <div class="logo-area">
+    <img src="logo.png" alt="SafeHarbor Investors Group"/>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to region selection</a>
+
+  <div class="card">
+    <div class="card-title">Qualified Investor Declaration</div>
+    <div class="card-subtitle">
+      Pursuant to MiFID II / EU Prospectus Regulation<br/>
+      Please complete your full name, phone, and email below.
+    </div>
+
+    <div class="input-row">
+      <input type="text" id="fullname" placeholder="Full Name *"/>
+    </div>
+    <div class="input-row">
+      <input type="tel"   id="phone" placeholder="Phone *"/>
+      <input type="email" id="email" placeholder="Email *"/>
+    </div>
+    <div class="validation-note" id="fields-error">Please complete all required fields.</div>
+
+    <div class="section-label">I am declaring as a:</div>
+    <div class="investor-type-row">
+      <label class="investor-type-label" onclick="selectType(this,'individual')">
+        <input type="radio" name="investorType" value="individual"/> Individual
+      </label>
+      <label class="investor-type-label" onclick="selectType(this,'entity')">
+        <input type="radio" name="investorType" value="entity"/> Professional Entity
+      </label>
+      <label class="investor-type-label" onclick="selectType(this,'institutional')">
+        <input type="radio" name="investorType" value="institutional"/> Institutional
+      </label>
+    </div>
+    <div class="validation-note" id="type-error">Please select an investor type.</div>
+
+    <!-- ── INDIVIDUAL (Elective Professional per MiFID II) ── -->
+    <div class="criteria-block" id="criteria-individual">
+      <div class="note-box">
+        As an individual (natural person), you must meet <strong>at least two</strong> of the following three criteria to qualify as an elective professional investor under MiFID II:
+      </div>
+      <div class="criteria-section">
+        <div class="criteria-item" id="wrap-ind-1" onclick="toggle('wrap-ind-1','cb-ind-1')">
+          <input type="checkbox" id="cb-ind-1"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ind-1">I have carried out transactions of significant size on the relevant market at an average frequency of at least <strong>10 per quarter</strong> over the previous four quarters.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ind-2" onclick="toggle('wrap-ind-2','cb-ind-2')">
+          <input type="checkbox" id="cb-ind-2"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ind-2">The size of my financial instrument portfolio — including cash deposits — exceeds <strong>€500,000</strong>.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ind-3" onclick="toggle('wrap-ind-3','cb-ind-3')">
+          <input type="checkbox" id="cb-ind-3"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ind-3">I work or have worked in the financial sector for at least <strong>one year</strong> in a professional position which requires knowledge of transactions or services envisaged.</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ENTITY (Large Undertaking per MiFID II Annex II) ── -->
+    <div class="criteria-block" id="criteria-entity">
+      <div class="note-box">
+        A legal entity qualifies as a "large undertaking" (per se professional) if it meets <strong>at least two</strong> of the three size criteria below:
+      </div>
+      <div class="criteria-section">
+        <div class="criteria-item" id="wrap-ent-1" onclick="toggle('wrap-ent-1','cb-ent-1')">
+          <input type="checkbox" id="cb-ent-1"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ent-1">Balance sheet total exceeds <strong>€20,000,000</strong>.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ent-2" onclick="toggle('wrap-ent-2','cb-ent-2')">
+          <input type="checkbox" id="cb-ent-2"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ent-2">Net turnover exceeds <strong>€40,000,000</strong>.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ent-3" onclick="toggle('wrap-ent-3','cb-ent-3')">
+          <input type="checkbox" id="cb-ent-3"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ent-3">Own funds (equity) exceed <strong>€2,000,000</strong>.</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── INSTITUTIONAL (Per se professional per MiFID II) ── -->
+    <div class="criteria-block" id="criteria-institutional">
+      <div class="criteria-section">
+        <div class="criteria-section-label">Check the applicable category</div>
+
+        <div class="criteria-item" id="wrap-ins-1" onclick="toggle('wrap-ins-1','cb-ins-1')">
+          <input type="checkbox" id="cb-ins-1"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ins-1">Credit institution or investment firm authorised to operate in the financial markets.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ins-2" onclick="toggle('wrap-ins-2','cb-ins-2')">
+          <input type="checkbox" id="cb-ins-2"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ins-2">Insurance company or reinsurance undertaking.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ins-3" onclick="toggle('wrap-ins-3','cb-ins-3')">
+          <input type="checkbox" id="cb-ins-3"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ins-3">UCITS (collective investment scheme) or its management company.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ins-4" onclick="toggle('wrap-ins-4','cb-ins-4')">
+          <input type="checkbox" id="cb-ins-4"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ins-4">Pension fund or pension fund management company.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ins-5" onclick="toggle('wrap-ins-5','cb-ins-5')">
+          <input type="checkbox" id="cb-ins-5"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ins-5">National or regional government, public body that manages public debt, central bank, or international/supranational institution.</label>
+        </div>
+        <div class="criteria-item" id="wrap-ins-6" onclick="toggle('wrap-ins-6','cb-ins-6')">
+          <input type="checkbox" id="cb-ins-6"/>
+          <div class="custom-cb"></div>
+          <label for="cb-ins-6">Other institutional investor whose main activity is to invest in financial instruments, including entities dedicated to the securitisation of assets.</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="validation-note" id="checkbox-error">Please check at least one qualifying criterion.</div>
+
+    <hr class="divider-line"/>
+    <div class="fine-print">
+      By submitting this declaration, I/we confirm that I/we qualify as a "Qualified Investor" within the meaning of Regulation (EU) 2017/1129 (the EU Prospectus Regulation) and/or as a "Professional Client" pursuant to MiFID II (Directive 2014/65/EU), and am/are aware of the protections this status entails. I/we undertake to notify SafeHarbor Investors Group immediately of any change that may affect my/our classification, and to provide supporting documentation upon request.<br/><br/>
+      I/we agree that personal information provided will be stored in SafeHarbor Investors Group's records and processed in accordance with its Privacy Policy.
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Submit Declaration</button>
+
+    <div class="success-msg" id="successMsg">
+      ✓ Declaration submitted successfully! The SafeHarbor presentation will open in a new window shortly.<br/>
+      <a href="https://drive.google.com/file/d/14EHjUEowI-JoJ7Ikq16PLIz-nwpa87Oh/view?usp=drive_link" target="_blank" style="color:#7ae0a8;">Click here if it didn't open automatically.</a>
+    </div>
+    <div class="error-msg" id="errorMsg">Submission error. Please try again or contact us directly.</div>
+
+  </div><!-- /card -->
+
+  <div class="footer">
+    SafeHarbor Investors Group<br/>
+    45 Rockefeller Plaza, 20th Fl. New York, NY 10111 &nbsp;|&nbsp; יד חרוצים 31, א.ת. נתניה<br/>
+    <a href="mailto:info@safeharbor-investment.com">info@safeharbor-investment.com</a>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+  // ── Load logo ────────────────────────────────────────────────
+  fetch('https://safeharbor-investors.com/')
+    .then(r => r.text())
+    .then(html => {
+      const m = html.match(/src="(data:image\/png;base64,[^"]{500,})"/);
+      if (m) document.getElementById('sh-logo').src = m[1];
+    }).catch(() => {
+      document.getElementById('sh-logo').outerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 130" height="80">
+        <line x1="90" y1="14" x2="62" y2="0" stroke="white" stroke-width="1.5" opacity="0.5"/>
+        <line x1="90" y1="14" x2="118" y2="0" stroke="white" stroke-width="1.5" opacity="0.5"/>
+        <rect x="80" y="10" width="20" height="9" fill="white" rx="2"/>
+        <polygon points="83,19 97,19 101,62 79,62" fill="white"/>
+        <rect x="75" y="62" width="30" height="6" fill="white" rx="1"/>
+        <path d="M65,74 Q75,69 85,74 Q95,79 105,74 Q115,69 119,74" stroke="white" stroke-width="1.8" fill="none"/>
+        <text x="90" y="100" font-family="Heebo,Arial,sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">SafeHarbor</text>
+        <text x="90" y="114" font-family="Heebo,Arial,sans-serif" font-size="7.5" fill="white" text-anchor="middle" letter-spacing="2.5" opacity="0.8">INVESTORS GROUP</text>
+      </svg>`;
+    });
+
+  function selectType(labelEl, type) {
+    document.querySelectorAll('.investor-type-label').forEach(l => l.classList.remove('selected'));
+    labelEl.classList.add('selected');
+    document.querySelectorAll('.criteria-block').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById('criteria-' + type);
+    if (target) target.classList.add('active');
+    document.getElementById('type-error').classList.remove('show');
+  }
+
+  function toggle(wrapId, cbId) {
+    const cb   = document.getElementById(cbId);
+    const wrap = document.getElementById(wrapId);
+    if (cb && wrap) { cb.checked = !cb.checked; wrap.classList.toggle('checked', cb.checked); }
+    document.getElementById('checkbox-error').classList.remove('show');
+  }
+
+  const typeLabels = {
+    individual   : 'Individual (Elective Professional)',
+    entity       : 'Professional Entity (Large Undertaking)',
+    institutional: 'Institutional Investor'
+  };
+
+  async function handleSubmit() {
+    ['fields-error','type-error','checkbox-error'].forEach(id =>
+      document.getElementById(id).classList.remove('show'));
+    ['fullname','phone','email'].forEach(id =>
+      document.getElementById(id).classList.remove('field-error'));
+
+    const name   = document.getElementById('fullname').value.trim();
+    const phone  = document.getElementById('phone').value.trim();
+    const email  = document.getElementById('email').value.trim();
+    const typeEl = document.querySelector('input[name="investorType"]:checked');
+    let valid = true;
+
+    if (!name)  { document.getElementById('fullname').classList.add('field-error'); valid = false; }
+    if (!phone) { document.getElementById('phone').classList.add('field-error');    valid = false; }
+    if (!email || !email.includes('@')) { document.getElementById('email').classList.add('field-error'); valid = false; }
+    if (!name || !phone || !email || !email.includes('@')) {
+      document.getElementById('fields-error').classList.add('show'); valid = false;
+    }
+    if (!typeEl) { document.getElementById('type-error').classList.add('show'); valid = false; }
+
+    const activeBlock = document.querySelector('.criteria-block.active');
+    let checkedLabels = [];
+    if (!activeBlock && typeEl) {
+      document.getElementById('type-error').classList.add('show'); valid = false;
+    } else if (activeBlock) {
+      const checked = activeBlock.querySelectorAll('input[type="checkbox"]:checked');
+      if (checked.length === 0) {
+        document.getElementById('checkbox-error').classList.add('show'); valid = false;
+      } else {
+        checked.forEach(cb => {
+          const lbl = document.querySelector('label[for="' + cb.id + '"]');
+          if (lbl) checkedLabels.push(lbl.textContent.trim());
+        });
+      }
+    }
+
+    if (!valid) {
+      const firstErr = document.querySelector('.validation-note.show, .field-error');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const now     = new Date();
+    const dateStr = now.toLocaleDateString('en-GB', { day:'2-digit', month:'2-digit', year:'numeric' });
+    const timeStr = now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    const typeName = typeLabels[typeEl.value] || typeEl.value;
+
+    const messageBody = [
+      '══════════════════════════════════════',
+      ' SafeHarbor – EU Qualified Investor Declaration',
+      '══════════════════════════════════════',
+      '',
+      '📅 Date: ' + dateStr,
+      '🕐 Time: ' + timeStr,
+      '',
+      '── Declarant Details ──',
+      '👤 Name:  ' + name,
+      '📞 Phone: ' + phone,
+      '📧 Email: ' + email,
+      '',
+      '── Investor Type ──',
+      '🏷 ' + typeName,
+      '',
+      '── Qualifying Criteria Checked ──',
+      ...checkedLabels.map((l, i) => '✔ [' + (i+1) + '] ' + l),
+      '',
+      '══════════════════════════════════════',
+    ].join('\n');
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    try {
+      const resp = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'eu-declaration',
+          fullname: name,
+          phone: phone,
+          email: email,
+          investor_type: typeName,
+          criteria: checkedLabels.join(' | '),
+          date: dateStr,
+          time: timeStr,
+          full_summary: messageBody
+        }).toString()
+      });
+
+      if (!resp.ok) throw new Error('Netlify form error ' + resp.status);
+
+      document.getElementById('successMsg').style.display = 'block';
+      document.getElementById('submitBtn').style.display  = 'none';
+      document.getElementById('errorMsg').style.display   = 'none';
+
+      setTimeout(() => {
+        window.open('https://drive.google.com/file/d/14EHjUEowI-JoJ7Ikq16PLIz-nwpa87Oh/view?usp=drive_link', '_blank');
+      }, 1500);
+
+    } catch(err) {
+      console.error(err);
+      document.getElementById('errorMsg').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit Declaration';
+    }
+  }
+</script>
+</body>
+</html>

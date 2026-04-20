@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafeHarbor – Non-Disclosure Agreement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: #1a2a3a;
+      background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover; background-position: center top; background-attachment: fixed;
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+      color: #fff;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: rgba(10,22,35,0.75); z-index: 0;
+    }
+    .page-wrap { position: relative; z-index: 1; width: 100%; max-width: 740px; padding: 52px 24px 80px; }
+    .logo-area { text-align: center; margin-bottom: 28px; }
+    .logo-area img { height: 72px; width: auto; }
+    .page-title { font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 6px; }
+    .page-subtitle { font-size: 14px; color: rgba(255,255,255,0.55); text-align: center; margin-bottom: 36px; }
+    .card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 16px; padding: 36px 40px;
+    }
+    @media (max-width: 600px) { .card { padding: 24px 18px; } }
+
+    /* NDA Text */
+    .nda-scroll {
+      background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 24px 28px; max-height: 340px;
+      overflow-y: auto; margin-bottom: 28px;
+    }
+    .nda-scroll::-webkit-scrollbar { width: 6px; }
+    .nda-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
+    .nda-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+    .nda-text { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.85; }
+    .nda-text h2 { font-size: 13px; font-weight: 700; color: #fff; margin: 18px 0 8px; letter-spacing: 0.5px; }
+    .nda-text h2:first-child { margin-top: 0; }
+    .nda-text p { margin-bottom: 10px; }
+    .scroll-hint { font-size: 11px; color: rgba(255,255,255,0.3); text-align: center; margin-bottom: 24px; font-style: italic; }
+
+    /* Form fields */
+    .section-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+      color: rgba(255,255,255,0.38); margin-bottom: 14px;
+    }
+    .input-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+    .input-row input, .input-row select { flex: 1; min-width: 150px; }
+    input[type="text"], input[type="email"], input[type="date"] {
+      width: 100%; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px; padding: 11px 14px; font-family: 'Heebo', sans-serif;
+      font-size: 14px; color: #fff; outline: none; transition: border-color 0.2s;
+    }
+    input::placeholder { color: rgba(255,255,255,0.38); }
+    input:focus { border-color: rgba(255,255,255,0.45); }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.4); }
+
+    /* Signature */
+    .sig-label {
+      font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 10px;
+    }
+    .sig-wrap {
+      position: relative; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.04);
+      margin-bottom: 8px;
+    }
+    #sigCanvas {
+      display: block; width: 100%; height: 160px; cursor: crosshair; touch-action: none;
+    }
+    .sig-placeholder {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-size: 13px; color: rgba(255,255,255,0.2); pointer-events: none;
+      font-style: italic; white-space: nowrap;
+    }
+    .sig-clear {
+      font-size: 11px; color: rgba(255,255,255,0.35); cursor: pointer;
+      text-decoration: underline; background: none; border: none;
+      font-family: 'Heebo', sans-serif; padding: 0; transition: color 0.2s;
+    }
+    .sig-clear:hover { color: rgba(255,255,255,0.7); }
+
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 24px 0 20px; }
+    .fine-print { font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.85; margin-bottom: 8px; }
+
+    .validation-note { font-size: 12px; color: #e07575; margin-bottom: 8px; display: none; }
+    .validation-note.show { display: block; }
+
+    .submit-btn {
+      width: 100%; padding: 14px; background: #2c5aa0; color: #fff;
+      font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 700;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: background 0.2s; margin-top: 20px;
+    }
+    .submit-btn:hover { background: #3a6fc0; }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .success-msg, .error-msg {
+      display: none; margin-top: 20px; border-radius: 8px;
+      padding: 16px 20px; font-size: 14px; line-height: 1.7;
+    }
+    .success-msg { background: rgba(50,160,100,0.2); border: 1px solid rgba(50,160,100,0.4); color: #7ae0a8; }
+    .error-msg   { background: rgba(200,60,60,0.2);  border: 1px solid rgba(200,60,60,0.4);  color: #f09090; }
+    .footer { text-align: center; margin-top: 36px; font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
+    .footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="logo-area">
+    <img src="data:image/png;base64,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" alt="SafeHarbor Investors Group"/>
+  </div>
+
+  <h1 class="page-title">Non-Disclosure Agreement</h1>
+  <p class="page-subtitle">SafeHarbor GP LLC — Confidentiality & Non-Circumvention</p>
+
+  <div class="card">
+
+    <!-- NDA Text -->
+    <div class="nda-scroll" id="ndaScroll">
+      <div class="nda-text">
+        <h2>NON-DISCLOSURE AGREEMENT</h2>
+        <p>THIS NON-DISCLOSURE AGREEMENT (the "Agreement") is made as of the date signed below (the "Effective Date"), by and between the Recipient identified below, and <strong>SAFEHARBOR GP LLC.</strong>, a Delaware corporation with its principal place of business located at ℅ Amnon Bar-Tur, 45 Rockefeller Plaza, 20th Floor, New York, NY 10111, or any entity or individual affiliated with it (collectively, the "Disclosing Party").</p>
+
+        <h2>1. Definition of Confidential Information</h2>
+        <p>"Confidential Information" means any and all technical and non-technical information, whether or not marked as "Confidential," provided by Disclosing Party to Recipient, including without limitation: patent and patent applications; trade secrets; proprietary information, ideas, techniques, inventions, know-how, processes, algorithms, software, financial information, customer lists, investors, employees, business relationships, forecasts, marketing plans, and information regarding third parties. Confidential Information shall also include the fact that discussions or negotiations are taking place between the Parties.</p>
+
+        <h2>2. Confidentiality</h2>
+        <p>Recipient shall protect and preserve the Confidential Information as confidential, using no less care than that with which it protects its own highly confidential information (but in no event less than a reasonable degree of care), and shall not use the Confidential Information for any purpose except to evaluate a possible business transaction with Disclosing Party (the "Limited Purpose"). Recipient shall not disclose, distribute or disseminate the Confidential Information to any third party without the prior written consent of the Disclosing Party.</p>
+
+        <h2>2A. Non-Circumvention</h2>
+        <p>Recipient agrees that it shall not, directly or indirectly, circumvent, avoid, bypass, or obviate the Disclosing Party in order to deal with, contract with, or otherwise engage in any business transaction with any contacts, investors, customers, partners, employees, contractors, or affiliates of the Disclosing Party that were made known to Recipient through the disclosure of Confidential Information. This obligation shall remain in effect for three (3) years from the Effective Date.</p>
+
+        <h2>3. Return of Confidential Information</h2>
+        <p>Promptly following the request of Disclosing Party, Recipient shall return or destroy all materials containing any portion of the Confidential Information, including all copies, extracts and derivations.</p>
+
+        <h2>4. Ownership of Confidential Information</h2>
+        <p>All Confidential Information, together with all intellectual property rights embodied therein, are the sole and exclusive property of Disclosing Party. Recipient shall not use the intellectual property rights embodied in the Confidential Information for any purpose other than the Limited Purpose.</p>
+
+        <h2>5. Exclusions</h2>
+        <p>"Confidential Information" does not include information which: (a) is publicly available other than through disclosure by Recipient; (b) was known by Recipient prior to disclosure; (c) was independently developed by Recipient without use of the Confidential Information; (d) becomes available on a non-confidential basis from a permitted source; or (e) is approved for release by Disclosing Party in writing.</p>
+
+        <h2>6. Compelled Disclosure</h2>
+        <p>If Recipient becomes legally compelled to disclose any Confidential Information, Recipient shall provide prompt prior written notice to Disclosing Party so that Disclosing Party may seek a protective order or other appropriate remedy.</p>
+
+        <h2>7. Indemnification</h2>
+        <p>Recipient agrees to indemnify, defend, and hold harmless the Disclosing Party against any and all claims, losses, liabilities, damages, costs, and expenses (including reasonable attorneys' fees) arising out of any breach by Recipient of this Agreement.</p>
+
+        <h2>8. Specific Performance and Injunctive Relief</h2>
+        <p>Recipient acknowledges that breach of this Agreement could cause substantial injury to Disclosing Party for which money damages will not be a sufficient remedy. Disclosing Party shall be entitled to injunctive relief and specific enforcement of this Agreement without posting bond or other security.</p>
+
+        <h2>9. No Warranties; No License</h2>
+        <p>The Confidential Information is provided "as is." Disclosing Party makes no representations or warranties with respect to the Confidential Information. Nothing herein grants Recipient any rights to technology or license under any intellectual property right, except for the Limited Purpose.</p>
+
+        <h2>10. Term and Termination</h2>
+        <p>This Agreement continues until terminated by either party upon thirty (30) days' written notice. Confidentiality obligations shall remain in effect for three (3) years from the date of disclosure of the Confidential Information, regardless of termination.</p>
+
+        <h2>11. Governing Law</h2>
+        <p>This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware without regard to its conflict of law principles.</p>
+
+        <h2>12. Entire Agreement</h2>
+        <p>This Agreement constitutes the entire agreement of the parties with respect to the subject matter hereof and supersedes any and all prior agreements. No modification shall be effective unless in writing and signed by authorized representatives of each party.</p>
+
+        <h2>13. Severability</h2>
+        <p>The illegality or invalidity of any provision of this Agreement shall not affect any other provision, and this Agreement shall be reformed and construed so as to most nearly give lawful effect to the intent of the parties.</p>
+
+        <h2>14. Counterparts</h2>
+        <p>This Agreement may be executed in counterparts (including electronic signature), each of which shall be deemed an original, but which together shall constitute one and the same instrument.</p>
+      </div>
+    </div>
+    <p class="scroll-hint">↑ Scroll to read the full agreement before signing</p>
+
+    <!-- Recipient Details -->
+    <p class="section-title">Recipient Information</p>
+    <form id="ndaForm" novalidate>
+      <input type="hidden" name="_subject" value="NDA Signed – SafeHarbor"/>
+      <input type="hidden" name="signature-confirmed" id="sigData" value=""/>
+      <input type="hidden" name="effective-date" id="effectiveDate"/>
+
+      <div class="input-row">
+        <input type="text" name="full-name" id="fieldName" placeholder="Full Name *" required/>
+        <input type="text" name="title" id="fieldTitle" placeholder="Title / Position"/>
+      </div>
+      <div class="input-row">
+        <input type="text" name="company" id="fieldCompany" placeholder="Company / Organization"/>
+        <input type="email" name="email" id="fieldEmail" placeholder="Email Address *" required/>
+      </div>
+      <div class="input-row">
+        <input type="text" name="address" id="fieldAddress" placeholder="Address *"/>
+      </div>
+
+      <hr class="divider"/>
+
+      <!-- Signature -->
+      <p class="section-title">Signature</p>
+      <p class="sig-label">Draw your signature below using your mouse or finger: <span style="color:#e07575;">*</span></p>
+      <div class="sig-wrap">
+        <canvas id="sigCanvas"></canvas>
+        <span class="sig-placeholder" id="sigPlaceholder">Sign here</span>
+      </div>
+      <button type="button" class="sig-clear" onclick="clearSig()">Clear signature</button>
+
+      <hr class="divider"/>
+
+      <p class="fine-print">
+        By submitting this form, I confirm that I have read and agree to the Non-Disclosure Agreement above. I acknowledge that this electronic signature is legally binding under the U.S. Electronic Signatures in Global and National Commerce Act (ESIGN Act) and applicable law.
+      </p>
+
+      <p class="validation-note" id="noteName">Please enter your full name.</p>
+      <p class="validation-note" id="noteAddress">Please enter your address.</p>
+      <p class="validation-note" id="noteEmail">Please enter a valid email address.</p>
+      <p class="validation-note" id="noteSig">Please provide your signature.</p>
+
+      <button type="button" class="submit-btn" id="submitBtn" onclick="handleSubmit()">Sign &amp; Submit Agreement</button>
+      <div class="success-msg" id="successMsg">✓ Your NDA has been signed and submitted successfully. A copy will be sent to your email shortly.</div>
+      <div class="error-msg"   id="errorMsg">An error occurred. Please try again or contact us directly.</div>
+    </form>
+  </div>
+
+  <div class="footer">
+    SafeHarbor Investors Group<br/>
+    45 Rockefeller Plaza, 20th Fl. New York, NY 10111<br/>
+    <a href="mailto:info@safeharbor-investment.com">info@safeharbor-investment.com</a>
+  </div>
+
+</div>
+
+<script>
+  // ── Set today's date ──
+  var today = new Date();
+  document.getElementById('effectiveDate').value = today.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+
+  // ── Signature Canvas ──
+  var canvas = document.getElementById('sigCanvas');
+  var ctx = canvas.getContext('2d');
+  var drawing = false;
+  var hasSig = false;
+
+  function resizeCanvas() {
+    var ratio = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+    ctx.scale(ratio, ratio);
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function getPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    if (e.touches) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  canvas.addEventListener('mousedown',  function(e) { drawing = true; ctx.beginPath(); var p=getPos(e); ctx.moveTo(p.x,p.y); });
+  canvas.addEventListener('mousemove',  function(e) { if(!drawing) return; var p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; document.getElementById('sigPlaceholder').style.display='none'; });
+  canvas.addEventListener('mouseup',    function() { drawing=false; });
+  canvas.addEventListener('mouseleave', function() { drawing=false; });
+  canvas.addEventListener('touchstart', function(e) { e.preventDefault(); drawing=true; ctx.beginPath(); var p=getPos(e); ctx.moveTo(p.x,p.y); }, {passive:false});
+  canvas.addEventListener('touchmove',  function(e) { e.preventDefault(); if(!drawing) return; var p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; document.getElementById('sigPlaceholder').style.display='none'; }, {passive:false});
+  canvas.addEventListener('touchend',   function() { drawing=false; });
+
+  function clearSig() {
+    var ratio = window.devicePixelRatio || 1;
+    ctx.clearRect(0, 0, canvas.width/ratio, canvas.height/ratio);
+    hasSig = false;
+    document.getElementById('sigPlaceholder').style.display = '';
+  }
+
+  // ── Submit ──
+  function handleSubmit() {
+    var name  = document.getElementById('fieldName').value.trim();
+    var email = document.getElementById('fieldEmail').value.trim();
+
+    ['noteName','noteEmail','noteAddress','noteSig'].forEach(function(id){
+      document.getElementById(id).classList.remove('show');
+    });
+
+    var hasError = false;
+    if (!name)  { document.getElementById('noteName').classList.add('show');  hasError = true; }
+    var address = document.getElementById('fieldAddress').value.trim();
+    if (!address) { document.getElementById('noteAddress').classList.add('show'); hasError = true; }
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { document.getElementById('noteEmail').classList.add('show'); hasError = true; }
+    if (!hasSig) { document.getElementById('noteSig').classList.add('show');  hasError = true; }
+    if (hasError) return;
+
+    document.getElementById('sigData').value = 'Signed electronically on ' + document.getElementById('effectiveDate').value;
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'Submitting...';
+
+    fetch('https://formspree.io/f/xkoqgral', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+      body: new URLSearchParams(new FormData(document.getElementById('ndaForm'))).toString()
+    }).then(function(r) {
+      if (r.ok) {
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('ndaForm').reset();
+        clearSig();
+        btn.style.display = 'none';
+      } else { throw new Error(); }
+    }).catch(function() {
+      document.getElementById('errorMsg').style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Sign & Submit Agreement';
+    });
+  }
+</script>
+</body>
+</html>
