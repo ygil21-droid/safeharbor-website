@@ -12,25 +12,11 @@
 body{font-family:'Heebo',sans-serif;background:#0F2244;color:#fff;min-height:100vh;direction:rtl}
 
 /* Nav bar */
-#main-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#0F2244;padding:0 32px;height:88px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06)}
-#main-nav img{height:64px;width:auto}
-#main-nav .nav-links{display:flex;align-items:center;gap:34px}
-#main-nav .nav-link{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,0.6);transition:color 0.2s}
-#main-nav .nav-link:hover{color:#fff}
-#nav-login{padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.6);transition:all 0.2s}
-#nav-login:hover{color:#fff;border-color:#fff}
-
-/* Mobile hamburger */
-#mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:201}
-#mobile-toggle span{display:block;width:22px;height:2px;margin:5px 0;background:white;transition:0.3s}
-@media(max-width:768px){
-  #mobile-toggle{display:block}
-  .nav-links{display:none !important;position:fixed;top:0;left:0;right:0;bottom:0;background:#0F2244;flex-direction:column !important;align-items:center !important;justify-content:center !important;gap:24px !important;z-index:300}
-  .nav-links.mobile-open{display:flex !important}
-  .nav-links .nav-link{font-size:16px !important;color:white !important}
-  #nav-login{font-size:14px !important;color:white !important;border-color:rgba(255,255,255,0.95) !important}
-  #mobile-close{display:block !important;position:absolute;top:24px;right:28px;background:none;border:none;cursor:pointer;color:white;font-size:28px}
-}
+.nav-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:#0F2244;padding:0 32px;height:88px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-bar img{height:64px;width:auto}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-family:'Heebo',sans-serif;font-size:14px;font-weight:600;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
 
 /* Hero header */
 .hero{background:#0F2244;padding:64px 28px 48px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);margin-top:88px}
@@ -98,21 +84,13 @@ input:focus{border-color:#F2C849}
 </head>
 <body>
 
-<nav id="main-nav">
+<div class="nav-bar">
   <a href="/"><img src="logos/logo-white-cropped.png" alt="SafeHarbor"/></a>
-  <button id="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('mobile-open')">
-    <span></span><span></span><span></span>
-  </button>
-  <div id="nav-links" class="nav-links">
-    <button id="mobile-close" style="display:none;" onclick="document.getElementById('nav-links').classList.remove('mobile-open')">&times;</button>
-    <a href="/strategy.html" class="nav-link">Strategy</a>
-    <a href="/portfolio.html" class="nav-link">Portfolio</a>
-    <a href="/team.html" class="nav-link">Team</a>
-    <a href="/esg.html" class="nav-link">ESG</a>
-    <a href="/contact.html" class="nav-link">Contact</a>
-    <a href="https://safeharbor.portal.agorareal.com/#/login?redirectUrl=%2Fdocuments%2Fall-documents" target="_blank" id="nav-login">Investor Login</a>
+  <div class="nav-links">
+    <a href="/">אתר החברה</a>
+    <a href="/contact.html">צור קשר</a>
   </div>
-</nav>
+</div>
 
 <div class="hero">
   <h1>הצהרת משקיע כשיר</h1>
