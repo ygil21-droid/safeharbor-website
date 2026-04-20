@@ -40,6 +40,7 @@ width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0
 padding:13px 16px;font-family:'Heebo',sans-serif;font-size:15px;color:#fff;outline:none;direction:rtl;transition:border-color 0.2s}
 input::placeholder{color:rgba(255,255,255,0.3)}
 input:focus{border-color:#F2C849}
+.field-error{font-size:12px;color:#e74c3c;margin-top:4px;margin-bottom:4px;display:none}
 
 /* Declaration intro */
 .declaration-intro{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.8;margin:24px 0 20px;border-top:1px solid rgba(255,255,255,0.06);padding-top:20px}
@@ -102,11 +103,11 @@ input:focus{border-color:#F2C849}
 <div class="form-section">
   <div class="form-card" id="formCard">
     <div class="input-row">
-      <input type="text" id="fullName" placeholder="שם מלא *" required/>
-      <input type="tel" id="phone" placeholder="טלפון נייד *" required/>
+      <div style="flex:1;min-width:150px"><input type="text" id="fullName" placeholder="שם מלא *" required/><div class="field-error" id="err-name">נא להזין שם מלא</div></div>
+      <div style="flex:1;min-width:150px"><input type="tel" id="phone" placeholder="טלפון נייד *" required/><div class="field-error" id="err-phone">נא להזין מספר טלפון</div></div>
     </div>
     <div class="input-row">
-      <input type="email" id="email" placeholder="אימייל *" required/>
+      <div style="flex:1"><input type="email" id="email" placeholder="אימייל *" required/><div class="field-error" id="err-email">נא להזין כתובת אימייל תקינה</div></div>
     </div>
 
     <p class="declaration-intro">הריני/נו להצהיר כי אני/אנו נחשב/ים כ"משקיע מסווג" כהגדרתו בתוספת הראשונה לחוק ניירות ערך, התשכ"ח-1968, מאחר שמתקיימים בי/בנו התנאים המנויים להלן (יש לסמן את הסעיף הרלוונטי):</p>
@@ -246,13 +247,13 @@ function isValidEmail(email) {
 }
 
 // Highlight invalid field
-function showError(input, msg) {
+function showError(input, errId) {
   input.style.borderColor = '#e74c3c';
-  input.setAttribute('title', msg);
+  document.getElementById(errId).style.display = 'block';
 }
-function clearError(input) {
+function clearError(input, errId) {
   input.style.borderColor = 'rgba(255,255,255,0.12)';
-  input.removeAttribute('title');
+  document.getElementById(errId).style.display = 'none';
 }
 
 // Form submission
@@ -268,17 +269,15 @@ function submitForm() {
   let valid = true;
 
   // Clear previous errors
-  [nameEl, phoneEl, emailEl].forEach(clearError);
+  clearError(nameEl, 'err-name');
+  clearError(phoneEl, 'err-phone');
+  clearError(emailEl, 'err-email');
 
-  if (!name) { showError(nameEl, 'שדה חובה'); valid = false; }
-  if (!phone) { showError(phoneEl, 'שדה חובה'); valid = false; }
-  if (!email) { showError(emailEl, 'שדה חובה'); valid = false; }
-  else if (!isValidEmail(email)) { showError(emailEl, 'כתובת אימייל לא תקינה'); valid = false; }
+  if (!name) { showError(nameEl, 'err-name'); valid = false; }
+  if (!phone) { showError(phoneEl, 'err-phone'); valid = false; }
+  if (!email || !isValidEmail(email)) { showError(emailEl, 'err-email'); valid = false; }
 
-  if (!valid) {
-    alert('נא למלא את כל השדות הנדרשים עם אימייל תקין');
-    return;
-  }
+  if (!valid) return;
 
   // Collect checked criteria
   const checkedItems = document.querySelectorAll('.criteria-item.checked label');
