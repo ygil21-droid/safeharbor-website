@@ -102,11 +102,11 @@ input:focus{border-color:#F2C849}
 <div class="form-section">
   <div class="form-card" id="formCard">
     <div class="input-row">
-      <input type="text" id="fullName" placeholder="שם מלא"/>
-      <input type="tel" id="phone" placeholder="טלפון נייד"/>
+      <input type="text" id="fullName" placeholder="שם מלא *" required/>
+      <input type="tel" id="phone" placeholder="טלפון נייד *" required/>
     </div>
     <div class="input-row">
-      <input type="email" id="email" placeholder="אימייל"/>
+      <input type="email" id="email" placeholder="אימייל *" required/>
     </div>
 
     <p class="declaration-intro">הריני/נו להצהיר כי אני/אנו נחשב/ים כ"משקיע מסווג" כהגדרתו בתוספת הראשונה לחוק ניירות ערך, התשכ"ח-1968, מאחר שמתקיימים בי/בנו התנאים המנויים להלן (יש לסמן את הסעיף הרלוונטי):</p>
@@ -240,14 +240,43 @@ typeLabels.forEach(label => {
   });
 });
 
+// Email validation
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Highlight invalid field
+function showError(input, msg) {
+  input.style.borderColor = '#e74c3c';
+  input.setAttribute('title', msg);
+}
+function clearError(input) {
+  input.style.borderColor = 'rgba(255,255,255,0.12)';
+  input.removeAttribute('title');
+}
+
 // Form submission
 function submitForm() {
-  const name = document.getElementById('fullName').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const email = document.getElementById('email').value.trim();
+  const nameEl = document.getElementById('fullName');
+  const phoneEl = document.getElementById('phone');
+  const emailEl = document.getElementById('email');
 
-  if (!name || !phone || !email) {
-    alert('נא למלא את כל השדות');
+  const name = nameEl.value.trim();
+  const phone = phoneEl.value.trim();
+  const email = emailEl.value.trim();
+
+  let valid = true;
+
+  // Clear previous errors
+  [nameEl, phoneEl, emailEl].forEach(clearError);
+
+  if (!name) { showError(nameEl, 'שדה חובה'); valid = false; }
+  if (!phone) { showError(phoneEl, 'שדה חובה'); valid = false; }
+  if (!email) { showError(emailEl, 'שדה חובה'); valid = false; }
+  else if (!isValidEmail(email)) { showError(emailEl, 'כתובת אימייל לא תקינה'); valid = false; }
+
+  if (!valid) {
+    alert('נא למלא את כל השדות הנדרשים עם אימייל תקין');
     return;
   }
 
@@ -263,17 +292,18 @@ function submitForm() {
   // Get selected type
   const selectedType = document.querySelector('.type-label.selected').textContent.trim();
 
-  // Submit via Formspree
+  // Submit via FormSubmit to gil@yanushus.com
   const data = {
     name: name,
     phone: phone,
     email: email,
     investor_type: selectedType,
     criteria: criteria.join('\n\n'),
-    _subject: `הצהרת משקיע כשיר – ${name}`
+    _subject: `הצהרת משקיע כשיר – ${name}`,
+    _captcha: 'false'
   };
 
-  fetch('https://formspree.io/f/xovdgvpz', {
+  fetch('https://formsubmit.co/ajax/gil@yanushus.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify(data)
