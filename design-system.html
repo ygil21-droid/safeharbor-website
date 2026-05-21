@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeHarbor Design System</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  background: #f7f8fa;
+  color: #1A1A1A;
+  line-height: 1.6;
+}
+h1,h2,h3,h4 { font-family: 'Libre Baskerville', serif; }
+::selection { background: #1B3A6B; color: white; }
+a { color: #1B3A6B; text-decoration: underline; }
+a:visited { color: #1B3A6B; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+/* ──────── NAV ──────── */
+nav {
+  position: sticky;
+  top: 0;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 100;
+  padding: 20px 32px;
+}
+nav .container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+nav h1 {
+  font-size: 20px;
+  color: #1B3A6B;
+  margin: 0;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  flex: 1;
+}
+nav a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #1B3A6B;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+nav a:hover {
+  border-bottom-color: #F2C849;
+}
+
+/* ──────── HERO ──────── */
+header {
+  background: linear-gradient(135deg, #0F2244 0%, #1B3A6B 100%);
+  color: white;
+  padding: 80px 32px 60px;
+  text-align: center;
+}
+header h1 {
+  font-size: 48px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+header p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ──────── SECTION ──────── */
+section {
+  padding: 80px 32px;
+  background: white;
+  border-bottom: 1px solid #e4e7ed;
+}
+section:nth-child(even) {
+  background: #f7f8fa;
+}
+section h2 {
+  font-size: 36px;
+  color: #1B3A6B;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.section-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #F2C849;
+  margin-bottom: 12px;
+}
+.gold-line {
+  width: 48px;
+  height: 1px;
+  background: #F2C849;
+  margin: 20px 0 32px 0;
+}
+
+/* ──────── GRID ──────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin-top: 32px;
+}
+.card {
+  background: white;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  padding: 24px;
+  transition: box-shadow 0.3s;
+}
+.card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.card h3 {
+  font-size: 18px;
+  color: #1B3A6B;
+  margin-bottom: 12px;
+}
+.card p {
+  font-size: 15px;
+  color: #4A4A4A;
+  line-height: 1.6;
+}
+.card code {
+  display: block;
+  background: #f7f8fa;
+  padding: 12px;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-top: 12px;
+  overflow-x: auto;
+  color: #0F2244;
+}
+
+/* ──────── COLORS ──────── */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+.color-swatch {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #e4e7ed;
+}
+.color-box {
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.color-info {
+  padding: 16px;
+  background: white;
+  font-size: 13px;
+}
+.color-info .name {
+  font-weight: 600;
+  color: #1B3A6B;
+  margin-bottom: 4px;
+}
+.color-info .hex {
+  font-family: monospace;
+  color: #4A4A4A;
+}
+.color-info .usage {
+  font-size: 12px;
+  color: #888;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ──────── TYPOGRAPHY ──────── */
+.type-sample {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #e4e7ed;
+}
+.type-sample h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #888;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.type-sample .sample {
+  margin: 16px 0;
+}
+
+/* ──────── BUTTONS ──────── */
+.button-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 32px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.btn-primary {
+  background: #F2C849;
+  color: #1B3A6B;
+}
+.btn-primary:hover {
+  background: #f5d76e;
+}
+.btn-secondary {
+  background: transparent;
+  color: #1B3A6B;
+  border: 1px solid #1B3A6B;
+}
+.btn-secondary:hover {
+  background: #1B3A6B;
+  color: white;
+}
+.btn-light {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.35);
+}
+.btn-light:hover {
+  border-color: #F2C849;
+  color: #F2C849;
+}
+
+/* ──────── BADGES ──────── */
+.badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.badge-hot { background: #ffebee; color: #c62828; }
+.badge-warm { background: #fff3e0; color: #e65100; }
+.badge-cold { background: #e3f2fd; color: #1565c0; }
+.badge-investing { background: #e8f5e9; color: #2e7d32; }
+.badge-refinanced { background: #e8f5e9; color: #2e7d32; }
+.badge-stabilized { background: #fffde7; color: #f57f17; }
+.badge-lease-up { background: #fff3e0; color: #e65100; }
+.badge-development { background: #e3f2fd; color: #1565c0; }
+
+/* ──────── FORM ──────── */
+.form-group {
+  margin-bottom: 24px;
+}
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #1B3A6B;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e4e7ed;
+  border-radius: 2px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: #1A1A1A;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #F2C849;
+  box-shadow: 0 0 0 3px rgba(242,200,73,0.1);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ──────── FOOTER ──────── */
+footer {
+  background: #0A1628;
+  color: rgba(255,255,255,0.8);
+  padding: 40px 32px;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  nav .container {
+    flex-direction: column;
+    gap: 16px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+  header h1 {
+    font-size: 32px;
+  }
+  section {
+    padding: 48px 16px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <h1>SafeHarbor Design System</h1>
+    <ul>
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#typography">Typography</a></li>
+      <li><a href="#buttons">Buttons</a></li>
+      <li><a href="#badges">Badges</a></li>
+      <li><a href="#components">Components</a></li>
+      <li><a href="#spacing">Spacing</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="container">
+    <h1>Design System</h1>
+    <p>A comprehensive guide to SafeHarbor's visual language, components, and patterns.</p>
+  </div>
+</header>
+
+<!-- COLORS -->
+<section id="colors">
+  <div class="container">
+    <div class="section-tag">Design System</div>
+    <h2>Color Palette</h2>
+    <div class="gold-line"></div>
+    <p>Our color system reflects institutional confidence and investment-grade trust. All colors are carefully selected for accessibility and brand consistency.</p>
+
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="color-box" style="background: #0F2244;">Dark Navy</div>
+        <div class="color-info">
+          <div class="name">Dark Navy</div>
+          <div class="hex">#0F2244</div>
+          <div class="usage">Hero overlays, dark sections, CTA backgrounds</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="color-box" style="background: #1B3A6B;">Brand Navy</div>
+        <div class="color-info">
+          <div class="name">Brand Navy</div>
+          <div class="hex">#1B3A6B</div>
+          <div class="usage">Nav bar, headings, primary text</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="color-box" style="background: #F2C849; color: #1B3A6B;">Gold</div>
+        <div class="color-info">
+          <div class="name">Gold</div>
+          <div class="hex">#F2C849</div>
+          <div class="usage">Accent, CTAs, section tags, divider lines</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="color-box" style="background: #F5D76E; color: #1B3A6B;">Gold Light</div>
+        <div class="color-info">
+          <div class="name">Gold Light</div>
+          <div class="hex">#F5D76E</div>
+          <div class="usage">Italic headline accents, hover states</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="color-box" style="background: #FFFFFF; color: #1B3A6B; border: 1px solid #e4e7ed;">White</div>
+        <div class="color-info">
+          <div class="name">White</div>
+          <div class="hex">#FFFFFF</div>
+          <div class="usage">Page backgrounds, card backgrounds</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="color-box" style="background: #F7F8FA; color: #1B3A6B; border: 1px solid #e4e7ed;">Light Gray</div>
+        <div class="color-info">
+          <div class="name">Light Gray</div>
+          <div class="hex">#F7F8FA</div>
+          <div class="usage">Alternating section backgrounds</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="color-box" style="background: #4A4A4A;">Text Body</div>
+        <div class="color-info">
+          <div class="name">Text Body</div>
+          <div class="hex">#4A4A4A</div>
+          <div class="usage">Body paragraphs</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="color-box" style="background: #1A1A1A;">Text Dark</div>
+        <div class="color-info">
+          <div class="name">Text Dark</div>
+          <div class="hex">#1A1A1A</div>
+          <div class="usage">Strong body text, default text color</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section id="typography">
+  <div class="container">
+    <div class="section-tag">Design System</div>
+    <h2>Typography</h2>
+    <div class="gold-line"></div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Headings</h3>
+        <p><strong>Libre Baskerville Serif</strong></p>
+        <p style="font-size: 13px; color: #888;">Elegant, institutional font for all h1–h4 elements. Conveys trust and sophistication.</p>
+
+        <div class="type-sample">
+          <h3>Font Weights</h3>
+          <div class="sample" style="font-family: 'Libre Baskerville', serif; font-size: 32px; font-weight: 400;">Regular (400) — 32px</div>
+          <div class="sample" style="font-family: 'Libre Baskerville', serif; font-size: 32px; font-weight: 700;">Bold (700) — 32px</div>
+          <div class="sample" style="font-family: 'Libre Baskerville', serif; font-size: 28px; font-weight: 400; font-style: italic;">Italic (400) — 28px</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Body Text</h3>
+        <p><strong>Barlow Sans-serif</strong></p>
+        <p style="font-size: 13px; color: #888;">Clean, modern font for body copy. Weights: 300 (light), 400 (regular), 500 (medium), 600 (semibold).</p>
+
+        <div class="type-sample">
+          <h3>Font Weights</h3>
+          <div class="sample" style="font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 300;">Light (300) — 16px</div>
+          <div class="sample" style="font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 400;">Regular (400) — 16px</div>
+          <div class="sample" style="font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 500;">Medium (500) — 16px</div>
+          <div class="sample" style="font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 600;">Semibold (600) — 16px</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Labels & Tags</h3>
+        <p><strong>Barlow Condensed</strong></p>
+        <p style="font-size: 13px; color: #888;">Uppercase, letterspaced for section tags, nav links, and UI labels. Weight: 600.</p>
+
+        <div class="type-sample">
+          <h3>Size Variants</h3>
+          <div class="sample" style="font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;">11px — Section Tags</div>
+          <div class="sample" style="font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;">13px — Nav Links</div>
+          <div class="sample" style="font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;">12px — Button Labels</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 24px; background: white; border-radius: 4px; border: 1px solid #e4e7ed;">
+      <h3 style="margin-bottom: 16px;">Heading Hierarchy</h3>
+      <div style="font-family: 'Libre Baskerville', serif; font-size: 48px; font-weight: 400; line-height: 1.15; color: #1B3A6B; margin-bottom: 12px;">H1: 48px / 56px desktop</div>
+      <div style="font-family: 'Libre Baskerville', serif; font-size: 36px; font-weight: 400; line-height: 1.2; color: #1B3A6B; margin-bottom: 12px;">H2: 36px / 42px desktop</div>
+      <div style="font-family: 'Libre Baskerville', serif; font-size: 26px; font-weight: 400; line-height: 1.3; color: #1B3A6B; margin-bottom: 12px;">H3: 26px / 34px desktop</div>
+      <div style="font-family: 'Libre Baskerville', serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: #1B3A6B;">H4: 20px / 24px desktop (bold)</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUTTONS -->
+<section id="buttons">
+  <div class="container">
+    <div class="section-tag">Components</div>
+    <h2>Buttons</h2>
+    <div class="gold-line"></div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Primary Button</h3>
+        <p>Gold background with navy text. Use for main CTAs.</p>
+        <div class="button-grid">
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+        <code>&lt;a href="#" class="btn btn-primary"&gt;Learn More&lt;/a&gt;</code>
+      </div>
+
+      <div class="card">
+        <h3>Secondary Button</h3>
+        <p>Transparent with navy border. Use for alternate actions.</p>
+        <div class="button-grid">
+          <a href="#" class="btn btn-secondary">View Portfolio</a>
+        </div>
+        <code>&lt;a href="#" class="btn btn-secondary"&gt;View Portfolio&lt;/a&gt;</code>
+      </div>
+
+      <div class="card">
+        <h3>Light Button</h3>
+        <p>Transparent with white border. Use on dark backgrounds.</p>
+        <div style="background: #0F2244; padding: 20px; border-radius: 4px;">
+          <div class="button-grid">
+            <a href="#" class="btn btn-light">Get Started</a>
+          </div>
+        </div>
+        <code>&lt;a href="#" class="btn btn-light"&gt;Get Started&lt;/a&gt;</code>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 24px; background: white; border-radius: 4px; border: 1px solid #e4e7ed;">
+      <h3 style="margin-bottom: 16px; color: #1B3A6B;">Button States</h3>
+      <p style="margin-bottom: 20px; color: #4A4A4A;">All buttons include hover and focus states. Transitions are smooth (0.3s).</p>
+      <div class="button-grid">
+        <a href="#" class="btn btn-primary" style="opacity: 0.6;">Disabled State</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BADGES -->
+<section id="badges">
+  <div class="container">
+    <div class="section-tag">Components</div>
+    <h2>Status Badges</h2>
+    <div class="gold-line"></div>
+    <p>Badges indicate contact temperature, investment status, or property status.</p>
+
+    <div style="margin: 32px 0;">
+      <h3 style="margin-bottom: 16px; color: #1B3A6B; font-size: 18px;">Contact Temperature</h3>
+      <div class="badge-grid">
+        <div class="badge badge-hot">Hot</div>
+        <div class="badge badge-warm">Warm</div>
+        <div class="badge badge-cold">Cold</div>
+      </div>
+    </div>
+
+    <div style="margin: 32px 0;">
+      <h3 style="margin-bottom: 16px; color: #1B3A6B; font-size: 18px;">Investment Status</h3>
+      <div class="badge-grid">
+        <div class="badge badge-investing">Investing</div>
+        <div class="badge" style="background: #f3e5f5; color: #6a1b9a;">In Contact</div>
+      </div>
+    </div>
+
+    <div style="margin: 32px 0;">
+      <h3 style="margin-bottom: 16px; color: #1B3A6B; font-size: 18px;">Property Status</h3>
+      <div class="badge-grid">
+        <div class="badge badge-refinanced">Refinanced</div>
+        <div class="badge badge-stabilized">Stabilized</div>
+        <div class="badge badge-lease-up">Lease-Up</div>
+        <div class="badge badge-development">Development</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section id="components">
+  <div class="container">
+    <div class="section-tag">Components</div>
+    <h2>Pattern Library</h2>
+    <div class="gold-line"></div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Section Tag</h3>
+        <p>Uppercase, letterspaced label above headings.</p>
+        <div style="margin-top: 16px;">
+          <div style="font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #F2C849;">Investment Strategy</div>
+        </div>
+        <code style="margin-top: 12px;">&lt;div class="section-tag"&gt;Investment Strategy&lt;/div&gt;</code>
+      </div>
+
+      <div class="card">
+        <h3>Gold Accent Line</h3>
+        <p>Thin horizontal divider below headings. 40–48px wide, 1px tall.</p>
+        <div style="margin-top: 16px;">
+          <div style="width: 48px; height: 1px; background: #F2C849;"></div>
+        </div>
+        <code>&lt;div style="width:48px;height:1px;background:#F2C849;"&gt;&lt;/div&gt;</code>
+      </div>
+
+      <div class="card">
+        <h3>Stat Card</h3>
+        <p>Large number with small label below. Centered alignment.</p>
+        <div style="margin-top: 16px; padding: 24px; background: #0F2244; color: white; border-radius: 4px; text-align: center;">
+          <div style="font-family: 'Libre Baskerville', serif; font-size: 54px; font-weight: 700; line-height: 1;">20</div>
+          <div style="font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #F2C849; margin-top: 10px;">Properties</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Form Input</h3>
+        <p>Text input with subtle border and focus state highlight.</p>
+        <div style="margin-top: 16px;">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="name@example.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Card Component</h3>
+        <p>Light background with subtle border. Used for project cards, team bios, etc.</p>
+        <div style="margin-top: 16px; padding: 20px; background: white; border: 1px solid #e4e7ed; border-radius: 4px;">
+          <div style="font-family: 'Libre Baskerville', serif; font-size: 20px; color: #1B3A6B; margin-bottom: 8px;">Groton, CT</div>
+          <div style="font-size: 14px; color: #4A4A4A; margin-bottom: 12px;">112 units • Refinanced</div>
+          <div style="font-size: 13px; color: #888;">Stabilized multifamily community in Connecticut</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Divider</h3>
+        <p>Subtle line separating content sections.</p>
+        <div style="margin-top: 16px; margin-bottom: 16px;">
+          <div style="height: 1px; background: #e4e7ed;"></div>
+        </div>
+        <code>&lt;div style="height:1px;background:#e4e7ed;"&gt;&lt;/div&gt;</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPACING -->
+<section id="spacing">
+  <div class="container">
+    <div class="section-tag">Design System</div>
+    <h2>Spacing & Layout</h2>
+    <div class="gold-line"></div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Container Width</h3>
+        <p><strong>Max-width:</strong> 1240px (default)<br>
+        <strong>Alternative:</strong> 1080px (portfolio/team)<br>
+        <strong>Padding:</strong> 32px (desktop), 16px (mobile)</p>
+      </div>
+
+      <div class="card">
+        <h3>Section Padding</h3>
+        <p><strong>Vertical:</strong> 100px (normal)<br>
+        <strong>Reduced:</strong> 80px (tighter sections)<br>
+        <strong>Mobile:</strong> 48px vertical, 16px horizontal</p>
+      </div>
+
+      <div class="card">
+        <h3>Gap Spacing</h3>
+        <p><strong>Large:</strong> 80px (section spacing)<br>
+        <strong>Medium:</strong> 32px (card grids)<br>
+        <strong>Small:</strong> 16px (element gaps)<br>
+        <strong>Tiny:</strong> 8px (inline spacing)</p>
+      </div>
+
+      <div class="card">
+        <h3>Navigation Height</h3>
+        <p><strong>Height:</strong> 88px (desktop)<br>
+        <strong>Logo:</strong> 64px (white), 50px (color)<br>
+        <strong>Position:</strong> Fixed, z-index 200</p>
+      </div>
+
+      <div class="card">
+        <h3>Breakpoints</h3>
+        <p><strong>Tablet:</strong> 768px<br>
+        <strong>Mobile:</strong> 480px<br>
+        <strong>Responsive:</strong> All major sections scale gracefully</p>
+      </div>
+
+      <div class="card">
+        <h3>Grid System</h3>
+        <p><strong>Default:</strong> 2 columns (desktop)<br>
+        <strong>Cards:</strong> Auto-fit (minmax 300px)<br>
+        <strong>Stacking:</strong> Single column on tablet/mobile</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 SafeHarbor Investors Group. Design System v1.0</p>
+    <p style="margin-top: 12px; font-size: 12px; color: rgba(255,255,255,0.6);">Reference: See CLAUDE.md for complete design documentation</p>
+  </div>
+</footer>
+
+</body>
+</html>
