@@ -1,0 +1,105 @@
+/* SafeHarbor Website — Self-Hosted Fonts */
+
+/* ──────────────────────────────────────────────────────────────────────
+   LIBRE BASKERVILLE (Serif)
+   Usage: Headings (h1–h4), elegant & institutional
+   ────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./libre-baskerville-regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: italic;
+  font-weight: 400;
+  src: url('./libre-baskerville-italic.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./libre-baskerville-bold.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   BARLOW (Sans-Serif)
+   Usage: Body text, paragraphs, primary content
+   ────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 300;
+  src: url('./barlow-light.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./barlow-regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./barlow-medium.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./barlow-semibold.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   BARLOW CONDENSED (Sans-Serif)
+   Usage: Labels, tags, navigation, uppercase UI elements
+   ────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./barlow-condensed-regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./barlow-condensed-medium.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./barlow-condensed-semibold.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   FONT DISPLAY STRATEGY
+
+   font-display: swap
+   - Text is displayed immediately using system font
+   - Web font swaps in when loaded (no invisible text)
+   - Best for performance and perceived responsiveness
+   ────────────────────────────────────────────────────────────────────── */

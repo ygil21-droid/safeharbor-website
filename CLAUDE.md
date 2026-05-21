@@ -75,10 +75,17 @@ This is the public-facing website for **SafeHarbor Investors Group**, a U.S.-bas
 | Stat Numbers | 54px | 54px | Barlow 700 |
 | Section Tags | 11px | 11px | Barlow Condensed 600 |
 
-### Google Fonts Import
-```css
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
+### Font Import (Self-Hosted)
+```html
+<!-- In <head> -->
+<link rel="stylesheet" href="fonts/fonts.css">
 ```
+
+**All fonts are self-hosted locally** for optimal performance:
+- 11 font files (.woff2 format) in `fonts/` folder
+- Total size: ~18KB (highly compressed)
+- Netlify caches them globally for fast delivery
+- No external CDN dependency
 
 ---
 

@@ -16,17 +16,16 @@ Complete documentation of all fonts used across the SafeHarbor Investors Group w
 
 ## 🔗 Font Import (CSS)
 
-All fonts are imported from **Google Fonts CDN**. Include this in your HTML `<head>`:
+Fonts are **self-hosted locally** for optimal performance and full control. Include this in your HTML `<head>`:
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 ```
 
-Or via CSS `@import`:
-
-```css
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
-```
+This loads the `fonts/fonts.css` file which contains all `@font-face` declarations for:
+- Libre Baskerville (regular, bold, italic)
+- Barlow (light, regular, medium, semibold)
+- Barlow Condensed (regular, medium, semibold)
 
 ---
 
@@ -281,14 +280,16 @@ Labels            11px / Barlow Condensed / 600
 
 ## 🔧 Implementation Checklist
 
-- [ ] Import Google Fonts in HTML `<head>` or CSS
-- [ ] Define base font sizes in `body` selector
-- [ ] Set font-family for headings (h1–h4)
-- [ ] Apply line-height consistently (1.4–1.6 for body, 1.15–1.3 for headings)
-- [ ] Use letter-spacing for uppercase text (0.12em–0.22em)
-- [ ] Test readability at all breakpoints (desktop, tablet, mobile)
-- [ ] Verify contrast ratios meet WCAG AA standards
-- [ ] Optimize font loading (system fonts first, then web fonts)
+- [x] Import self-hosted fonts via `<link rel="stylesheet" href="fonts/fonts.css">`
+- [x] All 11 font files (.woff2) stored in `fonts/` folder
+- [x] @font-face declarations in `fonts/fonts.css`
+- [x] Define base font sizes in `body` selector
+- [x] Set font-family for headings (h1–h4)
+- [x] Apply line-height consistently (1.4–1.6 for body, 1.15–1.3 for headings)
+- [x] Use letter-spacing for uppercase text (0.12em–0.22em)
+- [x] Test readability at all breakpoints (desktop, tablet, mobile)
+- [x] Verify contrast ratios meet WCAG AA standards
+- [x] Optimize font loading (font-display: swap for instant text rendering)
 
 ---
 
@@ -321,10 +322,12 @@ Labels            11px / Barlow Condensed / 600
 
 ## ⚙️ Performance Notes
 
-- **Google Fonts CDN:** Fonts are cached globally, no performance penalty
-- **Font Loading:** `display=swap` ensures text appears immediately while fonts load
-- **Variable Fonts:** Barlow and Barlow Condensed have multiple weights, reducing file size vs. separate files
-- **Subset:** Only Latin characters are loaded (default Google Fonts behavior)
+- **Self-Hosted:** All 11 font files (.woff2) stored locally in `fonts/` folder
+- **Total Size:** ~18KB combined (woff2 compression is highly efficient)
+- **Font Loading:** `font-display: swap` ensures text appears immediately using system font, web fonts swap in when loaded
+- **Netlify Caching:** Static font files are cached by Netlify's CDN for optimal performance
+- **No External Dependencies:** Full control, no reliance on Google Fonts CDN
+- **Format:** Modern woff2 format provides best compression (~50% smaller than woff)
 
 ---
 
@@ -347,8 +350,21 @@ To update fonts, modify the Google Fonts import URL in your HTML/CSS.
 
 ### For Developers
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- In <head> -->
+<link rel="stylesheet" href="fonts/fonts.css">
 ```
+
+**Font Files in `fonts/` folder:**
+- `libre-baskerville-regular.woff2` (400)
+- `libre-baskerville-bold.woff2` (700)
+- `libre-baskerville-italic.woff2` (400 italic)
+- `barlow-light.woff2` (300)
+- `barlow-regular.woff2` (400)
+- `barlow-medium.woff2` (500)
+- `barlow-semibold.woff2` (600)
+- `barlow-condensed-regular.woff2` (400)
+- `barlow-condensed-medium.woff2` (500)
+- `barlow-condensed-semibold.woff2` (600)
 
 ### For Copywriters
 - **Headlines:** Use Libre Baskerville italic for emphasis (e.g., "Where Others Build New. *We Convert Smart.*")
