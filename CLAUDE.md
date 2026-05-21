@@ -53,6 +53,35 @@ This is the public-facing website for **SafeHarbor Investors Group**, a U.S.-bas
 - Subtle textures (diagonal lines on dark sections)
 - No emojis anywhere on the site
 
+## Typography System
+
+**📚 Complete Font Guide:** See [`fonts/FONTS.md`](./fonts/FONTS.md) for comprehensive typography system with sizes, weights, line-heights, and usage.
+
+### Font Stack
+- **Headings (h1–h4):** Libre Baskerville (serif) — 400, 700, 400 italic
+- **Body Text:** Barlow (sans-serif) — 300, 400, 500, 600
+- **Labels & Navigation:** Barlow Condensed (sans-serif) — 400, 500, 600
+
+### Quick Size Reference
+
+| Element | Desktop | Mobile | Font |
+|---------|---------|--------|------|
+| H1 Hero | 56px | 32px | Libre Baskerville 400 |
+| H2 Section | 36px | 28px | Libre Baskerville 400 |
+| Body Large | 20px | 18px | Barlow 400 |
+| Body Normal | 16px | 15px | Barlow 400 |
+| Body Small | 14px | 14px | Barlow 400 |
+| Nav Links | 13px | 16px | Barlow Condensed 600 |
+| Stat Numbers | 54px | 54px | Barlow 700 |
+| Section Tags | 11px | 11px | Barlow Condensed 600 |
+
+### Google Fonts Import
+```css
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap');
+```
+
+---
+
 ## Assets & Media
 
 **📋 Complete Photo Catalog:** See [`images/PHOTO_CATALOG.md`](./images/PHOTO_CATALOG.md) for comprehensive inventory of all 80+ photos.
