@@ -12,9 +12,8 @@ This is the public-facing website for **SafeHarbor Investors Group**, a U.S.-bas
 - **Focus:** Hotel-to-multifamily adaptive reuse, workforce housing
 - **Operating Partner:** GoodHomes Communities
 - **Investors:** Mix of Israeli HNI/family office LPs and U.S. LPs
-- **Offices:**
+- **Office:**
   - US: 45 Rockefeller Plaza FL.20, New York, NY 10111
-  - IL: Yad Harutzim 2, Netanya, Israel
 
 ## Design System
 
