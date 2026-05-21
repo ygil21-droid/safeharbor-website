@@ -53,6 +53,60 @@ This is the public-facing website for **SafeHarbor Investors Group**, a U.S.-bas
 - Subtle textures (diagonal lines on dark sections)
 - No emojis anywhere on the site
 
+## Assets & Media
+
+**📋 Complete Photo Catalog:** See [`images/PHOTO_CATALOG.md`](./images/PHOTO_CATALOG.md) for comprehensive inventory of all 80+ photos.
+
+### Logo Assets
+- **Nav Logo (White):** `logos/logo-white-cropped.png` — 64px height, used on hero
+- **Nav Logo (Color):** `logos/logo-color-cropped.png` — 50px height, used when scrolled
+- **Brand Logos:** `logos/SAFEHARBOR INVESTOR GROUP LOGO *.png` — Full versions
+
+### Team Photos
+
+**Studio Headshots:**
+- `Team photos/studio/gil.jpg`
+- `Team photos/studio/amnon.jpg`
+- `Team photos/studio/nir.jpg`
+
+**Processed Variants** (each person has 15+ versions):
+- `*_cropped.jpg` — Tight headshot
+- `*_circle.png` — Circular mask (recommended for web avatars)
+- `*_grayscale.jpg` — Black & white
+- `*_duotone.jpg` — Two-color artistic
+- `*_neutral.jpg` — Color-corrected
+- `*_white.jpg` — White background isolation
+- `*_unified_gray.jpg`, `*_unified_white.jpg`, `*_unified_navy.jpg`, `*_unified_bw.jpg` — Consistent backgrounds
+
+Location: `Team photos/processed/`
+
+### Property & Project Photos
+
+**Property Overview Cards** (used in portfolio grid):
+- `projects photos/baltimore.png`
+- `projects photos/tucson.png`
+- `projects photos/dallas tx.png`
+- `projects photos/san antonio.png`
+- `projects photos/arlington.png`
+- `projects photos/norfolk.jpg`
+- `projects photos/faytville NC.png`
+
+**High-Resolution Property Images:**
+- `logos/groton-interior.jpg` — Homepage hero background
+- `logos/groton-before.jpg` — Before conversion
+- `logos/dylan-*.jpg`, `logos/bordeaux-*.jpg`, etc. — Property details
+- `projects photos/project photos Detroit/` — 24+ detailed unit & amenity photos (JPG)
+- Additional property photos in `logos/` folder
+
+### Image Quality Standards
+| Use | Format | Res | Size |
+|-----|--------|-----|------|
+| Logo | PNG | 512×512+ | <100KB |
+| Hero | JPG | 1920×1080 | 150–300KB |
+| Team | JPG | 600×600 | 80–150KB |
+| Property Card | PNG/JPG | 400×300 | 50–100KB |
+| Detail | JPG | 1200×800+ | 200–400KB |
+
 ## Site Structure
 
 ### Pages
