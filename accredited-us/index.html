@@ -273,8 +273,7 @@ a { color: inherit; text-decoration: none; }
     <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Submit Declaration</button>
 
     <div class="success-msg" id="successMsg">
-      &#10003; Declaration submitted successfully. The SafeHarbor presentation will open in a new window shortly.<br/>
-      <a href="https://drive.google.com/file/d/14EHjUEowI-JoJ7Ikq16PLIz-nwpa87Oh/view?usp=drive_link" target="_blank">Click here if it didn't open automatically.</a>
+      &#10003; Declaration submitted.
     </div>
     <div class="error-msg" id="errorMsg">Submission error. Please try again or contact us directly.</div>
 
@@ -378,10 +377,6 @@ a { color: inherit; text-decoration: none; }
       document.getElementById('successMsg').style.display = 'block';
       document.getElementById('submitBtn').style.display  = 'none';
       document.getElementById('errorMsg').style.display   = 'none';
-
-      setTimeout(() => {
-        window.open('https://drive.google.com/file/d/14EHjUEowI-JoJ7Ikq16PLIz-nwpa87Oh/view?usp=drive_link', '_blank');
-      }, 1500);
 
     } catch(err) {
       console.error(err);
