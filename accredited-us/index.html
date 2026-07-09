@@ -361,16 +361,15 @@ a { color: inherit; text-decoration: none; }
     btn.textContent = 'Submitting…';
 
     try {
-      const resp = await fetch('https://formsubmit.co/ajax/gil@yanushus.com', {
+      const resp = await fetch('https://formspree.io/f/xkoqgral', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
+          region: 'United States',
           name: name, phone: phone, email: email,
           criteria: checkedLabels.join(' | '),
           date: dateStr, time: timeStr, full_summary: messageBody,
-          _subject: 'US Accredited Investor Declaration – ' + name,
-          _template: 'table',
-          _captcha: 'false'
+          _subject: 'US Accredited Investor Declaration – ' + name
         })
       });
 

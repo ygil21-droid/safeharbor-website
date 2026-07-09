@@ -318,14 +318,14 @@ function submitForm() {
   const selectedType = document.querySelector('.type-label.selected').textContent.trim();
 
   const data = {
+    region: 'Israel',
     name: name, phone: phone, email: email,
     investor_type: selectedType,
     criteria: criteria.join('\n\n'),
-    _subject: `הצהרת משקיע כשיר – ${name}`,
-    _captcha: 'false'
+    _subject: `הצהרת משקיע כשיר – ${name}`
   };
 
-  fetch('https://formsubmit.co/ajax/gil@yanushus.com', {
+  fetch('https://formspree.io/f/xkoqgral', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify(data)
