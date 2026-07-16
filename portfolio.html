@@ -120,6 +120,31 @@ a:hover { color: inherit; }
 }
 #modal-close:hover { background: #0F2244; }
 
+/* ─── carousel (modal hero) ─── */
+#modal-photo { background:#0A1628; }
+#carousel-track { display:flex; height:100%; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); }
+.carousel-slide { min-width:100%; height:100%; }
+.carousel-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+.carousel-btn {
+  position:absolute; top:50%; transform:translateY(-50%); z-index:20;
+  width:40px; height:40px; border-radius:50%; cursor:pointer;
+  background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.35);
+  display:flex; align-items:center; justify-content:center; color:white;
+  transition:background 0.18s, border-color 0.18s;
+}
+.carousel-btn:hover { background:rgba(242,200,73,0.9); border-color:#F2C849; color:#0A1628; }
+.carousel-btn.prev { left:16px; }
+.carousel-btn.next { right:16px; }
+.carousel-counter {
+  position:absolute; top:16px; left:16px; z-index:20;
+  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600;
+  letter-spacing:0.08em; color:white; background:rgba(10,22,40,0.6);
+  padding:5px 11px; border-radius:20px;
+}
+.carousel-dots { position:absolute; bottom:16px; right:20px; z-index:20; display:flex; gap:7px; }
+.carousel-dot { width:7px; height:7px; border-radius:50%; cursor:pointer; background:rgba(255,255,255,0.45); border:none; padding:0; transition:all 0.2s; }
+.carousel-dot.active { background:#F2C849; width:20px; border-radius:4px; }
+
 /* Mobile hamburger */
 #mobile-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; z-index:201; }
 #mobile-toggle span { display:block; width:22px; height:2px; background:white; margin:5px 0; transition:0.3s; }
@@ -169,16 +194,24 @@ a:hover { color: inherit; }
   <div id="modal-box">
     <button id="modal-close" onclick="closeModal()">✕</button>
 
-    <!-- hero photo with headline overlaid -->
-    <div id="modal-photo" style="height:200px;overflow:hidden;position:relative;">
-      <img id="modal-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
-      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(10,22,40,0.78) 0%, rgba(10,22,40,0.35) 65%, transparent 100%);"></div>
+    <!-- hero carousel with headline overlaid -->
+    <div id="modal-photo" style="height:300px;overflow:hidden;position:relative;">
+      <div id="carousel-track"></div>
+      <div style="position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(to right, rgba(10,22,40,0.82) 0%, rgba(10,22,40,0.35) 55%, transparent 100%), linear-gradient(to top, rgba(10,22,40,0.55) 0%, transparent 40%);"></div>
       <!-- headline on photo -->
-      <div style="position:absolute;bottom:28px;left:32px;">
+      <div style="position:absolute;bottom:26px;left:32px;z-index:6;">
         <div id="modal-location" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#F2C849;margin-bottom:5px;"></div>
         <h2 id="modal-name" style="font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;color:white;margin-bottom:6px;line-height:1.15;"></h2>
         <div id="modal-badge-wrap"></div>
       </div>
+      <div class="carousel-counter" id="carousel-counter" style="display:none;"><span id="carousel-cur">1</span> / <span id="carousel-total">1</span></div>
+      <button class="carousel-btn prev" id="carousel-prev" aria-label="Previous photo" style="display:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="carousel-btn next" id="carousel-next" aria-label="Next photo" style="display:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="carousel-dots" id="carousel-dots"></div>
     </div>
 
     <!-- content: 2-col -->
@@ -549,6 +582,16 @@ const properties = {
     name: 'Groton, CT', location: 'Groton, Connecticut', units: '112 Units',
     status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
     img: 'logos/groton-interior.jpg',
+    imgs: [
+      'portfolio-photos/groton/09.jpg',
+      'portfolio-photos/groton/02.jpg',
+      'portfolio-photos/groton/03.jpg',
+      'portfolio-photos/groton/07.jpg',
+      'portfolio-photos/groton/11.jpg',
+      'portfolio-photos/groton/15.jpg',
+      'portfolio-photos/groton/23.jpg',
+      'portfolio-photos/groton/24.jpg'
+    ],
     desc: 'A 112-unit conversion of an extended-stay hotel into spacious one- and two-bedroom apartments and studios. Located 2 miles from the Naval Submarine Base, 3 miles from GD Electric Boat, and 3 miles from Pfizer\'s global research HQ. Features a clubhouse, fitness center, co-working space, and outdoor amenities.',
     highlights: ['Acquired June 2023', 'Opportunity Zone designation', 'Stabilized and refinanced ahead of schedule'],
     market: 'New London County, CT',
@@ -558,6 +601,7 @@ const properties = {
     name: 'Warwick, RI', location: 'Warwick, Rhode Island', units: '190 Units',
     status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
     img: 'logos/bordeaux-interior.jpg',
+    imgs: ['portfolio-photos/warwick/03.jpg','portfolio-photos/warwick/01.jpg','portfolio-photos/warwick/06.jpg','portfolio-photos/warwick/05.jpg','portfolio-photos/warwick/02.jpg','portfolio-photos/warwick/07.jpg','portfolio-photos/warwick/04.jpg'],
     desc: 'A former 207-room Sheraton converted into 163 studios and 27 one-bedroom apartments. Adjacent to T.F. Green International Airport in one of the lowest vacancy markets in the U.S. Features an indoor pool, clubhouse, co-working space, fitness center, and onsite restaurant.',
     highlights: ['Acquired June 2023', 'Stabilized November 2025', 'Refinanced ahead of schedule'],
     market: 'Providence Metro, RI',
@@ -567,6 +611,7 @@ const properties = {
     name: 'Detroit, MI', location: 'Detroit, Michigan', units: '128 Units',
     status: ['stabilized','refinanced'], statusLabel: ['Stabilized','Refinanced'],
     img: 'logos/detroit.jpg',
+    imgs: ['portfolio-photos/detroit/21.jpg','portfolio-photos/detroit/13.jpg','portfolio-photos/detroit/15.jpg','portfolio-photos/detroit/16.jpg','portfolio-photos/detroit/22.jpg','portfolio-photos/detroit/08.jpg','portfolio-photos/detroit/02.jpg','portfolio-photos/detroit/04.jpg'],
     desc: 'A 128-unit loft-style community offering oversized studios, one-bedrooms, and two-bedroom duplexes. Located 5 minutes from Ford World HQ and 1.5 miles from University of Michigan–Dearborn. Features an outdoor pool, clubhouse, fitness center, and sports court.',
     highlights: ['Acquired June 2023', 'Completed January 2024', 'Stabilized June 2025', 'Refinanced ahead of schedule'],
     market: 'Detroit Metro, MI',
@@ -576,6 +621,7 @@ const properties = {
     name: 'Burlington, NC', location: 'Burlington, North Carolina', units: '135 Units',
     status: 'stabilized', statusLabel: 'Stabilized',
     img: 'logos/burlington.jpg',
+    imgs: ['portfolio-photos/burlington/01.jpg','portfolio-photos/burlington/05.jpg','portfolio-photos/burlington/16.jpg','portfolio-photos/burlington/13.jpg','portfolio-photos/burlington/21.jpg','portfolio-photos/burlington/08.jpg','portfolio-photos/burlington/07.jpg','portfolio-photos/burlington/11.jpg'],
     desc: 'A former OYO hotel converted into 135 studio apartments at attainable rents. Located between the Research Triangle and Piedmont Triad in one of NC\'s fastest-growing metros (1.6M+ MSA). Features a pool, fitness center, clubhouse, and 4,500 SF of retail space.',
     highlights: ['Acquired April 2024', 'Stabilized March 2026', 'Opportunity Zone designation'],
     market: 'Alamance County, NC',
@@ -585,6 +631,7 @@ const properties = {
     name: 'Chattanooga, GA', location: 'Ringgold, Georgia', units: '104 Units',
     status: 'stabilized', statusLabel: 'Stabilized',
     img: 'logos/ringgold.jpg',
+    imgs: ['portfolio-photos/ringgold/14.jpg','portfolio-photos/ringgold/16.jpg','portfolio-photos/ringgold/20.jpg','portfolio-photos/ringgold/22.jpg','portfolio-photos/ringgold/05.jpg','portfolio-photos/ringgold/03.jpg','portfolio-photos/ringgold/13.jpg','portfolio-photos/ringgold/08.jpg'],
     desc: 'A former hotel converted into 104 apartments offering studios, junior one-bedrooms, and one-bedrooms. Located in Ringgold, GA within the Chattanooga MSA, next to I-75 and across from a new Costco center. Half a mile from a new Amazon distribution center and 1 mile from a $100M+ logistics park (700+ new jobs). Features a pool with cabana, clubhouse, fitness center, and community firepit.',
     highlights: ['Acquired April 2024', 'Stabilized August 2025', 'Delivered with full CO — leasing began at closing'],
     market: 'Catoosa County, GA',
@@ -594,6 +641,7 @@ const properties = {
     name: 'Bordeaux, NC', location: 'Fayetteville, North Carolina', units: '255 Units',
     status: 'refinanced', statusLabel: 'Refinanced',
     img: 'logos/bordeaux.jpg',
+    imgs: ['portfolio-photos/bordeaux/04.jpg','portfolio-photos/bordeaux/03.jpg','portfolio-photos/bordeaux/08.jpg','portfolio-photos/bordeaux/10.jpg','portfolio-photos/bordeaux/07.jpg','portfolio-photos/bordeaux/02.jpg','portfolio-photos/bordeaux/05.jpg','portfolio-photos/bordeaux/13.jpg'],
     desc: 'A former 298-room Ramada Plaza converted into 210 studios and 45 one-bedrooms. Located 15 minutes from Fort Liberty, the largest U.S. military base, and walking distance from Cape Fear Medical Center (7,000 employees). Features a pool, clubhouse, fitness center, co-working space, and onsite restaurant.',
     highlights: ['Acquired June 2023', 'Completed August 2024', 'Refinanced ahead of schedule'],
     market: 'Cumberland County, NC',
@@ -603,6 +651,7 @@ const properties = {
     name: 'Cedar Creek, NC', location: 'Fayetteville, North Carolina', units: '201 Units',
     status: 'refinanced', statusLabel: 'Refinanced',
     img: 'logos/cedarcreek.jpg',
+    imgs: ['portfolio-photos/cedarcreek/21.jpg','portfolio-photos/cedarcreek/25.jpg','portfolio-photos/cedarcreek/23.jpg','portfolio-photos/cedarcreek/20.jpg','portfolio-photos/cedarcreek/07.jpg','portfolio-photos/cedarcreek/10.jpg','portfolio-photos/cedarcreek/13.jpg','portfolio-photos/cedarcreek/14.jpg'],
     desc: 'A 201-unit conversion near Fort Liberty, the largest U.S. military base, and Cape Fear Medical Center. Features an indoor pool and 15,000 SF of commercial space.',
     highlights: ['Acquired June 2023', 'Refinanced ahead of schedule'],
     market: 'Cumberland County, NC',
@@ -612,6 +661,7 @@ const properties = {
     name: 'Erie, PA', location: 'Erie, Pennsylvania', units: '197 Units',
     status: 'lease-up', statusLabel: 'Lease-Up',
     img: 'logos/erie.jpg',
+    imgs: ['portfolio-photos/erie/06.jpg','portfolio-photos/erie/01.jpg','portfolio-photos/erie/05.jpg','portfolio-photos/erie/04.jpg','portfolio-photos/erie/07.jpg','portfolio-photos/erie/09.jpg','portfolio-photos/erie/10.jpg'],
     desc: 'A former eight-story Avalon Hotel converted into 184 studios and 13 one-bedrooms in downtown Erie. Adjacent to Gannon University, one block from Erie Insurance Arena, and 10 minutes from LECOM, the nation\'s largest medical college. 12,000 SF ground-floor retail leased to UPMC for medical offices.',
     highlights: ['Acquired April 2024 via tax-exempt municipal bond financing', 'Completed Q2 2025', 'Partnership with Community Finance Corporation (not-for-profit)', 'Enterprise Zone and Opportunity Zone'],
     market: 'Erie County, PA',
@@ -700,21 +750,58 @@ const badgeClass = {
   'lease-up': 'badge-lease-up', development: 'badge-development', contract: 'badge-contract', sold: 'badge-sold'
 };
 
+// ── carousel ──
+let carIdx = 0, carCount = 0;
+function carGo(n) {
+  if (carCount < 1) return;
+  carIdx = (n + carCount) % carCount;
+  document.getElementById('carousel-track').style.transform = `translateX(-${carIdx * 100}%)`;
+  document.querySelectorAll('#carousel-dots .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === carIdx));
+  document.getElementById('carousel-cur').textContent = carIdx + 1;
+}
+function buildCarousel(imgs) {
+  const track = document.getElementById('carousel-track');
+  const dots = document.getElementById('carousel-dots');
+  const prev = document.getElementById('carousel-prev');
+  const next = document.getElementById('carousel-next');
+  const counter = document.getElementById('carousel-counter');
+  const photoDiv = document.getElementById('modal-photo');
+  carIdx = 0; carCount = imgs.length;
+
+  track.innerHTML = imgs.map(src =>
+    `<div class="carousel-slide"><img src="${src}" alt=""></div>`).join('');
+  photoDiv.style.background = imgs.length ? '#0A1628' : 'linear-gradient(135deg,#252D42,#141820)';
+  track.style.transform = 'translateX(0)';
+
+  const multi = imgs.length > 1;
+  prev.style.display = next.style.display = counter.style.display = multi ? 'flex' : 'none';
+  counter.style.display = multi ? 'block' : 'none';
+  document.getElementById('carousel-total').textContent = imgs.length;
+  document.getElementById('carousel-cur').textContent = 1;
+  dots.innerHTML = multi ? imgs.map((_, i) =>
+    `<button class="carousel-dot${i === 0 ? ' active' : ''}" data-i="${i}"></button>`).join('') : '';
+  dots.querySelectorAll('.carousel-dot').forEach(d =>
+    d.addEventListener('click', () => carGo(+d.dataset.i)));
+}
+(function() {
+  document.getElementById('carousel-next').addEventListener('click', () => carGo(carIdx + 1));
+  document.getElementById('carousel-prev').addEventListener('click', () => carGo(carIdx - 1));
+  let sx = 0;
+  const car = document.getElementById('modal-photo');
+  car.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
+  car.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (dx < -40) carGo(carIdx + 1);
+    if (dx > 40) carGo(carIdx - 1);
+  }, { passive: true });
+})();
+
 function openProperty(key) {
   const p = properties[key];
   if (!p) return;
 
-  // hero photo
-  const imgEl = document.getElementById('modal-img');
-  const photoDiv = document.getElementById('modal-photo');
-  if (p.img) {
-    imgEl.src = p.img;
-    imgEl.style.display = 'block';
-    photoDiv.style.background = '';
-  } else {
-    imgEl.style.display = 'none';
-    photoDiv.style.background = 'linear-gradient(135deg,#252D42,#141820)';
-  }
+  // hero carousel
+  buildCarousel(p.imgs || (p.img ? [p.img] : []));
 
   // badge on photo
   const statuses = Array.isArray(p.status) ? p.status : [p.status];
@@ -750,7 +837,12 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  if (!document.getElementById('prop-modal').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') carGo(carIdx + 1);
+  if (e.key === 'ArrowLeft') carGo(carIdx - 1);
+});
 </script>
 
 </body>
