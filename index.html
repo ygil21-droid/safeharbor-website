@@ -154,7 +154,7 @@ a:hover { color: inherit; }
         </h1>
         <div style="width:48px;height:1px;background:#F2C849;margin-bottom:22px;"></div>
         <p style="font-size:20px;font-weight:400;color:rgba(255,255,255,0.95);line-height:1.55;max-width:580px;margin-bottom:36px;">
-          We acquire distressed hotels and convert them into modern, affordable apartments, creating value for investors and housing for America's workforce.
+          We acquire distressed hospitality and senior housing assets and convert them into modern, affordable apartments, creating value for investors and housing for America's workforce.
         </p>
       </div>
     </div>
@@ -173,12 +173,12 @@ a:hover { color: inherit; }
   <div class="container">
     <div class="stats-row" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
       <div style="flex:1;text-align:center;">
-        <div class="stat-num" style="font-family:'Libre Baskerville',serif;font-size:54px;font-weight:700;color:white;line-height:1;">20</div>
+        <div class="stat-num" style="font-family:'Libre Baskerville',serif;font-size:54px;font-weight:700;color:white;line-height:1;">18</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-top:10px;">Properties</div>
       </div>
       <div class="stat-divider" style="width:1px;height:72px;background:rgba(255,255,255,0.1);"></div>
       <div style="flex:1;text-align:center;">
-        <div class="stat-num" style="font-family:'Libre Baskerville',serif;font-size:54px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:3px;">3,000<span style="font-size:22px;color:#F2C849;margin-bottom:6px;">+</span></div>
+        <div class="stat-num" style="font-family:'Libre Baskerville',serif;font-size:54px;font-weight:700;color:white;line-height:1;display:flex;align-items:flex-end;justify-content:center;gap:3px;">3,028</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#F2C849;margin-top:10px;">Units</div>
       </div>
       <div class="stat-divider" style="width:1px;height:72px;background:rgba(255,255,255,0.1);"></div>
@@ -260,22 +260,27 @@ a:hover { color: inherit; }
 
 <script>
 (async function() {
+  // Source of truth: SH-GH REO Schedule (July 2026 v3) — 18 owned properties, 3,028 units.
+  // El Paso excluded (sold). 5 refinanced ahead of schedule.
   const properties = [
-    { name: 'Groton, CT',        units: 112,  status: 'refinanced',  lat: 41.35,  lng: -72.08 },
-    { name: 'Warwick, RI',       units: 190,  status: 'refinanced',  lat: 41.71,  lng: -71.42 },
-    { name: 'Detroit, MI',       units: 128,  status: 'refinanced',  lat: 42.33,  lng: -83.05 },
-    { name: 'Erie, PA',          units: 197,  status: 'lease-up',    lat: 42.13,  lng: -80.09 },
-    { name: 'Silver Spring, MD', units: 227,  status: 'development', lat: 38.95,  lng: -77.35 },
-    { name: 'Burlington, NC',    units: 135,  status: 'stabilized',  lat: 36.10,  lng: -79.44 },
-    { name: 'Fayetteville, NC',  units: 228,  status: 'refinanced',  lat: 35.28,  lng: -79.18 },
-    { name: 'Fayetteville, NC',  units: 228,  status: 'refinanced',  lat: 34.82,  lng: -78.58 },
-    { name: 'Columbia, SC',      units: 146,  status: 'development', lat: 34.00,  lng: -81.03 },
-    { name: 'Ringgold, GA',      units: 104,  status: 'stabilized',  lat: 34.92,  lng: -85.11 },
-    { name: 'Dallas, TX',        units: 123,  status: 'development', lat: 33.05,  lng: -97.15 },
-    { name: 'Dallas, TX',        units: 122,  status: 'development', lat: 32.51,  lng: -96.45 },
-    { name: 'San Antonio, TX',   units: 169,  status: 'lease-up',    lat: 29.65,  lng: -98.75 },
-    { name: 'San Antonio, TX',   units: 169,  status: 'development', lat: 29.19,  lng: -98.23 },
-    { name: 'El Paso, TX',       units: 142,  status: 'lease-up',      lat: 31.76,  lng: -106.49 },
+    { name: 'Groton, CT',        units: 112,  status: 'refinanced',  lat: 41.35,  lng: -72.08  },
+    { name: 'Warwick, RI',       units: 190,  status: 'refinanced',  lat: 41.71,  lng: -71.42  },
+    { name: 'Detroit, MI',       units: 128,  status: 'refinanced',  lat: 42.33,  lng: -83.05  },
+    { name: 'Bordeaux, NC',      units: 255,  status: 'refinanced',  lat: 35.03,  lng: -78.91  },
+    { name: 'Cedar Creek, NC',   units: 201,  status: 'refinanced',  lat: 35.11,  lng: -78.78  },
+    { name: 'Chattanooga, GA',   units: 104,  status: 'stabilized',  lat: 34.92,  lng: -85.11  },
+    { name: 'Burlington, NC',    units: 135,  status: 'stabilized',  lat: 36.10,  lng: -79.44  },
+    { name: 'Erie, PA',          units: 197,  status: 'lease-up',    lat: 42.13,  lng: -80.09  },
+    { name: 'San Antonio, TX',   units: 118,  status: 'lease-up',    lat: 29.65,  lng: -98.75  },
+    { name: 'Baltimore, MD',     units: 302,  status: 'development', lat: 39.29,  lng: -76.61  },
+    { name: 'Columbia, SC',      units: 146,  status: 'development', lat: 34.00,  lng: -81.03  },
+    { name: 'Silver Spring, MD', units: 227,  status: 'development', lat: 38.99,  lng: -77.03  },
+    { name: 'Tucson, AZ',        units: 100,  status: 'development', lat: 32.15,  lng: -110.83 },
+    { name: 'Dallas, TX',        units: 104,  status: 'development', lat: 32.87,  lng: -96.77  },
+    { name: 'Dallas, TX',        units: 142,  status: 'development', lat: 32.86,  lng: -96.90  },
+    { name: 'San Antonio, TX',   units: 220,  status: 'development', lat: 29.42,  lng: -98.49  },
+    { name: 'Norfolk, VA',       units: 160,  status: 'development', lat: 36.86,  lng: -76.21  },
+    { name: 'Arlington, VA',     units: 187,  status: 'development', lat: 38.89,  lng: -77.09  },
   ];
 
   const colorMap = { refinanced: '#4CAF82', stabilized: '#F2C849', 'lease-up': '#E07A3A', development: '#6B9FD4', 'under-contract': 'rgba(255,255,255,0.35)' };
